@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveMirror : MonoBehaviour
+public class NightMoveMirror : MonoBehaviour
 {
     private Animator anim;
 

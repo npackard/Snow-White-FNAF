@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum Dwarf{dopey, sleepy, bashful, doc, sneezy, happy, grunmpy};
 
-public class DwarfBehaviour : MonoBehaviour
+public class NightDwarfBehaviour : MonoBehaviour
 {
     public int introNight;
 

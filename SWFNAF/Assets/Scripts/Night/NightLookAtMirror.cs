@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LookAtMirror : MonoBehaviour
+public class NightLookAtMirror : MonoBehaviour
 {
     public GameObject mirror;
 
@@ -20,9 +20,9 @@ public class LookAtMirror : MonoBehaviour
         if (Input.GetButtonDown("Jump")) {
             down = !down;
             if (down) {
-                mirror.GetComponent<MoveMirror>().MirrorDown();
+                mirror.GetComponent<NightMoveMirror>().MirrorDown();
             } else {
-                mirror.GetComponent<MoveMirror>().MirrorUp();
+                mirror.GetComponent<NightMoveMirror>().MirrorUp();
             }
         }
     }

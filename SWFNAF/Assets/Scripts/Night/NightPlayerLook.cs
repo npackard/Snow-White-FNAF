@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLook : MonoBehaviour
+public class NightPlayerLook : MonoBehaviour
 {
     [Range(0, 1)]
     public float mouseSensitivity = 1f;
