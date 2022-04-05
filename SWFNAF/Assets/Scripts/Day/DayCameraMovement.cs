@@ -25,6 +25,8 @@ public class DayCameraMovement : MonoBehaviour
     private float horizAng;
     private float vertAng;
 
+    private GameObject lastHit;
+
     void Start()
     {
         transform.position = start.gameObject.transform.position;
@@ -59,6 +61,20 @@ public class DayCameraMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.S))
         {
             if (curr.back) Move(curr.back);
+        }
+
+        var ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        int layer_mask = LayerMask.GetMask(curr.gameObject.tag);
+        if (Physics.Raycast(ray, out hit, 100, layer_mask))
+        {
+            // Display interactable UI
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                lastHit = hit.transform.gameObject;
+                //print(lastHit.tag);
+                //lastHit.GetComponent<>.Interact();
+            }
         }
     }
 

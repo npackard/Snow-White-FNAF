@@ -8,17 +8,6 @@ public class DayCameraLocation : MonoBehaviour
     public DayCameraLocation right;
     public DayCameraLocation front;
     public DayCameraLocation back;
-    //public Vector3 viewAngle;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //public Vector2 viewAnglesX;
+    //public Vector2 viewAnglesY;
 }
