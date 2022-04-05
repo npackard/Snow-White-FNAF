@@ -1,20 +1,108 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class DayCameraMovement : MonoBehaviour
 {
-    //Rigidbody rb;
-    // Start is called before the first frame update
+    public VolumeProfile volume;
+    //private DepthOfField dof;
+    //private LensDistortion ld;
+    //public float ldMax = 0.3f;
+
+    public DayCameraLocation start;
+    public DayCameraLocation curr;
+
+    private Vector3 velocity;
+    private float xVel;
+    private float yVel;
+    private bool camMoving;
+
+    public float speedH = 2f;
+    public float speedV = 2f;
+
+    private float horizAng;
+    private float vertAng;
+
     void Start()
     {
-        //rb = GetComponent<Rigidbody>();
-        //rb.velocity = new Vector3(0, 0, 20);
+        transform.position = start.gameObject.transform.position;
+        curr = start;
+
+        Cursor.lockState = CursorLockMode.Locked;
+
+        //volume.TryGet(out dof);
+        //volume.TryGet(out ld);
+        //ld.intensity.Override(0f);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position += new Vector3(0, 0, 10 * Time.deltaTime);
+        if (camMoving) return;
+
+        horizAng += speedH * Input.GetAxis("Mouse X");
+        vertAng -= speedV * Input.GetAxis("Mouse Y");
+        transform.eulerAngles = new Vector3(vertAng, horizAng, 0);
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (curr.left) Move(curr.left);
+        } else if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (curr.right) Move(curr.right);
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (curr.front) Move(curr.front);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (curr.back) Move(curr.back);
+        }
+    }
+
+    private void Move(DayCameraLocation target)
+    {
+        camMoving = true;
+        curr = target;
+
+        StartCoroutine(MovePos(target.gameObject.transform));
+    }
+
+    private IEnumerator MovePos(Transform target)
+    {
+        while (Mathf.Abs(target.transform.eulerAngles.x - transform.eulerAngles.x) > 0.2f)
+        {
+            float xAngle = Mathf.SmoothDampAngle(transform.eulerAngles.x, target.transform.eulerAngles.x, ref yVel, 0.1f);
+            transform.rotation = Quaternion.Euler(xAngle, transform.eulerAngles.y, 0);
+            yield return null;
+        }
+        while (Mathf.Abs(target.transform.eulerAngles.y - transform.eulerAngles.y) > 0.2f)
+        {
+            float yAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, target.transform.eulerAngles.y, ref yVel, 0.1f);
+            transform.rotation = Quaternion.Euler(transform.eulerAngles.x, yAngle, 0);
+            yield return null;
+        }
+        /*while (Mathf.Abs(target.transform.eulerAngles.x - transform.eulerAngles.x) > 0.2f || 
+                Mathf.Abs(target.transform.eulerAngles.y - transform.eulerAngles.y) > 0.2f)
+        {
+            float xAngle = Mathf.SmoothDampAngle(transform.eulerAngles.x, target.transform.eulerAngles.x, ref yVel, 0.1f);
+            float yAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, target.transform.eulerAngles.y, ref yVel, 0.1f);
+            transform.rotation = Quaternion.Euler(xAngle, 0, 0);
+            yield return null;
+        }*/
+        while (Mathf.Abs(target.position.x - transform.position.x) > 0.2f || Mathf.Abs(target.position.y - transform.position.y) > 0.2f
+                                                                        || Mathf.Abs(target.position.z - transform.position.z) > 0.2f)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position,
+                                new Vector3(target.position.x, target.position.y, target.position.z), ref velocity, 0.1f);
+            yield return null;
+        }
+
+        transform.position = target.transform.position;
+        vertAng = target.eulerAngles.x;
+        horizAng = target.eulerAngles.y;
+        camMoving = false;
     }
 }
