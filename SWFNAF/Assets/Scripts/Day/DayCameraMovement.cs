@@ -6,6 +6,21 @@ using UnityEngine.Rendering.Universal;
 
 public class DayCameraMovement : MonoBehaviour
 {
+    public static DayCameraMovement instance
+    {
+        get
+        {
+            if (m_instance == null)
+            {
+                m_instance = FindObjectOfType<DayCameraMovement>();
+            }
+
+            return m_instance;
+        }
+    }
+
+    public static DayCameraMovement m_instance;
+
     public VolumeProfile volume;
     //private DepthOfField dof;
     //private LensDistortion ld;
@@ -26,6 +41,15 @@ public class DayCameraMovement : MonoBehaviour
     private float vertAng;
 
     private GameObject lastHit;
+    private bool canTouch;
+
+    private void Awake()
+    {
+        if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -47,6 +71,17 @@ public class DayCameraMovement : MonoBehaviour
         vertAng -= speedV * Input.GetAxis("Mouse Y");
         transform.eulerAngles = new Vector3(vertAng, horizAng, 0);
 
+        var ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        int layer_mask = LayerMask.GetMask(curr.gameObject.tag);
+        if (Physics.Raycast(ray, out hit, 100, layer_mask))
+        {
+            canTouch = true;
+            lastHit = hit.transform.gameObject;
+            print(lastHit.tag);
+        }
+        else { canTouch = false; }
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             if (curr.left) Move(curr.left);
@@ -62,18 +97,17 @@ public class DayCameraMovement : MonoBehaviour
         {
             if (curr.back) Move(curr.back);
         }
-
-        var ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
-        int layer_mask = LayerMask.GetMask(curr.gameObject.tag);
-        if (Physics.Raycast(ray, out hit, 100, layer_mask))
+        else if (canTouch && Input.GetKeyDown(KeyCode.F))
         {
             // Display interactable UI
-            if (Input.GetKeyDown(KeyCode.F))
+
+            //lastHit.GetComponent<>.Interact();
+
+            if (lastHit.gameObject.tag == "Gemstone")
             {
-                lastHit = hit.transform.gameObject;
-                //print(lastHit.tag);
-                //lastHit.GetComponent<>.Interact();
+                DayGameManager.instance.GetGem(lastHit.GetComponent<DayGemstone>().dwarfIndex);
+                Destroy(lastHit);
+                canTouch = false;
             }
         }
     }
