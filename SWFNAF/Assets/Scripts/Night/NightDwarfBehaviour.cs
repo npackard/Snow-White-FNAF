@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Dwarf{dopey, sleepy, bashful, doc, sneezy, happy, grunmpy};
-public enum Location{bathroom, dwarfBedroom, hall, kitchen, meatGrinders, mines, workSpace, snowWhiteBedroom, none};
+public enum Location{bathroom, dwarfBedroom, hall, kitchen, meatGrinders, mines, study, workSpace, snowWhiteBedroom, none};
 
 public class NightDwarfBehaviour : MonoBehaviour
 {

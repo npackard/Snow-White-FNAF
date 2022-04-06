@@ -97,6 +97,10 @@ public class NightGameManager : MonoBehaviour
         camAt = Location.mines;
     }
 
+    public void SwitchToStudyCam() {
+        camAt = Location.study;
+    }
+
     public void SwitchToWorkspaceCam() {
         camAt = Location.workSpace;
     }

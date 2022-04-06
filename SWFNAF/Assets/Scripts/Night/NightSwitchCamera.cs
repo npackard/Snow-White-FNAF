@@ -11,6 +11,7 @@ public class NightSwitchCamera : MonoBehaviour
     public Material kitchen;
     public Material meatGrinders;
     public Material mines;
+    public Material study;
     public Material workspace;
 
     private int counter = 0;
@@ -60,6 +61,11 @@ public class NightSwitchCamera : MonoBehaviour
     public void SwitchToMinesCam() {
         meshRenderer.material = mines;
         NightGameManager.S.SwitchToMinesCam();
+    }
+
+    public void SwitchToStudyCam() {
+        meshRenderer.material = study;
+        NightGameManager.S.SwitchToStudyCam();
     }
 
     public void SwitchToWorkspaceCam() {

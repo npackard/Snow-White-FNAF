@@ -36,6 +36,10 @@ public class NightButtonManager : MonoBehaviour
         NightSwitchCamera.S.SwitchToMinesCam();
     }
 
+    public void StudyCamera() {
+        NightSwitchCamera.S.SwitchToStudyCam();
+    }
+
     public void WorkspaceCam() {
         NightSwitchCamera.S.SwitchToWorkspaceCam();
     }
