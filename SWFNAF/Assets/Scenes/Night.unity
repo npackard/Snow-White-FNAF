@@ -770,8 +770,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 862a7ccf75966974bbc682ca4b441c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficultAdjustment: 1
   introNight: 0
   dwarf: 0
+  dopeyPath: 01000000
+  sleepyPath: 0100000002000000030000000200000007000000
+  bashfulPath: 010000000400000007000000
+  docPath: 01000000
+  sneezyPath: 00000000
+  happyPath: 01000000
+  grumpyPath: 01000000
 --- !u!1 &342201123
 GameObject:
   m_ObjectHideFlags: 0
