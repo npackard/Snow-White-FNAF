@@ -74,13 +74,14 @@ public class DayCameraMovement : MonoBehaviour
         var ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
         int layer_mask = LayerMask.GetMask(curr.gameObject.tag);
-        if (Physics.Raycast(ray, out hit, 100, layer_mask))
+        if (Physics.Raycast(ray, out hit, 1000, layer_mask))
         {
             canTouch = true;
             lastHit = hit.transform.gameObject;
             print(lastHit.tag);
         }
         else { canTouch = false; }
+        print(layer_mask);
 
         if (Input.GetKeyDown(KeyCode.A))
         {
