@@ -25,11 +25,11 @@ public class NightDwarfBehaviour : MonoBehaviour
         
     }
 
-    private void ResetDwarf() {
+    public void ResetDwarf() {
         isActive = false;
     }
 
-    private void StartMoving() {
+    public void StartMoving() {
         if (NightGameManager.S.GetNight() >= introNight) {
             isActive = true;
             switch(dwarf) {
