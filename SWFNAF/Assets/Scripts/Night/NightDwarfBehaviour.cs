@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Dwarf{dopey, sleepy, bashful, doc, sneezy, happy, grunmpy};
-public enum Location{bathroom, dwarfBedroom, hall, kitchen, meatGrinders, mines, workSpace, snowWhiteBedroom};
+public enum Location{bathroom, dwarfBedroom, hall, kitchen, meatGrinders, mines, workSpace, snowWhiteBedroom, none};
 
 public class NightDwarfBehaviour : MonoBehaviour
 {
@@ -11,6 +11,10 @@ public class NightDwarfBehaviour : MonoBehaviour
     public int difficultAdjustment = 1;
     [Range(1, 3)]
     public int introNight = 1;
+
+    public int easyChance = 5;
+    public int mediumChance = 7;
+    public int hardChance = 10;
 
     public Dwarf dwarf;
 
@@ -24,9 +28,11 @@ public class NightDwarfBehaviour : MonoBehaviour
 
     private bool isActive = false;
     private bool isEnabled = false;
+    private bool onCamera = false;
     private float moveTimer = 0f;
     private int shortWait = 25;
     private int longWait = 50;
+    private int locationIndex = 0;
 
     private Location location;
     
@@ -60,25 +66,25 @@ public class NightDwarfBehaviour : MonoBehaviour
             isEnabled = true;
             switch(dwarf) {
                 case Dwarf.dopey:
-                    DopeyBehaviour();
+                    StartCoroutine(DopeyBehaviour());
                     break;
                 case Dwarf.sleepy:
-                    SleepyBehaviour();
+                    StartCoroutine(SleepyBehaviour());
                     break;
                 case Dwarf.bashful:
-                    BashfulBehaviour();
+                    StartCoroutine(BashfulBehaviour());
                     break;
                 case Dwarf.doc:
-                    DocBehaviour();
+                    StartCoroutine(DocBehaviour());
                     break;
                 case Dwarf.sneezy:
-                    SneezyBehaviour();
+                    StartCoroutine(SneezyBehaviour());
                     break;
                 case Dwarf.happy:
-                    HappyBehaviour();
+                    StartCoroutine(HappyBehaviour());
                     break;
                 case Dwarf.grunmpy:
-                    GrumpyBehaviour();
+                    StartCoroutine(GrumpyBehaviour());
                     break;
                 default:
                     Debug.Log("you did something wrong");
@@ -95,27 +101,115 @@ public class NightDwarfBehaviour : MonoBehaviour
         yield return new WaitForSeconds(GetWaitTime());
     }
 
+    // gets a knife while sleepwalking, arrives via stairs
     private IEnumerator SleepyBehaviour() {
         yield return new WaitForSeconds(GetWaitTime());
+        // don't do anything if on camera
+        if (location != NightGameManager.S.GetCamLocation()) {
+            // prioritize attacking if in Snow White's bedroom
+            if (location == Location.snowWhiteBedroom) {
+                // attack (need logic for if stopped)
+                // if (stopped) reset location
+            } else {
+                float chance = Random.Range(0f, 1f);
+                // move to next room in path, easy chance
+                if (chance < (difficultAdjustment / 100f) * easyChance) {
+                    location = sleepyPath[locationIndex + 1];
+                    locationIndex++;
+                }
+                // give knife if in kitchen or further along path
+            }
+        }
     }
 
+    // stays off camera as much as possible, arrives via fireplace
     private IEnumerator BashfulBehaviour() {
         yield return new WaitForSeconds(GetWaitTime());
+        // don't do anything if off camera
+        if (location != NightGameManager.S.GetCamLocation()) {
+            if (location == Location.snowWhiteBedroom) {
+                // attack (need logic for if stopped)
+                // if (stopped) reset location
+            } else {
+                float chance = Random.Range(0f, 1f);
+                // move to next room in path, easy chance
+                if (chance < (difficultAdjustment / 100f) * easyChance) {
+                    location = sleepyPath[locationIndex + 1];
+                    locationIndex++;
+                }
+            }
+        }
     }
 
     private IEnumerator DocBehaviour() {
         yield return new WaitForSeconds(GetWaitTime());
+        // don't do anything if off camera
+        if (location != NightGameManager.S.GetCamLocation()) {
+            if (location == Location.snowWhiteBedroom) {
+                // attack (need logic for if stopped)
+                // if (stopped) reset location
+            } else {
+                float chance = Random.Range(0f, 1f);
+                // move to next room in path, medium chance
+                if (chance < (difficultAdjustment / 100f) * mediumChance) {
+                    location = sleepyPath[locationIndex + 1];
+                    locationIndex++;
+                }
+            }
+        }
     }
 
     private IEnumerator SneezyBehaviour() {
         yield return new WaitForSeconds(GetWaitTime());
+        // don't do anything if off camera
+        if (location != NightGameManager.S.GetCamLocation()) {
+            if (location == Location.snowWhiteBedroom) {
+                // attack (need logic for if stopped)
+                // if (stopped) reset location
+            } else {
+                float chance = Random.Range(0f, 1f);
+                // move to next room in path, medium chance
+                if (chance < (difficultAdjustment / 100f) * mediumChance) {
+                    location = sleepyPath[locationIndex + 1];
+                    locationIndex++;
+                }
+            }
+        }
     }
 
     private IEnumerator HappyBehaviour() {
         yield return new WaitForSeconds(GetWaitTime());
+        // don't do anything if off camera
+        if (location != NightGameManager.S.GetCamLocation()) {
+            if (location == Location.snowWhiteBedroom) {
+                // attack (need logic for if stopped)
+                // if (stopped) reset location
+            } else {
+                float chance = Random.Range(0f, 1f);
+                // move to next room in path, hard chance
+                if (chance < (difficultAdjustment / 100f) * hardChance) {
+                    location = sleepyPath[locationIndex + 1];
+                    locationIndex++;
+                }
+            }
+        }
     }
 
     private IEnumerator GrumpyBehaviour() {
         yield return new WaitForSeconds(GetWaitTime());
+        // don't do anything if off camera
+        if (location != NightGameManager.S.GetCamLocation()) {
+            if (location == Location.snowWhiteBedroom) {
+                // attack (need logic for if stopped)
+                // if (stopped) reset location
+            } else {
+                float chance = Random.Range(0f, 1f);
+                // move to next room in path, hard chance
+                if (chance < (difficultAdjustment / 100f) * hardChance) {
+                    location = sleepyPath[locationIndex + 1];
+                    locationIndex++;
+                }
+            }
+        }
     }
 }

@@ -16,6 +16,9 @@ public class NightGameManager : MonoBehaviour
     public NightDwarfBehaviour happy;
     public NightDwarfBehaviour grumpy;
 
+    private Location camAt = Location.none;
+    private Location lastCam = Location.none;
+
     private int night;
     private int timePassed = 0;
 
@@ -72,5 +75,42 @@ public class NightGameManager : MonoBehaviour
 
     private void StartNight() {
         StartCoroutine(MakeTimePass());
+    }
+
+    public void SwitchToBathroomCam() {
+        camAt = Location.bathroom;
+    }
+
+    public void SwitchToBedroomCam() {
+        camAt = Location.dwarfBedroom;
+    }
+
+    public void SwitchToKitchenCam() {
+        camAt = Location.kitchen;
+    }
+
+    public void SwitchToMeatGrindersCam() {
+        camAt = Location.meatGrinders;
+    }
+
+    public void SwitchToMinesCam() {
+        camAt = Location.mines;
+    }
+
+    public void SwitchToWorkspaceCam() {
+        camAt = Location.workSpace;
+    }
+
+    public void MirrorUp() {
+        camAt = lastCam;
+    }
+
+    public void MirrorDown() {
+        lastCam = camAt;
+        camAt = Location.none;
+    }
+
+    public Location GetCamLocation() {
+        return camAt;
     }
 }

@@ -37,27 +37,33 @@ public class NightSwitchCamera : MonoBehaviour
         
     }
 
-    public void SwitchToBedroomCam() {
-        meshRenderer.material = dwarfBedroom;
-    }
-
     public void SwitchToBathroomCam() {
         meshRenderer.material = bathroom;
+        NightGameManager.S.SwitchToBathroomCam();
+    }
+
+    public void SwitchToBedroomCam() {
+        meshRenderer.material = dwarfBedroom;
+        NightGameManager.S.SwitchToBedroomCam();
     }
 
     public void SwitchToKitchenCam() {
         meshRenderer.material = kitchen;
+        NightGameManager.S.SwitchToKitchenCam();
     }
 
     public void SwitchToMeatGrindersCam() {
         meshRenderer.material = meatGrinders;
+        NightGameManager.S.SwitchToMeatGrindersCam();
     }
 
     public void SwitchToMinesCam() {
         meshRenderer.material = mines;
+        NightGameManager.S.SwitchToMinesCam();
     }
 
     public void SwitchToWorkspaceCam() {
         meshRenderer.material = workspace;
+        NightGameManager.S.SwitchToWorkspaceCam();
     }
 }
