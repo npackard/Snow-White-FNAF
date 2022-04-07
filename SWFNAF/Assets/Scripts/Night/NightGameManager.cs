@@ -19,6 +19,10 @@ public class NightGameManager : MonoBehaviour
     private Location camAt = Location.none;
     private Location lastCam = Location.none;
 
+    private bool doorClosed = false;
+    private bool fireLit = false;
+    private bool ventClosed = false;
+    private float energy = 0f;
     private int night;
     private int timePassed = 0;
 
@@ -102,7 +106,7 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void SwitchToWorkspaceCam() {
-        camAt = Location.workSpace;
+        camAt = Location.workspace;
     }
 
     public void MirrorUp() {
@@ -116,5 +120,21 @@ public class NightGameManager : MonoBehaviour
 
     public Location GetCamLocation() {
         return camAt;
+    }
+
+    public bool GetDoorClosed() {
+        return doorClosed;
+    }
+
+    public bool GetFireLit() {
+        return fireLit;
+    }
+
+    public bool GetVentClosed() {
+        return ventClosed;
+    }
+
+    public void AddEnergy(float amount) {
+        energy += amount;
     }
 }

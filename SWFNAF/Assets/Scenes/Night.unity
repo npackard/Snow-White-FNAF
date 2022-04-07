@@ -593,6 +593,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531d03b0fee95a947b5f538a844ea624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &222947243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 222947244}
+  m_Layer: 0
+  m_Name: SleepyPositions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &222947244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222947243}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 59.06987, y: 21.258026, z: 55.499004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 886176892}
+  - {fileID: 553361979}
+  - {fileID: 1776391898}
+  - {fileID: 377084733}
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &224895532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -614,7 +648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7748249028050831952, guid: 2a13a4c534150fe4cba46623c5c34488, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 104.9
+      value: 93.84
       objectReference: {fileID: 0}
     - target: {fileID: 7748249028050831952, guid: 2a13a4c534150fe4cba46623c5c34488, type: 3}
       propertyPath: m_LocalRotation.w
@@ -777,14 +811,24 @@ MonoBehaviour:
   easyChance: 5
   mediumChance: 7
   hardChance: 10
-  dwarf: 0
+  dwarf: 1
   dopeyPath: 01000000
   sleepyPath: 0100000002000000030000000200000007000000
-  bashfulPath: 01000000000000000400000007000000
+  bashfulPath: 01000000000000000400000006000000
   docPath: 01000000
   sneezyPath: 00000000
   happyPath: 01000000
   grumpyPath: 01000000
+  sleepyDwarfBedroom: {fileID: 886176892}
+  sleepyHall: {fileID: 553361979}
+  sleepyKitchen: {fileID: 1776391898}
+  sleepyWorkspace: {fileID: 377084733}
+  sleepySnowWhite: {fileID: 0}
+  bashfulDwarfBedroom: {fileID: 0}
+  bashfulBathroom: {fileID: 0}
+  bashfulMeatGrinders: {fileID: 0}
+  bashfulStudy: {fileID: 0}
+  bashfulSnowWhite: {fileID: 0}
 --- !u!1 &342201123
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,6 +1039,36 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &377084732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 377084733}
+  m_Layer: 0
+  m_Name: SleepyWorkspace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &377084733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377084732}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 4.43013, y: -16.258026, z: 17.400997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 222947244}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &390260173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,6 +1194,7 @@ GameObject:
   - component: {fileID: 443426625}
   - component: {fileID: 443426626}
   - component: {fileID: 443426627}
+  - component: {fileID: 443426628}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1191,6 +1266,48 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &443426628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443426623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf50ad92e081dc44af1d12b45775f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &553361978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 553361979}
+  m_Layer: 0
+  m_Name: SleepyHall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &553361979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553361978}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -5.7698708, y: -16.258026, z: 27.120998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 222947244}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &718214945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,6 +1608,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878907094}
   m_CullTransparentMesh: 1
+--- !u!1 &886176891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 886176892}
+  m_Layer: 0
+  m_Name: SleepyDwarfBedroom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &886176892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886176891}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -5.5198708, y: -16.258026, z: 50.440998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 222947244}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &910113662
 GameObject:
   m_ObjectHideFlags: 0
@@ -2780,6 +2927,36 @@ Transform:
   m_Father: {fileID: 718214946}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1776391897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1776391898}
+  m_Layer: 0
+  m_Name: SleepyKitchen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1776391898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776391897}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -11.9698715, y: -16.258026, z: -20.199005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 222947244}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1889203402
 GameObject:
   m_ObjectHideFlags: 0
