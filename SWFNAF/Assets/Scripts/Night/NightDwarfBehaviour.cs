@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Dwarf{dopey, sleepy, bashful, doc, sneezy, happy, grunmpy};
 public enum Location{bathroom, dwarfBedroom, hall, kitchen, meatGrinders, mines, study, workspace, snowWhiteBedroom, none};
@@ -26,17 +27,12 @@ public class NightDwarfBehaviour : MonoBehaviour
     public Location[] happyPath;
     public Location[] grumpyPath;
 
-    public Transform sleepyDwarfBedroom;
-    public Transform sleepyHall;
-    public Transform sleepyKitchen;
-    public Transform sleepyWorkspace;
-    public Transform sleepySnowWhite;
-
-    public Transform bashfulDwarfBedroom;
-    public Transform bashfulBathroom;
-    public Transform bashfulMeatGrinders;
-    public Transform bashfulStudy;
-    public Transform bashfulSnowWhite;
+    public Transform[] sleepyTransformPath;
+    public Transform[] bashfulTransformPath;
+    public Transform[] docTransformPath;
+    public Transform[] sneezyTransformPath;
+    public Transform[] happyTransformPath;
+    public Transform[] grumpyTransformPath;
 
     private bool isActive = false;
     private bool isEnabled = false;
@@ -52,7 +48,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     void Start()
     {
         location = Location.dwarfBedroom;
-        transform.position = sleepyDwarfBedroom.position;
+        transform.position = sleepyTransformPath[0].position;
         SetTimes();
         introNight = -1;
         StartMoving();
@@ -128,9 +124,10 @@ public class NightDwarfBehaviour : MonoBehaviour
                 if (NightGameManager.S.GetDoorClosed()) {
                     location = sleepyPath[0];
                     locationIndex = 0;
-                    transform.position = sleepyDwarfBedroom.position;
+                    transform.position = sleepyTransformPath[0].position;
                 } else {
                     // attack + player dies
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             } else {
                 float chance = Random.Range(0f, 1f);
@@ -139,11 +136,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                     locationIndex++;
                     location = sleepyPath[locationIndex];
                     // physically move
-                    if (location == Location.dwarfBedroom) transform.position = sleepyDwarfBedroom.position;
-                    else if (location == Location.hall) transform.position = sleepyHall.position;
-                    else if (location == Location.kitchen) transform.position = sleepyKitchen.position;
-                    else if (location == Location.workspace) transform.position = sleepyWorkspace.position;
-                    else if (location == Location.snowWhiteBedroom) transform.position = sleepySnowWhite.position;
+                    transform.position = sleepyTransformPath[locationIndex].position;
                 }
                 // give knife if in kitchen or further along path
             }
@@ -156,9 +149,16 @@ public class NightDwarfBehaviour : MonoBehaviour
         yield return new WaitForSeconds(GetWaitTime());
         // don't do anything if off camera
         if (location != NightGameManager.S.GetCamLocation()) {
+            // prioritize attacking if in Snow White's bedroom
             if (location == Location.snowWhiteBedroom) {
-                // attack (need logic for if stopped)
-                // if (stopped) reset location
+                if (NightGameManager.S.GetDoorClosed()) {
+                    location = sleepyPath[0];
+                    locationIndex = 0;
+                    transform.position = sleepyTransformPath[0].position;
+                } else {
+                    // attack + player dies
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
             } else {
                 float chance = Random.Range(0f, 1f);
                 // move to next room in path, easy chance
@@ -166,12 +166,9 @@ public class NightDwarfBehaviour : MonoBehaviour
                     locationIndex++;
                     location = sleepyPath[locationIndex];
                     // physically move
-                    if (location == Location.dwarfBedroom) transform.position = bashfulDwarfBedroom.position;
-                    else if (location == Location.bathroom) transform.position = bashfulBathroom.position;
-                    else if (location == Location.meatGrinders) transform.position = bashfulMeatGrinders.position;
-                    else if (location == Location.study) transform.position = bashfulStudy.position;
-                    else if (location == Location.snowWhiteBedroom) transform.position = bashfulSnowWhite.position;
+                    transform.position = sleepyTransformPath[locationIndex].position;
                 }
+                // give knife if in kitchen or further along path
             }
         }
     }
@@ -180,16 +177,26 @@ public class NightDwarfBehaviour : MonoBehaviour
         yield return new WaitForSeconds(GetWaitTime());
         // don't do anything if off camera
         if (location != NightGameManager.S.GetCamLocation()) {
+            // prioritize attacking if in Snow White's bedroom
             if (location == Location.snowWhiteBedroom) {
-                // attack (need logic for if stopped)
-                // if (stopped) reset location
+                if (NightGameManager.S.GetDoorClosed()) {
+                    location = sleepyPath[0];
+                    locationIndex = 0;
+                    transform.position = sleepyTransformPath[0].position;
+                } else {
+                    // attack + player dies
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
             } else {
                 float chance = Random.Range(0f, 1f);
-                // move to next room in path, medium chance
-                if (chance < (difficultAdjustment / 100f) * mediumChance) {
+                // move to next room in path, easy chance
+                if (chance < (difficultAdjustment / 100f) * easyChance) {
                     locationIndex++;
                     location = sleepyPath[locationIndex];
+                    // physically move
+                    transform.position = sleepyTransformPath[locationIndex].position;
                 }
+                // give knife if in kitchen or further along path
             }
         }
     }
@@ -198,16 +205,26 @@ public class NightDwarfBehaviour : MonoBehaviour
         yield return new WaitForSeconds(GetWaitTime());
         // don't do anything if off camera
         if (location != NightGameManager.S.GetCamLocation()) {
+            // prioritize attacking if in Snow White's bedroom
             if (location == Location.snowWhiteBedroom) {
-                // attack (need logic for if stopped)
-                // if (stopped) reset location
+                if (NightGameManager.S.GetDoorClosed()) {
+                    location = sleepyPath[0];
+                    locationIndex = 0;
+                    transform.position = sleepyTransformPath[0].position;
+                } else {
+                    // attack + player dies
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
             } else {
                 float chance = Random.Range(0f, 1f);
-                // move to next room in path, medium chance
-                if (chance < (difficultAdjustment / 100f) * mediumChance) {
+                // move to next room in path, easy chance
+                if (chance < (difficultAdjustment / 100f) * easyChance) {
                     locationIndex++;
                     location = sleepyPath[locationIndex];
+                    // physically move
+                    transform.position = sleepyTransformPath[locationIndex].position;
                 }
+                // give knife if in kitchen or further along path
             }
         }
     }
@@ -216,16 +233,26 @@ public class NightDwarfBehaviour : MonoBehaviour
         yield return new WaitForSeconds(GetWaitTime());
         // don't do anything if off camera
         if (location != NightGameManager.S.GetCamLocation()) {
+            // prioritize attacking if in Snow White's bedroom
             if (location == Location.snowWhiteBedroom) {
-                // attack (need logic for if stopped)
-                // if (stopped) reset location
+                if (NightGameManager.S.GetDoorClosed()) {
+                    location = sleepyPath[0];
+                    locationIndex = 0;
+                    transform.position = sleepyTransformPath[0].position;
+                } else {
+                    // attack + player dies
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
             } else {
                 float chance = Random.Range(0f, 1f);
-                // move to next room in path, hard chance
-                if (chance < (difficultAdjustment / 100f) * hardChance) {
+                // move to next room in path, easy chance
+                if (chance < (difficultAdjustment / 100f) * easyChance) {
                     locationIndex++;
                     location = sleepyPath[locationIndex];
+                    // physically move
+                    transform.position = sleepyTransformPath[locationIndex].position;
                 }
+                // give knife if in kitchen or further along path
             }
         }
     }
@@ -234,16 +261,26 @@ public class NightDwarfBehaviour : MonoBehaviour
         yield return new WaitForSeconds(GetWaitTime());
         // don't do anything if off camera
         if (location != NightGameManager.S.GetCamLocation()) {
+            // prioritize attacking if in Snow White's bedroom
             if (location == Location.snowWhiteBedroom) {
-                // attack (need logic for if stopped)
-                // if (stopped) reset location
+                if (NightGameManager.S.GetDoorClosed()) {
+                    location = sleepyPath[0];
+                    locationIndex = 0;
+                    transform.position = sleepyTransformPath[0].position;
+                } else {
+                    // attack + player dies
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
             } else {
                 float chance = Random.Range(0f, 1f);
-                // move to next room in path, hard chance
-                if (chance < (difficultAdjustment / 100f) * hardChance) {
+                // move to next room in path, easy chance
+                if (chance < (difficultAdjustment / 100f) * easyChance) {
                     locationIndex++;
                     location = sleepyPath[locationIndex];
+                    // physically move
+                    transform.position = sleepyTransformPath[locationIndex].position;
                 }
+                // give knife if in kitchen or further along path
             }
         }
     }

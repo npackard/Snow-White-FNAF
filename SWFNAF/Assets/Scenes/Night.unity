@@ -819,16 +819,17 @@ MonoBehaviour:
   sneezyPath: 00000000
   happyPath: 01000000
   grumpyPath: 01000000
-  sleepyDwarfBedroom: {fileID: 886176892}
-  sleepyHall: {fileID: 553361979}
-  sleepyKitchen: {fileID: 1776391898}
-  sleepyWorkspace: {fileID: 377084733}
-  sleepySnowWhite: {fileID: 0}
-  bashfulDwarfBedroom: {fileID: 0}
-  bashfulBathroom: {fileID: 0}
-  bashfulMeatGrinders: {fileID: 0}
-  bashfulStudy: {fileID: 0}
-  bashfulSnowWhite: {fileID: 0}
+  sleepyTransformPath:
+  - {fileID: 886176892}
+  - {fileID: 553361979}
+  - {fileID: 1776391898}
+  - {fileID: 377084733}
+  - {fileID: 0}
+  bashfulTransformPath: []
+  docTransformPath: []
+  sneezyTransformPath: []
+  happyTransformPath: []
+  grumpyTransformPath: []
 --- !u!1 &342201123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,6 +1279,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf50ad92e081dc44af1d12b45775f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &542206999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 542207000}
+  m_Layer: 0
+  m_Name: BashfulPositions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &542207000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542206999}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 64.717316, y: 63.530487, z: 27.905277}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &553361978
 GameObject:
   m_ObjectHideFlags: 0
