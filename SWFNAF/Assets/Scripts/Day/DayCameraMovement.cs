@@ -78,15 +78,23 @@ public class DayCameraMovement : MonoBehaviour
 
         var ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
-        int layer_mask = curr.gameObject.layer;
-        if (Physics.Raycast(ray, out hit, 1000, layer_mask))
+        int layer_mask = 1 << curr.gameObject.layer;
+        if (Physics.Raycast(ray, out hit, 10, layer_mask))
         {
-            canTouch = true;
-            lastHit = hit.transform.gameObject;
-            //print(lastHit.tag);
+            if (hit.transform.gameObject.tag == "Interactable" ||
+                hit.transform.gameObject.tag == "Gemstone")
+            {
+                canTouch = true;
+                lastHit = hit.transform.gameObject;
+                DayUIManager.instance.PanelInteractableOn();
+            }
         }
-        else { canTouch = false; }
-        //print(curr.gameObject.layer);
+        else 
+        { 
+            canTouch = false;
+            lastHit = null;
+            DayUIManager.instance.PanelInteractableOff();
+        }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
