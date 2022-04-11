@@ -39,6 +39,7 @@ public class DayCameraMovement : MonoBehaviour
 
     private float horizAng;
     private float vertAng;
+    public float maxVertAng = 50;
 
     private GameObject lastHit;
     private bool canTouch;
@@ -55,6 +56,7 @@ public class DayCameraMovement : MonoBehaviour
     {
         transform.position = start.gameObject.transform.position;
         curr = start;
+        curr.OnThisCam();
 
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -68,7 +70,10 @@ public class DayCameraMovement : MonoBehaviour
         if (camMoving) return;
 
         horizAng += speedH * Input.GetAxis("Mouse X");
-        vertAng -= speedV * Input.GetAxis("Mouse Y");
+        if (!(Input.GetAxis("Mouse Y") < 0 && vertAng > maxVertAng) && !(Input.GetAxis("Mouse Y") > 0 && vertAng < -maxVertAng))
+        {
+            vertAng -= speedV * Input.GetAxis("Mouse Y");
+        }
         transform.eulerAngles = new Vector3(vertAng, horizAng, 0);
 
         var ray = new Ray(transform.position, transform.forward);
@@ -116,6 +121,8 @@ public class DayCameraMovement : MonoBehaviour
     private void Move(DayCameraLocation target)
     {
         camMoving = true;
+
+        curr.LeaveThisCam();
         curr = target;
 
         StartCoroutine(MovePos(target.gameObject.transform));
@@ -154,6 +161,7 @@ public class DayCameraMovement : MonoBehaviour
         transform.position = target.transform.position;
         vertAng = target.eulerAngles.x;
         horizAng = target.eulerAngles.y;
+        curr.OnThisCam();
         camMoving = false;
     }
 }
