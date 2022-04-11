@@ -37,6 +37,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     private bool isActive = false;
     private bool isEnabled = false;
     private bool onCamera = false;
+    private float finalDifficulty = 1f;
     private float moveTimer = 0f;
     private int shortWait = 25;
     private int longWait = 50;
@@ -50,7 +51,7 @@ public class NightDwarfBehaviour : MonoBehaviour
         location = Location.dwarfBedroom;
         transform.position = sleepyTransformPath[0].position;
         SetTimes();
-        introNight = -1;
+        SetFinalDifficulty();
         StartMoving();
     }
 
@@ -65,11 +66,33 @@ public class NightDwarfBehaviour : MonoBehaviour
         longWait = (int)(longWait / difficultAdjustment);
     }
 
+    public void SetFinalDifficulty() {
+        if (dwarf == Dwarf.sleepy || dwarf == Dwarf.bashful) {
+            finalDifficulty = (difficultAdjustment / 100f) * easyChance;
+        } else if (dwarf == Dwarf.doc || dwarf == Dwarf.sneezy) {
+            finalDifficulty = (difficultAdjustment / 100f) * mediumChance;
+        } else if (dwarf == Dwarf.happy || dwarf == Dwarf.grunmpy) {
+            finalDifficulty = (difficultAdjustment / 100f) * hardChance;
+        } else {
+            // dopey
+        }
+    }
+
     public void ResetDwarf() {
         isActive = false;
         isEnabled = false;
         StopAllCoroutines();
         location = Location.dwarfBedroom;
+        locationIndex = 0;
+    }
+
+    public void EntranceClosedReset() {
+        StopAllCoroutines();
+        location = Location.dwarfBedroom;
+        locationIndex = 0;
+        difficultAdjustment++;
+        SetFinalDifficulty();
+        StartMoving();
     }
 
     public void StartMoving() {
@@ -108,6 +131,11 @@ public class NightDwarfBehaviour : MonoBehaviour
         return (int)Random.Range(shortWait, longWait);
     }
 
+    private void Move() {
+        locationIndex++;
+        location = sleepyPath[locationIndex];
+    }
+
     private IEnumerator DopeyBehaviour() {
         yield return new WaitForSeconds(GetWaitTime());
     }
@@ -132,9 +160,8 @@ public class NightDwarfBehaviour : MonoBehaviour
             } else {
                 float chance = Random.Range(0f, 1f);
                 // move to next room in path, easy chance
-                if (chance < (difficultAdjustment / 100f) * easyChance) {
-                    locationIndex++;
-                    location = sleepyPath[locationIndex];
+                if (chance < finalDifficulty) {
+                    Move();
                     // physically move
                     transform.position = sleepyTransformPath[locationIndex].position;
                 }
@@ -162,15 +189,15 @@ public class NightDwarfBehaviour : MonoBehaviour
             } else {
                 float chance = Random.Range(0f, 1f);
                 // move to next room in path, easy chance
-                if (chance < (difficultAdjustment / 100f) * easyChance) {
-                    locationIndex++;
-                    location = sleepyPath[locationIndex];
+                if (chance < finalDifficulty) {
+                    Move();
                     // physically move
                     transform.position = sleepyTransformPath[locationIndex].position;
                 }
                 // give knife if in kitchen or further along path
             }
         }
+        StartCoroutine(BashfulBehaviour());
     }
 
     private IEnumerator DocBehaviour() {
@@ -189,16 +216,16 @@ public class NightDwarfBehaviour : MonoBehaviour
                 }
             } else {
                 float chance = Random.Range(0f, 1f);
-                // move to next room in path, easy chance
-                if (chance < (difficultAdjustment / 100f) * easyChance) {
-                    locationIndex++;
-                    location = sleepyPath[locationIndex];
+                // move to next room in path, medium chance
+                if (chance < finalDifficulty) {
+                    Move();
                     // physically move
                     transform.position = sleepyTransformPath[locationIndex].position;
                 }
                 // give knife if in kitchen or further along path
             }
         }
+        StartCoroutine(DocBehaviour());
     }
 
     private IEnumerator SneezyBehaviour() {
@@ -217,16 +244,16 @@ public class NightDwarfBehaviour : MonoBehaviour
                 }
             } else {
                 float chance = Random.Range(0f, 1f);
-                // move to next room in path, easy chance
-                if (chance < (difficultAdjustment / 100f) * easyChance) {
-                    locationIndex++;
-                    location = sleepyPath[locationIndex];
+                // move to next room in path, medium chance
+                if (chance < finalDifficulty) {
+                    Move();
                     // physically move
                     transform.position = sleepyTransformPath[locationIndex].position;
                 }
                 // give knife if in kitchen or further along path
             }
         }
+        StartCoroutine(SneezyBehaviour());
     }
 
     private IEnumerator HappyBehaviour() {
@@ -245,16 +272,16 @@ public class NightDwarfBehaviour : MonoBehaviour
                 }
             } else {
                 float chance = Random.Range(0f, 1f);
-                // move to next room in path, easy chance
-                if (chance < (difficultAdjustment / 100f) * easyChance) {
-                    locationIndex++;
-                    location = sleepyPath[locationIndex];
+                // move to next room in path, hard chance
+                if (chance < finalDifficulty) {
+                    Move();
                     // physically move
                     transform.position = sleepyTransformPath[locationIndex].position;
                 }
                 // give knife if in kitchen or further along path
             }
         }
+        StartCoroutine(HappyBehaviour());
     }
 
     private IEnumerator GrumpyBehaviour() {
@@ -273,15 +300,15 @@ public class NightDwarfBehaviour : MonoBehaviour
                 }
             } else {
                 float chance = Random.Range(0f, 1f);
-                // move to next room in path, easy chance
-                if (chance < (difficultAdjustment / 100f) * easyChance) {
-                    locationIndex++;
-                    location = sleepyPath[locationIndex];
+                // move to next room in path, hard chance
+                if (chance < finalDifficulty) {
+                    Move();
                     // physically move
                     transform.position = sleepyTransformPath[locationIndex].position;
                 }
                 // give knife if in kitchen or further along path
             }
         }
+        StartCoroutine(GrumpyBehaviour());
     }
 }
