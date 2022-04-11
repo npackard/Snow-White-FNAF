@@ -181,7 +181,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 if (NightGameManager.S.GetDoorClosed()) {
                     location = sleepyPath[0];
                     locationIndex = 0;
-                    transform.position = sleepyTransformPath[0].position;
+                    transform.position = bashfulTransformPath[0].position;
                 } else {
                     // attack + player dies
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -192,7 +192,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 if (chance < finalDifficulty) {
                     Move();
                     // physically move
-                    transform.position = sleepyTransformPath[locationIndex].position;
+                    transform.position = bashfulTransformPath[locationIndex].position;
                 }
                 // give knife if in kitchen or further along path
             }
@@ -209,7 +209,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 if (NightGameManager.S.GetDoorClosed()) {
                     location = sleepyPath[0];
                     locationIndex = 0;
-                    transform.position = sleepyTransformPath[0].position;
+                    transform.position = docTransformPath[0].position;
                 } else {
                     // attack + player dies
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -220,7 +220,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 if (chance < finalDifficulty) {
                     Move();
                     // physically move
-                    transform.position = sleepyTransformPath[locationIndex].position;
+                    transform.position = docTransformPath[locationIndex].position;
                 }
                 // give knife if in kitchen or further along path
             }
@@ -237,7 +237,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 if (NightGameManager.S.GetDoorClosed()) {
                     location = sleepyPath[0];
                     locationIndex = 0;
-                    transform.position = sleepyTransformPath[0].position;
+                    transform.position = sneezyTransformPath[0].position;
                 } else {
                     // attack + player dies
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -248,7 +248,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 if (chance < finalDifficulty) {
                     Move();
                     // physically move
-                    transform.position = sleepyTransformPath[locationIndex].position;
+                    transform.position = sneezyTransformPath[locationIndex].position;
                 }
                 // give knife if in kitchen or further along path
             }
