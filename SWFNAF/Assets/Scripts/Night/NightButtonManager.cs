@@ -44,12 +44,8 @@ public class NightButtonManager : MonoBehaviour
         NightSwitchCamera.S.SwitchToWorkspaceCam();
     }
 
-    public void OpenDoor() {
-        NightGameManager.S.OpenDoor();
-    }
-
-    public void CloseDoor() {
-        NightGameManager.S.CloseDoor();
+    public void SwitchDoor() {
+        NightGameManager.S.SwitchDoor();
     }
 
     public void LightFire() {

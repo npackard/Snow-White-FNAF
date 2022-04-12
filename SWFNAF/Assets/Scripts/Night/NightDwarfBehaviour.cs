@@ -18,6 +18,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     public int hardChance = 10;
 
     public Dwarf dwarf;
+    public Transform deathPosition;
 
     public Location[] dopeyPath;
     public Location[] sleepyPath;
@@ -154,8 +155,8 @@ public class NightDwarfBehaviour : MonoBehaviour
                     locationIndex = 0;
                     transform.position = sleepyTransformPath[0].position;
                 } else {
-                    // attack + player dies
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    transform.position = deathPosition.position;
+                    StartCoroutine(Die());
                 }
             } else {
                 float chance = Random.Range(0f, 1f);
@@ -178,13 +179,13 @@ public class NightDwarfBehaviour : MonoBehaviour
         if (location != NightGameManager.S.GetCamLocation()) {
             // prioritize attacking if in Snow White's bedroom
             if (location == Location.snowWhiteBedroom) {
-                if (NightGameManager.S.GetDoorClosed()) {
+                if (NightGameManager.S.GetFireLit()) {
                     location = sleepyPath[0];
                     locationIndex = 0;
                     transform.position = bashfulTransformPath[0].position;
                 } else {
-                    // attack + player dies
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    transform.position = deathPosition.position;
+                    StartCoroutine(Die());
                 }
             } else {
                 float chance = Random.Range(0f, 1f);
@@ -310,5 +311,11 @@ public class NightDwarfBehaviour : MonoBehaviour
             }
         }
         StartCoroutine(GrumpyBehaviour());
+    }
+
+    private IEnumerator Die() {
+        NightGameManager.S.Die();
+        yield return new WaitForSeconds(3f);
+        NightGameManager.S.StartLevelAgain();
     }
 }

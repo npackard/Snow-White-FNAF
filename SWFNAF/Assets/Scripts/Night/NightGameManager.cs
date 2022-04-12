@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NightGameManager : MonoBehaviour
 {
@@ -20,11 +21,11 @@ public class NightGameManager : MonoBehaviour
     public NightDwarfBehaviour grumpy;
 
     private Animator doorAnim;
-    private NightDoorAudio doorAudio;
 
     private Location camAt = Location.none;
     private Location lastCam = Location.none;
 
+    private bool alive = true;
     private bool doorClosed = false;
     private bool fireLit = false;
     private bool ventClosed = false;
@@ -44,7 +45,6 @@ public class NightGameManager : MonoBehaviour
     void Start()
     {
         doorAnim = door.GetComponent<Animator>();
-        doorAudio = door.GetComponent<NightDoorAudio>();
         fire.SetActive(false);
         StartCoroutine(MakeTimePass());
     }
@@ -144,27 +144,31 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void AddEnergy(float amount) {
-        energy += amount;
+        if (energy < 100) energy += amount;
     }
 
-    public void CloseDoor() {
-        doorAnim.SetBool("open", false);
-        doorAudio.CloseDoor();
-    }
-
-    public void OpenDoor() {
-        doorAnim.SetBool("open", true);
-        doorAudio.OpenDoor();
+    public void SwitchDoor() {
+        doorClosed = !doorClosed;
+        doorAnim.SetBool("open", !doorClosed);
     }
 
     public void LightFire() {
         fire.SetActive(true);
         fireLit = true;
+        StartCoroutine(FireTimer());
     }
 
     private IEnumerator FireTimer() {
         yield return new WaitForSeconds(5f);
         fireLit = false;
         fire.SetActive(false);
+    }
+
+    public void Die() {
+        alive = false;
+    }
+
+    public void StartLevelAgain() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
