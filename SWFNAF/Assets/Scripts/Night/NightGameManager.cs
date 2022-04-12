@@ -8,6 +8,9 @@ public class NightGameManager : MonoBehaviour
 
     public int secondsPerHour = 50;
 
+    public GameObject door;
+    public GameObject fire;
+
     public NightDwarfBehaviour dopey;
     public NightDwarfBehaviour sleepy;
     public NightDwarfBehaviour bashful;
@@ -15,6 +18,9 @@ public class NightGameManager : MonoBehaviour
     public NightDwarfBehaviour sneezy;
     public NightDwarfBehaviour happy;
     public NightDwarfBehaviour grumpy;
+
+    private Animator doorAnim;
+    private NightDoorAudio doorAudio;
 
     private Location camAt = Location.none;
     private Location lastCam = Location.none;
@@ -37,6 +43,9 @@ public class NightGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        doorAnim = door.GetComponent<Animator>();
+        doorAudio = door.GetComponent<NightDoorAudio>();
+        fire.SetActive(false);
         StartCoroutine(MakeTimePass());
     }
 
@@ -136,5 +145,26 @@ public class NightGameManager : MonoBehaviour
 
     public void AddEnergy(float amount) {
         energy += amount;
+    }
+
+    public void CloseDoor() {
+        doorAnim.SetBool("open", false);
+        doorAudio.CloseDoor();
+    }
+
+    public void OpenDoor() {
+        doorAnim.SetBool("open", true);
+        doorAudio.OpenDoor();
+    }
+
+    public void LightFire() {
+        fire.SetActive(true);
+        fireLit = true;
+    }
+
+    private IEnumerator FireTimer() {
+        yield return new WaitForSeconds(5f);
+        fireLit = false;
+        fire.SetActive(false);
     }
 }
