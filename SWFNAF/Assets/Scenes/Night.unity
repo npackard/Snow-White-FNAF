@@ -822,6 +822,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7748249028050831952, guid: 2a13a4c534150fe4cba46623c5c34488, type: 3}
   m_PrefabInstance: {fileID: 224895532}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &258369280 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
+  m_PrefabInstance: {fileID: 6757086316715893811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 862a7ccf75966974bbc682ca4b441c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &312417126
 GameObject:
   m_ObjectHideFlags: 0
@@ -4036,14 +4047,14 @@ MonoBehaviour:
   secondsPerHour: 50
   door: {fileID: 594349394831689131}
   fire: {fileID: 1799495878}
-  dopey: {fileID: 0}
-  sleepy: {fileID: 0}
+  dopey: {fileID: 258369280}
+  sleepy: {fileID: 1968298645}
   bashful: {fileID: 0}
   doc: {fileID: 0}
   sneezy: {fileID: 0}
   happy: {fileID: 0}
   grumpy: {fileID: 0}
-  timerText: {fileID: 0}
+  timerText: {fileID: 462262346}
 --- !u!4 &1967515708
 Transform:
   m_ObjectHideFlags: 0
@@ -4058,6 +4069,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1968298645 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
+  m_PrefabInstance: {fileID: 2075986297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 862a7ccf75966974bbc682ca4b441c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1984868378
 GameObject:
   m_ObjectHideFlags: 0
