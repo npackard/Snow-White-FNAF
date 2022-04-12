@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class NightGameManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class NightGameManager : MonoBehaviour
     public NightDwarfBehaviour sneezy;
     public NightDwarfBehaviour happy;
     public NightDwarfBehaviour grumpy;
+
+    public TextMeshProUGUI timerText;
 
     private Animator doorAnim;
 
@@ -46,6 +49,7 @@ public class NightGameManager : MonoBehaviour
     {
         doorAnim = door.GetComponent<Animator>();
         fire.SetActive(false);
+        timerText.text = "12am";
         StartCoroutine(MakeTimePass());
     }
 
@@ -80,6 +84,12 @@ public class NightGameManager : MonoBehaviour
         if (timePassed < secondsPerHour * 6f) {
             yield return new WaitForSeconds(1f);
             timePassed++;
+            if (timePassed > secondsPerHour * 5f) timerText.text = "5am";
+            else if (timePassed > secondsPerHour * 4f) timerText.text = "4am";
+            else if (timePassed > secondsPerHour * 3f) timerText.text = "3am";
+            else if (timePassed > secondsPerHour * 2f) timerText.text = "2am";
+            else if (timePassed > secondsPerHour) timerText.text = "1am";
+            else timerText.text = "12am";
             StartCoroutine(MakeTimePass());
         } else {
             NightEnd();
@@ -149,11 +159,16 @@ public class NightGameManager : MonoBehaviour
 
     public void SwitchDoor() {
         doorClosed = !doorClosed;
+        fireLit = false;
+        fire.SetActive(false);
+        StopCoroutine(FireTimer());
         doorAnim.SetBool("open", !doorClosed);
     }
 
     public void LightFire() {
         fire.SetActive(true);
+        doorClosed = false;
+        doorAnim.SetBool("open", true);
         fireLit = true;
         StartCoroutine(FireTimer());
     }

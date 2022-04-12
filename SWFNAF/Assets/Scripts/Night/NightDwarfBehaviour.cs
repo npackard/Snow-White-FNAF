@@ -50,7 +50,35 @@ public class NightDwarfBehaviour : MonoBehaviour
     void Start()
     {
         location = Location.dwarfBedroom;
-        transform.position = sleepyTransformPath[0].position;
+        switch(dwarf) {
+            case Dwarf.sleepy:
+                transform.position = sleepyTransformPath[0].position;
+                location = sleepyPath[0];
+                break;
+            case Dwarf.bashful:
+                transform.position = bashfulTransformPath[0].position;
+                location = bashfulPath[0];
+                break;
+            case Dwarf.doc:
+                transform.position = docTransformPath[0].position;
+                location = docPath[0];
+                break;
+            case Dwarf.sneezy:
+                transform.position = sneezyTransformPath[0].position;
+                location = sneezyPath[0];
+                break;
+            case Dwarf.happy:
+                transform.position = happyTransformPath[0].position;
+                location = happyPath[0];
+                break;
+            case Dwarf.grunmpy:
+                transform.position = grumpyTransformPath[0].position;
+                location = grumpyPath[0];
+                break;
+            default:
+                Debug.Log("oh no");
+                break;
+        }
         SetTimes();
         SetFinalDifficulty();
         StartMoving();
@@ -180,7 +208,7 @@ public class NightDwarfBehaviour : MonoBehaviour
             // prioritize attacking if in Snow White's bedroom
             if (location == Location.snowWhiteBedroom) {
                 if (NightGameManager.S.GetFireLit()) {
-                    location = sleepyPath[0];
+                    location = bashfulPath[0];
                     locationIndex = 0;
                     transform.position = bashfulTransformPath[0].position;
                 } else {
