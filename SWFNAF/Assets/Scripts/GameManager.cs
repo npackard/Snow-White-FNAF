@@ -38,11 +38,18 @@ public class GameManager : MonoBehaviour
 
     public void EndNight() {
         // move to daytime
-        //SceneManager.LoadScene(2);
+        StartCoroutine(EndNightCor());
+    }
+
+    private IEnumerator EndNightCor()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(2);
     }
 
     public void EndDay()
     {
+        // move to nighttime
         StartCoroutine(EndDayCor());
     }
 
