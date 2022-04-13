@@ -45,7 +45,7 @@ public class NightGameManager : MonoBehaviour
     private bool ventClosed = false;
     private float energy = 0f;
     private int night;
-    private int timePassed = 0;
+    public int timePassed = 0;
 
     private void Awake() {
         if (NightGameManager.S) {
@@ -88,13 +88,13 @@ public class NightGameManager : MonoBehaviour
     }
 
     private void ResetDwarves() {
-        dopey.ResetDwarf();
+        //dopey.ResetDwarf();
         sleepy.ResetDwarf();
         bashful.ResetDwarf();
-        doc.ResetDwarf();
-        sneezy.ResetDwarf();
-        happy.ResetDwarf();
-        grumpy.ResetDwarf();
+        //doc.ResetDwarf();
+        //sneezy.ResetDwarf();
+        //happy.ResetDwarf();
+        //grumpy.ResetDwarf();
     }
 
     private IEnumerator MakeTimePass() {

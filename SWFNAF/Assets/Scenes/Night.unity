@@ -4006,9 +4006,9 @@ MonoBehaviour:
   fireIgnite: {fileID: 1675255480}
   door: {fileID: 594349394831689131}
   fire: {fileID: 1799495878}
-  dopey: {fileID: 258369280}
-  sleepy: {fileID: 1968298645}
-  bashful: {fileID: 0}
+  dopey: {fileID: 0}
+  sleepy: {fileID: 258369280}
+  bashful: {fileID: 1968298645}
   doc: {fileID: 0}
   sneezy: {fileID: 0}
   happy: {fileID: 0}
@@ -4019,6 +4019,7 @@ MonoBehaviour:
   igniteClip: {fileID: 8300000, guid: f8fca178f41decf49949a561d9e851ce, type: 3}
   crackleClip: {fileID: 8300000, guid: 7195fb0c91f5b1643ae9f8048c549b02, type: 3}
   eyes: {fileID: 16237752}
+  timePassed: 0
 --- !u!4 &1967515708
 Transform:
   m_ObjectHideFlags: 0
