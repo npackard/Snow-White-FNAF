@@ -62,7 +62,7 @@ public class NightGameManager : MonoBehaviour
         fire.GetComponent<MeshRenderer>().enabled = false;
         timerText.text = "12am";
         deathText.enabled = false;
-        energyText.text = "Energy:";
+        energyText.text = "Energy: 0";
         lastCam = Location.dwarfBedroom;
         StartCoroutine(MakeTimePass());
     }
@@ -154,8 +154,9 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void MirrorUp() {
-        lastCam = camAt;
         camAt = lastCam;
+        Debug.Log(camAt);
+        lastCam = camAt;
     }
 
     public void MirrorDown() {
