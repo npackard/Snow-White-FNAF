@@ -192,6 +192,7 @@ public class NightDwarfBehaviour : MonoBehaviour
             locationIndex = 0;
             transform.position = sleepyTransformPath[0].position;
         } else if (location != NightGameManager.S.GetCamLocation()) {
+            Debug.Log(NightGameManager.S.GetCamLocation());
             float chance = Random.Range(0f, 1f);
             // move to next room in path, easy chance
             if (chance < finalDifficulty) {

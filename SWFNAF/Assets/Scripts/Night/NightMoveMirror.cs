@@ -19,10 +19,12 @@ public class NightMoveMirror : MonoBehaviour
     }
 
     public void MirrorDown() {
+        NightGameManager.S.MirrorDown();
         anim.SetBool("down", true);
     }
 
     public void MirrorUp() {
+        NightGameManager.S.MirrorUp();
         anim.SetBool("down", false);
     }
 }
