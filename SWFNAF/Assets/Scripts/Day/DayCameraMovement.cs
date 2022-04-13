@@ -137,6 +137,7 @@ public class DayCameraMovement : MonoBehaviour
             {
                 if (DayGameManager.instance.CheckKey(lastHit.gameObject.GetComponent<DayDoor>().doorIndex)) {
                     lastHit.gameObject.GetComponent<DayDoor>().OpenDoor();
+                    curr.OpenDoor(lastHit.gameObject.GetComponent<DayDoor>().doorDirectToCam);
                 } else
                 {
                     lastHit.gameObject.GetComponent<DayDoor>().LockedDoor();

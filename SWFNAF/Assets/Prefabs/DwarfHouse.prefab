@@ -27766,6 +27766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorIndex: 2
+  doorDirectToCam: 1
   open: 0
   doorOpen: {fileID: 8300000, guid: 9fd77798d6c94a14b9dfad8b6d896737, type: 3}
   doorLocked: {fileID: 8300000, guid: be3b116c22c3cb54ca99d1ce36fde785, type: 3}
@@ -72822,6 +72823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorIndex: 1
+  doorDirectToCam: 0
   open: 0
   doorOpen: {fileID: 8300000, guid: 9fd77798d6c94a14b9dfad8b6d896737, type: 3}
   doorLocked: {fileID: 8300000, guid: be3b116c22c3cb54ca99d1ce36fde785, type: 3}
@@ -89170,6 +89172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorIndex: 0
+  doorDirectToCam: 2
   open: 0
   doorOpen: {fileID: 8300000, guid: 9fd77798d6c94a14b9dfad8b6d896737, type: 3}
   doorLocked: {fileID: 8300000, guid: be3b116c22c3cb54ca99d1ce36fde785, type: 3}
@@ -130235,6 +130238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorIndex: 0
+  doorDirectToCam: 1
   open: 0
   doorOpen: {fileID: 8300000, guid: 9fd77798d6c94a14b9dfad8b6d896737, type: 3}
   doorLocked: {fileID: 8300000, guid: be3b116c22c3cb54ca99d1ce36fde785, type: 3}

@@ -14,8 +14,14 @@ public class DayCameraLocation : MonoBehaviour
     public GameObject frontArrow;
     public GameObject backArrow;
 
-    //public Vector2 viewAnglesX;
-    //public Vector2 viewAnglesY;
+    public bool hasDoorLeft;
+    public bool hasDoorRight;
+    public bool hasDoorFront;
+    public bool hasDoorBack;
+    public bool openDoorLeft;
+    public bool openDoorRight;
+    public bool openDoorFront;
+    public bool openDoorBack;
 
     private void Start()
     {
@@ -25,12 +31,22 @@ public class DayCameraLocation : MonoBehaviour
         backArrow.SetActive(false);
     }
 
+    public void OpenDoor(int dir)
+    {
+        if (dir == 0) openDoorLeft = true;
+        else if (dir == 1) openDoorRight = true;
+        else if (dir == 2) openDoorFront = true;
+        else if (dir == 3) openDoorBack = true;
+
+        OnThisCam();
+    }
+
     public void OnThisCam()
     {
-        if (left) leftArrow.SetActive(true);
-        if (right) rightArrow.SetActive(true);
-        if (front) frontArrow.SetActive(true);
-        if (back) backArrow.SetActive(true);
+        if (left && ((hasDoorLeft && openDoorLeft) || !hasDoorLeft)) leftArrow.SetActive(true);
+        if (right && ((hasDoorRight && openDoorRight) || !hasDoorRight)) rightArrow.SetActive(true);
+        if (front && ((hasDoorFront && openDoorFront) || !hasDoorFront)) frontArrow.SetActive(true);
+        if (back && ((hasDoorBack && openDoorBack) || !hasDoorBack)) backArrow.SetActive(true);
     }
 
     public void LeaveThisCam()

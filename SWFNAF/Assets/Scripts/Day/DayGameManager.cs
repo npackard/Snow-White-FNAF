@@ -19,6 +19,8 @@ public class DayGameManager : MonoBehaviour
 
     public static DayGameManager m_instance;
 
+    private bool gettingBrighter = true;
+
     private bool[] doorKeys;
     public void GetKey(int i) { doorKeys[i] = true; }
     public bool CheckKey(int i) { return doorKeys[i]; }
@@ -29,8 +31,8 @@ public class DayGameManager : MonoBehaviour
 
     private int inGameTime = 0;
     private float realTime = 0;
-    private float unitTime = 10; // 15 min
-    private float maxTime = 48; // 12 hours
+    public float unitTime = 5; // 15 min
+    private float maxTime = 2; // linearly interpolated between 1 ~ 10 hours based on "energy"
 
     private void Awake()
     {
@@ -49,24 +51,50 @@ public class DayGameManager : MonoBehaviour
         dwarfGems = new bool[6];
         inGameTime = 0;
         DayUIManager.instance.UpdateTime(inGameTime);
+
+        maxTime = Mathf.Clamp(PlayerPrefs.GetFloat("energy") / 10, 1, 10) * 4;
+    }
+
+    private void Update()
+    {
+        if (gettingBrighter)
+        {
+            StartCoroutine(Brighter());
+            gettingBrighter = false;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (inGameTime <= maxTime)
+        if (!gettingBrighter)
         {
-            realTime += Time.fixedDeltaTime;
-            if (realTime >= unitTime)
+            if (inGameTime <= maxTime)
             {
-                realTime = 0;
-                inGameTime += 1;
-                if (inGameTime > maxTime)
+                realTime += Time.fixedDeltaTime;
+                if (realTime >= unitTime)
                 {
-                    // switch to night time
-                    return;
+                    realTime = 0;
+                    inGameTime += 1;
+                    if (inGameTime > maxTime)
+                    {
+                        // update PlayerPrefs on the progress of gemstones
+                        PlayerPrefs.SetInt("gemCount", gemCount);
+
+                        // switch to night time
+                        DayUIManager.instance.DarkerAnim();
+                        GameManager.instance.EndDay();
+                        return;
+                    }
+                    DayUIManager.instance.UpdateTime(inGameTime);
                 }
-                DayUIManager.instance.UpdateTime(inGameTime);
             }
         }
+    }
+
+    private IEnumerator Brighter()
+    {
+        DayUIManager.instance.BrighterAnim();
+
+        yield return new WaitForSeconds(1);
     }
 }

@@ -21,7 +21,14 @@ public class DayUIManager : MonoBehaviour
     public static DayUIManager m_instance;
 
     public GameObject panelInteractable;
+    public GameObject panelEndDay;
+    private Image panelEndDayImg;
     public Text timeText;
+
+    private bool darkerAnim = false;
+    private bool maxOpac = false;
+    private bool brighterAnim = false;
+    private bool minOpac = false;
 
     private void Awake()
     {
@@ -35,6 +42,28 @@ public class DayUIManager : MonoBehaviour
     void Start()
     {
         panelInteractable.SetActive(false);
+        panelEndDay.SetActive(false);
+        panelEndDayImg = panelEndDay.GetComponent<Image>();
+    }
+
+    private void Update()
+    {
+        if (darkerAnim && !maxOpac)
+        {
+            panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, panelEndDayImg.color.a + 0.005f);
+
+            if (panelEndDayImg.color.a >= 1.0f) maxOpac = true;
+        }
+        if (brighterAnim && !minOpac)
+        {
+            panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, panelEndDayImg.color.a - 0.005f);
+
+            if (panelEndDayImg.color.a <= 0f)
+            {
+                minOpac = true;
+                panelEndDay.SetActive(false);
+            }
+        }
     }
 
     public void UpdateTime(int t)
@@ -54,5 +83,25 @@ public class DayUIManager : MonoBehaviour
     public void PanelInteractableOff()
     {
         panelInteractable.SetActive(false);
+    }
+
+    public void BrighterAnim()
+    {
+        panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, 1);
+
+        brighterAnim = true;
+        minOpac = false;
+
+        panelEndDay.SetActive(true);
+    }
+
+    public void DarkerAnim()
+    {
+        panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, 0);
+
+        darkerAnim = true;
+        maxOpac = false;
+
+        panelEndDay.SetActive(true);
     }
 }

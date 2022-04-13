@@ -32,11 +32,23 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Equals))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
     public void EndNight() {
         // move to daytime
+        //SceneManager.LoadScene(2);
+    }
+
+    public void EndDay()
+    {
+        StartCoroutine(EndDayCor());
+    }
+
+    private IEnumerator EndDayCor()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(1);
     }
 }
