@@ -4541,7 +4541,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 206893247}
         m_TargetAssemblyTypeName: NightButtonManager, Assembly-CSharp
-        m_MethodName: MinesCam
+        m_MethodName: StudyCamera
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
