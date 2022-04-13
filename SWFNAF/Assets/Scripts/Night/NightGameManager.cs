@@ -22,6 +22,7 @@ public class NightGameManager : MonoBehaviour
     public NightDwarfBehaviour grumpy;
 
     public TextMeshProUGUI deathText;
+    public TextMeshProUGUI energyText;
     public TextMeshProUGUI timerText;
 
     public NightSleep eyes;
@@ -55,6 +56,7 @@ public class NightGameManager : MonoBehaviour
         fire.SetActive(false);
         timerText.text = "12am";
         deathText.enabled = false;
+        energyText.text = "Energy:";
         lastCam = Location.dwarfBedroom;
         StartCoroutine(MakeTimePass());
     }
@@ -101,6 +103,7 @@ public class NightGameManager : MonoBehaviour
             else timerText.text = "12am";
             StartCoroutine(MakeTimePass());
         } else {
+            timerText.text = "6am";
             NightEnd();
         }
     }
@@ -172,6 +175,7 @@ public class NightGameManager : MonoBehaviour
 
     public void AddEnergy(float amount) {
         if (energy < 100) energy += amount;
+        energyText.text = "Energy: " + energy.ToString();
     }
 
     public void SwitchDoor() {
