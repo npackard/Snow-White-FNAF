@@ -127,12 +127,16 @@ public class DayCameraMovement : MonoBehaviour
                 DayGameManager.instance.GetGem(lastHit.GetComponent<DayGemstone>().dwarfIndex);
                 Destroy(lastHit);
                 canTouch = false;
+                lastHit = null;
+                DayUIManager.instance.PanelInteractableOff();
             }
             else if (lastHit.tag == "Key")
             {
                 DayGameManager.instance.GetKey(lastHit.gameObject.GetComponent<DayKey>().keyIndex);
                 Destroy(lastHit);
                 canTouch = false;
+                lastHit = null;
+                DayUIManager.instance.PanelInteractableOff();
             }
             else if (lastHit.tag == "Door")
             {
