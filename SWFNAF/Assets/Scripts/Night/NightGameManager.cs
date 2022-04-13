@@ -9,6 +9,9 @@ public class NightGameManager : MonoBehaviour
     public static NightGameManager S;
 
     public int secondsPerHour = 50;
+    
+    public AudioSource fireAudio;
+    public AudioSource fireIgnite;
 
     public GameObject door;
     public GameObject fire;
@@ -24,6 +27,9 @@ public class NightGameManager : MonoBehaviour
     public TextMeshProUGUI deathText;
     public TextMeshProUGUI energyText;
     public TextMeshProUGUI timerText;
+
+    public AudioClip igniteClip;
+    public AudioClip crackleClip;
 
     public NightSleep eyes;
 
@@ -53,7 +59,7 @@ public class NightGameManager : MonoBehaviour
     void Start()
     {
         doorAnim = door.GetComponent<Animator>();
-        fire.SetActive(false);
+        fire.GetComponent<MeshRenderer>().enabled = false;
         timerText.text = "12am";
         deathText.enabled = false;
         energyText.text = "Energy:";
@@ -182,13 +188,17 @@ public class NightGameManager : MonoBehaviour
         Debug.Log("yo what?");
         doorClosed = !doorClosed;
         fireLit = false;
-        fire.SetActive(false);
+        fire.GetComponent<MeshRenderer>().enabled = false;
+        fireAudio.loop = false;
+        fireAudio.Stop();
         StopCoroutine(FireTimer());
         doorAnim.SetBool("open", !doorClosed);
     }
 
     public void LightFire() {
-        fire.SetActive(true);
+        fireIgnite.PlayOneShot(igniteClip);
+        StartCoroutine(StartCrackle());
+        fire.GetComponent<MeshRenderer>().enabled = true;
         doorClosed = false;
         doorAnim.SetBool("open", true);
         fireLit = true;
@@ -197,8 +207,10 @@ public class NightGameManager : MonoBehaviour
 
     private IEnumerator FireTimer() {
         yield return new WaitForSeconds(5f);
+        fireAudio.loop = false;
+        fireAudio.Stop();
         fireLit = false;
-        fire.SetActive(false);
+        fire.GetComponent<MeshRenderer>().enabled = false;
     }
 
     public void Die() {
@@ -227,5 +239,11 @@ public class NightGameManager : MonoBehaviour
 
     public bool GetEyesClosed() {
         return eyesClosed;
+    }
+
+    private IEnumerator StartCrackle() {
+        yield return new WaitForSeconds(igniteClip.length);
+        fireAudio.loop = true;
+        fireAudio.Play();
     }
 }
