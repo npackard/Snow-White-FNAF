@@ -21,6 +21,7 @@ public class NightGameManager : MonoBehaviour
     public NightDwarfBehaviour happy;
     public NightDwarfBehaviour grumpy;
 
+    public TextMeshProUGUI deathText;
     public TextMeshProUGUI timerText;
 
     private Animator doorAnim;
@@ -50,6 +51,9 @@ public class NightGameManager : MonoBehaviour
         doorAnim = door.GetComponent<Animator>();
         fire.SetActive(false);
         timerText.text = "12am";
+        deathText.enabled = false;
+        SwitchToBedroomCam();
+        MirrorDown();
         StartCoroutine(MakeTimePass());
     }
 
@@ -65,9 +69,12 @@ public class NightGameManager : MonoBehaviour
 
     // indicates which night is next
     private void NightEnd() {
+        deathText.text = "YOU WIN";
+        deathText.enabled = true;
         ResetDwarves();
         night++;
         timePassed = 0;
+        StartCoroutine(MoveToDay());
     }
 
     private void ResetDwarves() {
@@ -101,34 +108,42 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void SwitchToBathroomCam() {
+        lastCam = camAt;
         camAt = Location.bathroom;
     }
 
     public void SwitchToBedroomCam() {
+        lastCam = camAt;
         camAt = Location.dwarfBedroom;
     }
 
     public void SwitchToKitchenCam() {
+        lastCam = camAt;
         camAt = Location.kitchen;
     }
 
     public void SwitchToMeatGrindersCam() {
+        lastCam = camAt;
         camAt = Location.meatGrinders;
     }
 
     public void SwitchToMinesCam() {
+        lastCam = camAt;
         camAt = Location.mines;
     }
 
     public void SwitchToStudyCam() {
+        lastCam = camAt;
         camAt = Location.study;
     }
 
     public void SwitchToWorkspaceCam() {
+        lastCam = camAt;
         camAt = Location.workspace;
     }
 
     public void MirrorUp() {
+        lastCam = camAt;
         camAt = lastCam;
     }
 
@@ -181,9 +196,16 @@ public class NightGameManager : MonoBehaviour
 
     public void Die() {
         alive = false;
+        deathText.text = "GAME OVER";
+        deathText.enabled = true;
     }
 
     public void StartLevelAgain() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private IEnumerator MoveToDay() {
+        yield return new WaitForSeconds(4f);
+        GameManager.instance.EndNight();
     }
 }

@@ -124,6 +124,12 @@ public class NightDwarfBehaviour : MonoBehaviour
         StartMoving();
     }
 
+    private IEnumerator Die() {
+        NightGameManager.S.Die();
+        yield return new WaitForSeconds(3f);
+        NightGameManager.S.StartLevelAgain();
+    }
+
     public void StartMoving() {
         if (NightGameManager.S.GetNight() >= introNight) {
             isEnabled = true;
@@ -138,16 +144,16 @@ public class NightDwarfBehaviour : MonoBehaviour
                     StartCoroutine(BashfulBehaviour());
                     break;
                 case Dwarf.doc:
-                    StartCoroutine(DocBehaviour());
+                    //StartCoroutine(DocBehaviour());
                     break;
                 case Dwarf.sneezy:
-                    StartCoroutine(SneezyBehaviour());
+                    //StartCoroutine(SneezyBehaviour());
                     break;
                 case Dwarf.happy:
-                    StartCoroutine(HappyBehaviour());
+                    //StartCoroutine(HappyBehaviour());
                     break;
                 case Dwarf.grunmpy:
-                    StartCoroutine(GrumpyBehaviour());
+                    //StartCoroutine(GrumpyBehaviour());
                     break;
                 default:
                     Debug.Log("you did something wrong");
@@ -160,11 +166,6 @@ public class NightDwarfBehaviour : MonoBehaviour
         return (int)Random.Range(shortWait, longWait);
     }
 
-    private void Move() {
-        locationIndex++;
-        location = sleepyPath[locationIndex];
-    }
-
     private IEnumerator DopeyBehaviour() {
         yield return new WaitForSeconds(GetWaitTime());
     }
@@ -172,29 +173,29 @@ public class NightDwarfBehaviour : MonoBehaviour
     // gets a knife while sleepwalking, arrives via stairs
     private IEnumerator SleepyBehaviour() {
         float time = GetWaitTime();
-        Debug.Log(time);
+        Debug.Log("Sleepy: " + time.ToString());
         yield return new WaitForSeconds(time);
-        // don't do anything if on camera
-        if (location != NightGameManager.S.GetCamLocation()) {
-            // prioritize attacking if in Snow White's bedroom
-            if (location == Location.snowWhiteBedroom) {
-                if (NightGameManager.S.GetDoorClosed()) {
-                    location = sleepyPath[0];
-                    locationIndex = 0;
-                    transform.position = sleepyTransformPath[0].position;
-                } else {
-                    transform.position = deathPosition.position;
-                    StartCoroutine(Die());
-                }
+        // prioritize attacking if in Snow White's bedroom
+        if (location == Location.snowWhiteBedroom && NightGameManager.S.GetCamLocation() == Location.none) {
+            if (NightGameManager.S.GetDoorClosed()) {
+                location = sleepyPath[0];
+                locationIndex = 0;
+                transform.position = sleepyTransformPath[0].position;
             } else {
-                float chance = Random.Range(0f, 1f);
-                // move to next room in path, easy chance
-                if (chance < finalDifficulty) {
-                    Move();
-                    // physically move
-                    transform.position = sleepyTransformPath[locationIndex].position;
-                }
-                // give knife if in kitchen or further along path
+                transform.position = deathPosition.position;
+                StartCoroutine(Die());
+            }
+        } else if (location == Location.snowWhiteBedroom) {
+            location = sleepyPath[0];
+            locationIndex = 0;
+            transform.position = sleepyTransformPath[0].position;
+        } else if (location != NightGameManager.S.GetCamLocation()) {
+            float chance = Random.Range(0f, 1f);
+            // move to next room in path, easy chance
+            if (chance < finalDifficulty) {
+                locationIndex++;
+                location = sleepyPath[locationIndex];
+                transform.position = sleepyTransformPath[locationIndex].position;
             }
         }
         StartCoroutine(SleepyBehaviour());
@@ -202,33 +203,38 @@ public class NightDwarfBehaviour : MonoBehaviour
 
     // stays off camera as much as possible, arrives via fireplace
     private IEnumerator BashfulBehaviour() {
-        yield return new WaitForSeconds(GetWaitTime());
-        // don't do anything if off camera
-        if (location != NightGameManager.S.GetCamLocation()) {
-            // prioritize attacking if in Snow White's bedroom
-            if (location == Location.snowWhiteBedroom) {
-                if (NightGameManager.S.GetFireLit()) {
-                    location = bashfulPath[0];
-                    locationIndex = 0;
-                    transform.position = bashfulTransformPath[0].position;
-                } else {
-                    transform.position = deathPosition.position;
-                    StartCoroutine(Die());
-                }
+        float time = GetWaitTime();
+        Debug.Log("Bashful: " + time.ToString());
+        yield return new WaitForSeconds(time);
+        // prioritize attacking if in Snow White's bedroom
+        if (location == Location.snowWhiteBedroom && NightGameManager.S.GetCamLocation() == Location.none) {
+            if (NightGameManager.S.GetFireLit()) {
+                location = bashfulPath[0];
+                locationIndex = 0;
+                transform.position = bashfulTransformPath[0].position;
             } else {
-                float chance = Random.Range(0f, 1f);
-                // move to next room in path, easy chance
-                if (chance < finalDifficulty) {
-                    Move();
-                    // physically move
-                    transform.position = bashfulTransformPath[locationIndex].position;
-                }
-                // give knife if in kitchen or further along path
+                transform.position = deathPosition.position;
+                StartCoroutine(Die());
+            }
+        } else if (location == Location.snowWhiteBedroom) {
+            location = bashfulPath[0];
+            locationIndex = 0;
+            transform.position = bashfulTransformPath[0].position;
+        } else if (location != NightGameManager.S.GetCamLocation()) {
+            float chance = Random.Range(0f, 1f);
+            // move to next room in path, easy chance
+            if (chance < finalDifficulty) {
+                locationIndex++;
+                location = bashfulPath[locationIndex];
+                transform.position = bashfulTransformPath[locationIndex].position;
             }
         }
         StartCoroutine(BashfulBehaviour());
     }
 
+//// NICOLE NEEDS TO CHANGE ALL OF THE FOLLOWING CODE TO MATCH SLEEPY AND BASHFUL BEHAVIOUR \\\\\
+
+/*
     private IEnumerator DocBehaviour() {
         yield return new WaitForSeconds(GetWaitTime());
         // don't do anything if off camera
@@ -340,10 +346,6 @@ public class NightDwarfBehaviour : MonoBehaviour
         }
         StartCoroutine(GrumpyBehaviour());
     }
+*/
 
-    private IEnumerator Die() {
-        NightGameManager.S.Die();
-        yield return new WaitForSeconds(3f);
-        NightGameManager.S.StartLevelAgain();
-    }
 }
