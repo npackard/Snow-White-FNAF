@@ -45,6 +45,7 @@ public class NightButtonManager : MonoBehaviour
     }
 
     public void SwitchDoor() {
+        Debug.Log("wanna be");
         NightGameManager.S.SwitchDoor();
     }
 

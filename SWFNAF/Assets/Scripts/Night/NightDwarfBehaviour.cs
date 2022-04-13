@@ -170,7 +170,6 @@ public class NightDwarfBehaviour : MonoBehaviour
         yield return new WaitForSeconds(GetWaitTime());
     }
 
-    // gets a knife while sleepwalking, arrives via stairs
     private IEnumerator SleepyBehaviour() {
         float time = GetWaitTime();
         Debug.Log("Sleepy: " + time.ToString());
@@ -182,6 +181,9 @@ public class NightDwarfBehaviour : MonoBehaviour
                 locationIndex = 0;
                 transform.position = sleepyTransformPath[0].position;
             } else {
+                if (NightGameManager.S.GetEyesClosed()) {
+                    NightGameManager.S.eyes.NoControl();
+                }
                 transform.position = deathPosition.position;
                 StartCoroutine(Die());
             }

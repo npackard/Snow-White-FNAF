@@ -24,6 +24,8 @@ public class NightGameManager : MonoBehaviour
     public TextMeshProUGUI deathText;
     public TextMeshProUGUI timerText;
 
+    public NightSleep eyes;
+
     private Animator doorAnim;
 
     private Location camAt = Location.none;
@@ -31,6 +33,7 @@ public class NightGameManager : MonoBehaviour
 
     private bool alive = true;
     private bool doorClosed = false;
+    private bool eyesClosed = false;
     private bool fireLit = false;
     private bool ventClosed = false;
     private float energy = 0f;
@@ -52,8 +55,7 @@ public class NightGameManager : MonoBehaviour
         fire.SetActive(false);
         timerText.text = "12am";
         deathText.enabled = false;
-        SwitchToBedroomCam();
-        MirrorDown();
+        lastCam = Location.dwarfBedroom;
         StartCoroutine(MakeTimePass());
     }
 
@@ -173,6 +175,7 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void SwitchDoor() {
+        Debug.Log("yo what?");
         doorClosed = !doorClosed;
         fireLit = false;
         fire.SetActive(false);
@@ -205,7 +208,20 @@ public class NightGameManager : MonoBehaviour
     }
 
     private IEnumerator MoveToDay() {
+        PlayerPrefs.SetFloat("energy", energy);
         yield return new WaitForSeconds(4f);
         GameManager.instance.EndNight();
+    }
+
+    public void CloseEyes() {
+        eyesClosed = true;
+    }
+
+    public void OpenEyes() {
+        eyesClosed = false;
+    }
+
+    public bool GetEyesClosed() {
+        return eyesClosed;
     }
 }

@@ -44,19 +44,5 @@ public class NightPlayerLook : MonoBehaviour
             anim.SetTrigger("lookRight");
             rightTrigger = true;
         }
-
-        /*
-        float sensitivity = mouseSensitivity / 10f;
-        change = Input.GetAxisRaw("Mouse X");
-        Vector2 mouseDir = Vector2.Scale(new Vector2(change, 0f), new Vector2(sensitivity * smoothing, sensitivity * smoothing));
-        smooth = Mathf.Lerp(smooth, mouseDir.x, 1f / smoothing);
-        mouse += smooth;
-        transform.localRotation = Quaternion.AngleAxis(Mathf.Clamp(mouse, minY, maxY), transform.up);
-        */
     }
 }
-
-/*
-ATTRIBUTIONS
-First-Person Camera: https://github.com/jiankaiwang/FirstPersonController
-*/

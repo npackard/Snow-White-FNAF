@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NightSleep : MonoBehaviour
 {
+    private bool canControl = true;
     private float timer = 0f;
 
     private Animator anim;
@@ -17,21 +18,36 @@ public class NightSleep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.E)) {
-            timer += Time.deltaTime;
-            anim.SetBool("open", false);
-        } else {
-            timer = 0f;
-            anim.SetBool("open", true);
-        }
+        if (canControl) {
+            if (Input.GetKey(KeyCode.E)) {
+                timer += Time.deltaTime;
+                anim.SetBool("open", false);
+                NightGameManager.S.CloseEyes();
+            } else {
+                timer = 0f;
+                anim.SetBool("open", true);
+                NightGameManager.S.OpenEyes();
+            }
 
-        if (timer > 1f) {
-            AddEnergy();
-            timer = 0f;
+            if (timer > 1f) {
+                AddEnergy();
+                timer = 0f;
+            }
+        } else {
+            anim.SetBool("open", true);
+            NightGameManager.S.OpenEyes();
         }
     }
 
     private void AddEnergy() {
         NightGameManager.S.AddEnergy(1f);
+    }
+
+    public void YesControl() {
+        canControl = true;
+    }
+
+    public void NoControl() {
+        canControl = false;
     }
 }
