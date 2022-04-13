@@ -130,7 +130,8 @@ public class DayCameraMovement : MonoBehaviour
             }
             else if (lastHit.tag == "Key")
             {
-                //DayGameManager.instance.GetKey(lastHit.gameObject.GetComponent<DayKey>().keyIndex);
+                DayGameManager.instance.GetKey(lastHit.gameObject.GetComponent<DayKey>().keyIndex);
+                Destroy(lastHit);
                 canTouch = false;
             }
             else if (lastHit.tag == "Door")
