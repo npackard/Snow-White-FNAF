@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Gemstone
   - Interactable
+  - Door
+  - Key
   layers:
   - Default
   - TransparentFX

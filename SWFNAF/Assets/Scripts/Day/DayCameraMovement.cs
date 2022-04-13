@@ -82,20 +82,29 @@ public class DayCameraMovement : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 10, layer_mask))
         {
             if (hit.transform.gameObject.tag == "Interactable" ||
-                hit.transform.gameObject.tag == "Gemstone")
+                hit.transform.gameObject.tag == "Gemstone" ||
+                hit.transform.gameObject.tag == "Key")
             {
                 canTouch = true;
                 lastHit = hit.transform.gameObject;
                 DayUIManager.instance.PanelInteractableOn();
+            } else if (hit.transform.gameObject.tag == "Door")
+            {
+                if (hit.transform.gameObject.GetComponent<DayDoor>().open) return;
+                else
+                {
+                    canTouch = true;
+                    lastHit = hit.transform.gameObject;
+                    DayUIManager.instance.PanelInteractableOn();
+                }
             }
         }
         else 
-        { 
+        {
             canTouch = false;
             lastHit = null;
             DayUIManager.instance.PanelInteractableOff();
         }
-
         if (Input.GetKeyDown(KeyCode.A))
         {
             if (curr.left) Move(curr.left);
@@ -113,14 +122,25 @@ public class DayCameraMovement : MonoBehaviour
         }
         else if (canTouch && Input.GetKeyDown(KeyCode.F))
         {
-            // Display interactable UI
-
-            //lastHit.GetComponent<>.Interact();
-
-            if (lastHit.gameObject.tag == "Gemstone")
+            if (lastHit.tag == "Gemstone")
             {
                 DayGameManager.instance.GetGem(lastHit.GetComponent<DayGemstone>().dwarfIndex);
                 Destroy(lastHit);
+                canTouch = false;
+            }
+            else if (lastHit.tag == "Key")
+            {
+                //DayGameManager.instance.GetKey(lastHit.gameObject.GetComponent<DayKey>().keyIndex);
+                canTouch = false;
+            }
+            else if (lastHit.tag == "Door")
+            {
+                if (DayGameManager.instance.CheckKey(lastHit.gameObject.GetComponent<DayDoor>().doorIndex)) {
+                    lastHit.gameObject.GetComponent<DayDoor>().OpenDoor();
+                } else
+                {
+                    lastHit.gameObject.GetComponent<DayDoor>().LockedDoor();
+                }
                 canTouch = false;
             }
         }
@@ -130,6 +150,10 @@ public class DayCameraMovement : MonoBehaviour
     {
         camMoving = true;
 
+        canTouch = false;
+        lastHit = null;
+        DayUIManager.instance.PanelInteractableOff();
+
         curr.LeaveThisCam();
         curr = target;
 
@@ -138,6 +162,14 @@ public class DayCameraMovement : MonoBehaviour
 
     private IEnumerator MovePos(Transform target)
     {
+        while (Mathf.Abs(target.position.x - transform.position.x) > 0.2f || Mathf.Abs(target.position.y - transform.position.y) > 0.2f
+                                                                        || Mathf.Abs(target.position.z - transform.position.z) > 0.2f)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position,
+                                new Vector3(target.position.x, target.position.y, target.position.z), ref velocity, 0.1f);
+            yield return null;
+        }
+
         while (Mathf.Abs(target.transform.eulerAngles.x - transform.eulerAngles.x) > 0.2f)
         {
             float xAngle = Mathf.SmoothDampAngle(transform.eulerAngles.x, target.transform.eulerAngles.x, ref yVel, 0.1f);
@@ -158,13 +190,6 @@ public class DayCameraMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(xAngle, 0, 0);
             yield return null;
         }*/
-        while (Mathf.Abs(target.position.x - transform.position.x) > 0.2f || Mathf.Abs(target.position.y - transform.position.y) > 0.2f
-                                                                        || Mathf.Abs(target.position.z - transform.position.z) > 0.2f)
-        {
-            transform.position = Vector3.SmoothDamp(transform.position,
-                                new Vector3(target.position.x, target.position.y, target.position.z), ref velocity, 0.1f);
-            yield return null;
-        }
 
         transform.position = target.transform.position;
         vertAng = target.eulerAngles.x;
