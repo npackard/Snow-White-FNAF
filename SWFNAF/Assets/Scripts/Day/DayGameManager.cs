@@ -32,7 +32,7 @@ public class DayGameManager : MonoBehaviour
     private int inGameTime = 0;
     private float realTime = 0;
     public float unitTime = 5; // 15 min
-    private float maxTime = 2; // linearly interpolated between 1 ~ 10 hours based on "energy"
+    private float maxTime = 40; // linearly interpolated between 1 ~ 10 hours based on "energy"
 
     private void Awake()
     {
@@ -49,10 +49,9 @@ public class DayGameManager : MonoBehaviour
         doorKeys[0] = true;
 
         dwarfGems = new bool[6];
-        inGameTime = 0;
-        DayUIManager.instance.UpdateTime(inGameTime);
+        inGameTime = (int) Mathf.Clamp((100 - PlayerPrefs.GetFloat("energy")) / 10, 0, 9) * 4;
 
-        maxTime = Mathf.Clamp(PlayerPrefs.GetFloat("energy") / 10, 1, 10) * 4;
+        DayUIManager.instance.UpdateTime(inGameTime);
     }
 
     private void Update()
