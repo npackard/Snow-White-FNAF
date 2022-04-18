@@ -59,7 +59,7 @@ public class NightGameManager : MonoBehaviour
     void Start()
     {
         doorAnim = door.GetComponent<Animator>();
-        fire.GetComponent<MeshRenderer>().enabled = false;
+        fire.SetActive(false);
         timerText.text = "12am";
         deathText.enabled = false;
         energyText.text = "Energy: 0";
@@ -197,9 +197,9 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void LightFire() {
+        fire.SetActive(true);
         fireIgnite.PlayOneShot(igniteClip);
         StartCoroutine(StartCrackle());
-        fire.GetComponent<MeshRenderer>().enabled = true;
         doorClosed = false;
         doorAnim.SetBool("open", true);
         fireLit = true;
@@ -211,7 +211,7 @@ public class NightGameManager : MonoBehaviour
         fireAudio.loop = false;
         fireAudio.Stop();
         fireLit = false;
-        fire.GetComponent<MeshRenderer>().enabled = false;
+        fire.SetActive(false);
     }
 
     public void Die() {
