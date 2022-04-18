@@ -171,9 +171,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     private IEnumerator SleepyBehaviour() {
-        float time = GetWaitTime();
-        Debug.Log("Sleepy: " + time.ToString());
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(GetWaitTime());
         // prioritize attacking if in Snow White's bedroom
         if (location == Location.snowWhiteBedroom && NightGameManager.S.GetCamLocation() == Location.none) {
             if (NightGameManager.S.GetDoorClosed()) {
@@ -191,8 +189,7 @@ public class NightDwarfBehaviour : MonoBehaviour
             location = sleepyPath[0];
             locationIndex = 0;
             transform.position = sleepyTransformPath[0].position;
-        } else if (location != NightGameManager.S.GetCamLocation()) {
-            Debug.Log(NightGameManager.S.GetCamLocation());
+        } else if (location != NightGameManager.S.GetCamLocation() && sleepyPath[locationIndex + 1] != NightGameManager.S.GetCamLocation()) {
             float chance = Random.Range(0f, 1f);
             // move to next room in path, easy chance
             if (chance < finalDifficulty) {
@@ -206,9 +203,7 @@ public class NightDwarfBehaviour : MonoBehaviour
 
     // stays off camera as much as possible, arrives via fireplace
     private IEnumerator BashfulBehaviour() {
-        float time = GetWaitTime();
-        Debug.Log("Bashful: " + time.ToString());
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(GetWaitTime());
         // prioritize attacking if in Snow White's bedroom
         if (location == Location.snowWhiteBedroom && NightGameManager.S.GetCamLocation() == Location.none) {
             if (NightGameManager.S.GetFireLit()) {
@@ -223,7 +218,7 @@ public class NightDwarfBehaviour : MonoBehaviour
             location = bashfulPath[0];
             locationIndex = 0;
             transform.position = bashfulTransformPath[0].position;
-        } else if (location != NightGameManager.S.GetCamLocation()) {
+        } else if (location != NightGameManager.S.GetCamLocation() && bashfulPath[locationIndex + 1] != NightGameManager.S.GetCamLocation()) {
             float chance = Random.Range(0f, 1f);
             // move to next room in path, easy chance
             if (chance < finalDifficulty) {
@@ -233,6 +228,34 @@ public class NightDwarfBehaviour : MonoBehaviour
             }
         }
         StartCoroutine(BashfulBehaviour());
+    }
+
+    private IEnumerator DocBehaviour() {
+        yield return new WaitForSeconds(GetWaitTime());
+        // prioritize attacking if in Snow White's bedroom
+        if (location == Location.snowWhiteBedroom && NightGameManager.S.GetCamLocation() == Location.none) {
+            // if blocked
+            if (NightGameManager.S.GetDoorClosed()) {
+                location = docPath[0];
+                locationIndex = 0;
+                transform.position = docTransformPath[0].position;
+            } else {
+                transform.position = deathPosition.position;
+                StartCoroutine(Die());
+            }
+        } else if (location == Location.snowWhiteBedroom) {
+            location = docPath[0];
+            locationIndex = 0;
+            transform.position = docTransformPath[0].position;
+        } else if (location != NightGameManager.S.GetCamLocation() && docPath[locationIndex + 1] != NightGameManager.S.GetCamLocation()) {
+            float chance = Random.Range(0f, 1f);
+            // move to next room in path, medium chance
+            if (chance < finalDifficulty) {
+                locationIndex++;
+                location = docPath[locationIndex];
+                transform.position = docTransformPath[locationIndex].position;
+            }
+        }
     }
 
 //// NICOLE NEEDS TO CHANGE ALL OF THE FOLLOWING CODE TO MATCH SLEEPY AND BASHFUL BEHAVIOUR \\\\\
