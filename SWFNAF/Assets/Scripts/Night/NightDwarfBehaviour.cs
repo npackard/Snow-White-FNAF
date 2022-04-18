@@ -49,36 +49,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        location = Location.dwarfBedroom;
-        switch(dwarf) {
-            case Dwarf.sleepy:
-                transform.position = sleepyTransformPath[0].position;
-                location = sleepyPath[0];
-                break;
-            case Dwarf.bashful:
-                transform.position = bashfulTransformPath[0].position;
-                location = bashfulPath[0];
-                break;
-            case Dwarf.doc:
-                transform.position = docTransformPath[0].position;
-                location = docPath[0];
-                break;
-            case Dwarf.sneezy:
-                transform.position = sneezyTransformPath[0].position;
-                location = sneezyPath[0];
-                break;
-            case Dwarf.happy:
-                transform.position = happyTransformPath[0].position;
-                location = happyPath[0];
-                break;
-            case Dwarf.grunmpy:
-                transform.position = grumpyTransformPath[0].position;
-                location = grumpyPath[0];
-                break;
-            default:
-                Debug.Log("oh no");
-                break;
-        }
+        StartingPos();
         SetTimes();
         SetFinalDifficulty();
         StartMoving();
@@ -88,6 +59,45 @@ public class NightDwarfBehaviour : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void StartingPos() {
+        location = Location.dwarfBedroom;
+        switch(dwarf) {
+            case Dwarf.sleepy:
+                transform.position = sleepyTransformPath[0].position;
+                transform.rotation = sleepyTransformPath[0].rotation;
+                location = sleepyPath[0];
+                break;
+            case Dwarf.bashful:
+                transform.position = bashfulTransformPath[0].position;
+                transform.rotation = bashfulTransformPath[0].rotation;
+                location = bashfulPath[0];
+                break;
+            case Dwarf.doc:
+                transform.position = docTransformPath[0].position;
+                transform.rotation = docTransformPath[0].rotation;
+                location = docPath[0];
+                break;
+            case Dwarf.sneezy:
+                transform.position = sneezyTransformPath[0].position;
+                transform.rotation = sneezyTransformPath[0].rotation;
+                location = sneezyPath[0];
+                break;
+            case Dwarf.happy:
+                transform.position = happyTransformPath[0].position;
+                transform.rotation = happyTransformPath[0].rotation;
+                location = happyPath[0];
+                break;
+            case Dwarf.grunmpy:
+                transform.position = grumpyTransformPath[0].position;
+                transform.rotation = grumpyTransformPath[0].rotation;
+                location = grumpyPath[0];
+                break;
+            default:
+                Debug.Log("oh no");
+                break;
+        }
     }
 
     public void SetTimes() {
@@ -178,17 +188,20 @@ public class NightDwarfBehaviour : MonoBehaviour
                 location = sleepyPath[0];
                 locationIndex = 0;
                 transform.position = sleepyTransformPath[0].position;
+                transform.rotation = sleepyTransformPath[0].rotation;
             } else {
                 if (NightGameManager.S.GetEyesClosed()) {
                     NightGameManager.S.eyes.NoControl();
                 }
                 transform.position = deathPosition.position;
+                transform.rotation = deathPosition.rotation;
                 StartCoroutine(Die());
             }
         } else if (location == Location.snowWhiteBedroom) {
             location = sleepyPath[0];
             locationIndex = 0;
             transform.position = sleepyTransformPath[0].position;
+            transform.rotation = sleepyTransformPath[0].rotation;
         } else if (location != NightGameManager.S.GetCamLocation() && sleepyPath[locationIndex + 1] != NightGameManager.S.GetCamLocation()) {
             float chance = Random.Range(0f, 1f);
             // move to next room in path, easy chance
@@ -196,6 +209,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 locationIndex++;
                 location = sleepyPath[locationIndex];
                 transform.position = sleepyTransformPath[locationIndex].position;
+                transform.rotation = sleepyTransformPath[locationIndex].rotation;
             }
         }
         StartCoroutine(SleepyBehaviour());
@@ -210,14 +224,17 @@ public class NightDwarfBehaviour : MonoBehaviour
                 location = bashfulPath[0];
                 locationIndex = 0;
                 transform.position = bashfulTransformPath[0].position;
+                transform.rotation = bashfulTransformPath[0].rotation;
             } else {
                 transform.position = deathPosition.position;
+                transform.rotation = deathPosition.rotation;
                 StartCoroutine(Die());
             }
         } else if (location == Location.snowWhiteBedroom) {
             location = bashfulPath[0];
             locationIndex = 0;
             transform.position = bashfulTransformPath[0].position;
+            transform.rotation = bashfulTransformPath[0].rotation;
         } else if (location != NightGameManager.S.GetCamLocation() && bashfulPath[locationIndex + 1] != NightGameManager.S.GetCamLocation()) {
             float chance = Random.Range(0f, 1f);
             // move to next room in path, easy chance
@@ -225,6 +242,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 locationIndex++;
                 location = bashfulPath[locationIndex];
                 transform.position = bashfulTransformPath[locationIndex].position;
+                transform.rotation = bashfulTransformPath[locationIndex].rotation;
             }
         }
         StartCoroutine(BashfulBehaviour());
@@ -239,14 +257,17 @@ public class NightDwarfBehaviour : MonoBehaviour
                 location = docPath[0];
                 locationIndex = 0;
                 transform.position = docTransformPath[0].position;
+                transform.rotation = docTransformPath[0].rotation;
             } else {
                 transform.position = deathPosition.position;
+                transform.rotation = deathPosition.rotation;
                 StartCoroutine(Die());
             }
         } else if (location == Location.snowWhiteBedroom) {
             location = docPath[0];
             locationIndex = 0;
             transform.position = docTransformPath[0].position;
+            transform.rotation = docTransformPath[0].rotation;
         } else if (location != NightGameManager.S.GetCamLocation() && docPath[locationIndex + 1] != NightGameManager.S.GetCamLocation()) {
             float chance = Random.Range(0f, 1f);
             // move to next room in path, medium chance
@@ -254,6 +275,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 locationIndex++;
                 location = docPath[locationIndex];
                 transform.position = docTransformPath[locationIndex].position;
+                transform.rotation = docTransformPath[locationIndex].rotation;
             }
         }
     }
