@@ -11,6 +11,8 @@ public class DayDoor : MonoBehaviour
     public AudioClip doorOpen;
     public AudioClip doorLocked;
 
+    public GameObject[] cams;
+
     private Animator anim;
     private AudioSource audio;
 
@@ -19,6 +21,11 @@ public class DayDoor : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         audio = GetComponent<AudioSource>();
+
+        foreach (GameObject cam in cams)
+        {
+            cam.SetActive(false);
+        }
     }
 
     public void OpenDoor()
@@ -26,6 +33,11 @@ public class DayDoor : MonoBehaviour
         open = true;
         anim.SetBool("Open", true);
         audio.PlayOneShot(doorOpen);
+
+        foreach (GameObject cam in cams)
+        {
+            cam.SetActive(true);
+        }
     }
 
     public void LockedDoor()
