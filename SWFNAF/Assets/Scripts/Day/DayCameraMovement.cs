@@ -22,16 +22,11 @@ public class DayCameraMovement : MonoBehaviour
     public static DayCameraMovement m_instance;
 
     public VolumeProfile volume;
-    //private DepthOfField dof;
-    //private LensDistortion ld;
-    //public float ldMax = 0.3f;
 
     public DayCameraLocation start;
     public DayCameraLocation curr;
 
     private Vector3 velocity;
-    private float xVel;
-    private float yVel;
     private bool camMoving;
 
     public float speedH = 2f;
@@ -59,10 +54,6 @@ public class DayCameraMovement : MonoBehaviour
         curr.OnThisCam();
 
         Cursor.lockState = CursorLockMode.Locked;
-
-        //volume.TryGet(out dof);
-        //volume.TryGet(out ld);
-        //ld.intensity.Override(0f);
     }
 
     void Update()
@@ -78,12 +69,14 @@ public class DayCameraMovement : MonoBehaviour
 
         var ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
-        int layer_mask = 1 << curr.gameObject.layer;
-        if (Physics.Raycast(ray, out hit, 10, layer_mask))
+        int layer_mask = (1 << curr.gameObject.layer) | LayerMask.GetMask("CamLocations");
+
+        if (Physics.Raycast(ray, out hit, 100, layer_mask))
         {
             if (hit.transform.gameObject.tag == "Interactable" ||
                 hit.transform.gameObject.tag == "Gemstone" ||
-                hit.transform.gameObject.tag == "Key")
+                hit.transform.gameObject.tag == "Key" ||
+                hit.transform.gameObject.tag == "Camera")
             {
                 canTouch = true;
                 lastHit = hit.transform.gameObject;
@@ -105,22 +98,8 @@ public class DayCameraMovement : MonoBehaviour
             lastHit = null;
             DayUIManager.instance.PanelInteractableOff();
         }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (curr.left) Move(curr.left);
-        } else if (Input.GetKeyDown(KeyCode.D))
-        {
-            if (curr.right) Move(curr.right);
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            if (curr.front) Move(curr.front);
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            if (curr.back) Move(curr.back);
-        }
-        else if (canTouch && Input.GetKeyDown(KeyCode.F))
+
+        if (canTouch && Input.GetKeyDown(KeyCode.F))
         {
             if (lastHit.tag == "Gemstone")
             {
@@ -142,28 +121,32 @@ public class DayCameraMovement : MonoBehaviour
             {
                 if (DayGameManager.instance.CheckKey(lastHit.gameObject.GetComponent<DayDoor>().doorIndex)) {
                     lastHit.gameObject.GetComponent<DayDoor>().OpenDoor();
-                    curr.OpenDoor(lastHit.gameObject.GetComponent<DayDoor>().doorDirectToCam);
                 } else
                 {
                     lastHit.gameObject.GetComponent<DayDoor>().LockedDoor();
                 }
                 canTouch = false;
             }
+            else if (lastHit.tag == "Camera")
+            {
+                canTouch = false;
+                DayUIManager.instance.PanelInteractableOff();
+                Move(lastHit.gameObject.transform.parent.gameObject);
+            }
         }
     }
 
-    private void Move(DayCameraLocation target)
+    private void Move(GameObject target)
     {
         camMoving = true;
 
-        canTouch = false;
-        lastHit = null;
         DayUIManager.instance.PanelInteractableOff();
 
         curr.LeaveThisCam();
-        curr = target;
+        curr = target.GetComponent<DayCameraLocation>();
 
-        StartCoroutine(MovePos(target.gameObject.transform));
+        StartCoroutine(MovePos(target.transform));
+        lastHit = null;
     }
 
     private IEnumerator MovePos(Transform target)
@@ -176,30 +159,8 @@ public class DayCameraMovement : MonoBehaviour
             yield return null;
         }
 
-        while (Mathf.Abs(target.transform.eulerAngles.x - transform.eulerAngles.x) > 0.2f)
-        {
-            float xAngle = Mathf.SmoothDampAngle(transform.eulerAngles.x, target.transform.eulerAngles.x, ref yVel, 0.1f);
-            transform.rotation = Quaternion.Euler(xAngle, transform.eulerAngles.y, 0);
-            yield return null;
-        }
-        while (Mathf.Abs(target.transform.eulerAngles.y - transform.eulerAngles.y) > 0.2f)
-        {
-            float yAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, target.transform.eulerAngles.y, ref yVel, 0.1f);
-            transform.rotation = Quaternion.Euler(transform.eulerAngles.x, yAngle, 0);
-            yield return null;
-        }
-        /*while (Mathf.Abs(target.transform.eulerAngles.x - transform.eulerAngles.x) > 0.2f || 
-                Mathf.Abs(target.transform.eulerAngles.y - transform.eulerAngles.y) > 0.2f)
-        {
-            float xAngle = Mathf.SmoothDampAngle(transform.eulerAngles.x, target.transform.eulerAngles.x, ref yVel, 0.1f);
-            float yAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, target.transform.eulerAngles.y, ref yVel, 0.1f);
-            transform.rotation = Quaternion.Euler(xAngle, 0, 0);
-            yield return null;
-        }*/
-
         transform.position = target.transform.position;
-        vertAng = target.eulerAngles.x;
-        horizAng = target.eulerAngles.y;
+
         curr.OnThisCam();
         camMoving = false;
     }

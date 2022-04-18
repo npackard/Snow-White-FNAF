@@ -8,6 +8,7 @@ TagManager:
   - Interactable
   - Door
   - Key
+  - Camera
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - DwarfBedroom
   - SnowWhiteBedroom
   - Mine
-  - 
+  - CamLocations
   - 
   - 
   - 

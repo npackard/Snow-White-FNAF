@@ -27770,6 +27770,7 @@ MonoBehaviour:
   open: 0
   doorOpen: {fileID: 8300000, guid: 9fd77798d6c94a14b9dfad8b6d896737, type: 3}
   doorLocked: {fileID: 8300000, guid: be3b116c22c3cb54ca99d1ce36fde785, type: 3}
+  cams: []
 --- !u!82 &3507094165389739437
 AudioSource:
   m_ObjectHideFlags: 0
@@ -72827,6 +72828,7 @@ MonoBehaviour:
   open: 0
   doorOpen: {fileID: 8300000, guid: 9fd77798d6c94a14b9dfad8b6d896737, type: 3}
   doorLocked: {fileID: 8300000, guid: be3b116c22c3cb54ca99d1ce36fde785, type: 3}
+  cams: []
 --- !u!82 &8843945281601149568
 AudioSource:
   m_ObjectHideFlags: 0
@@ -89176,6 +89178,7 @@ MonoBehaviour:
   open: 0
   doorOpen: {fileID: 8300000, guid: 9fd77798d6c94a14b9dfad8b6d896737, type: 3}
   doorLocked: {fileID: 8300000, guid: be3b116c22c3cb54ca99d1ce36fde785, type: 3}
+  cams: []
 --- !u!82 &4853814900711133760
 AudioSource:
   m_ObjectHideFlags: 0
@@ -130242,6 +130245,7 @@ MonoBehaviour:
   open: 0
   doorOpen: {fileID: 8300000, guid: 9fd77798d6c94a14b9dfad8b6d896737, type: 3}
   doorLocked: {fileID: 8300000, guid: be3b116c22c3cb54ca99d1ce36fde785, type: 3}
+  cams: []
 --- !u!82 &3524617972501953821
 AudioSource:
   m_ObjectHideFlags: 0
