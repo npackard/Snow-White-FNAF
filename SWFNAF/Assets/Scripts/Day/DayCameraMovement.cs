@@ -91,6 +91,11 @@ public class DayCameraMovement : MonoBehaviour
                     lastHit = hit.transform.gameObject;
                     DayUIManager.instance.PanelInteractableOn();
                 }
+            } else
+            {
+                canTouch = false;
+                lastHit = null;
+                DayUIManager.instance.PanelInteractableOff();
             }
         }
         else 
