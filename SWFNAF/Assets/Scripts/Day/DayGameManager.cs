@@ -47,6 +47,7 @@ public class DayGameManager : MonoBehaviour
             PlayerPrefs.SetInt("Key2", 0);
             PlayerPrefs.SetInt("Key3", 0);
             PlayerPrefs.SetInt("Key4", 0);
+            PlayerPrefs.SetInt("Key5", 0);
             PlayerPrefs.SetInt("Gem1", 0);
             PlayerPrefs.SetInt("Gem2", 0);
             PlayerPrefs.SetInt("Gem3", 0);
@@ -59,12 +60,13 @@ public class DayGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        doorKeys = new bool[5];
+        doorKeys = new bool[6];
         doorKeys[0] = true;
         doorKeys[1] = PlayerPrefs.GetInt("Key1") == 1;
         doorKeys[2] = PlayerPrefs.GetInt("Key2") == 1;
         doorKeys[3] = PlayerPrefs.GetInt("Key3") == 1;
         doorKeys[4] = PlayerPrefs.GetInt("Key4") == 1;
+        doorKeys[5] = PlayerPrefs.GetInt("Key5") == 1;
 
         inGameTime = (int) Mathf.Clamp((100 - PlayerPrefs.GetFloat("energy")) / 10, 0, 9) * 4;
 
