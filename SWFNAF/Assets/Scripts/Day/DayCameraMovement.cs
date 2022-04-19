@@ -104,7 +104,8 @@ public class DayCameraMovement : MonoBehaviour
         {
             if (lastHit.tag == "Gemstone")
             {
-                DayGameManager.instance.GetGem(lastHit.GetComponent<DayGemstone>().dwarfIndex);
+                int gemInd = lastHit.GetComponent<DayGemstone>().gemIndex;
+                PlayerPrefs.SetInt("Gem" + gemInd.ToString(), 1);
                 Destroy(lastHit);
                 canTouch = false;
                 lastHit = null;
@@ -112,7 +113,9 @@ public class DayCameraMovement : MonoBehaviour
             }
             else if (lastHit.tag == "Key")
             {
-                DayGameManager.instance.GetKey(lastHit.gameObject.GetComponent<DayKey>().keyIndex);
+                int keyInd = lastHit.gameObject.GetComponent<DayKey>().keyIndex;
+                PlayerPrefs.SetInt("Key" + keyInd.ToString(), 1);
+                DayGameManager.instance.GetKey(keyInd);
                 Destroy(lastHit);
                 canTouch = false;
                 lastHit = null;

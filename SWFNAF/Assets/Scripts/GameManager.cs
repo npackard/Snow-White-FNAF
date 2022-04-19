@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndDayCor()
     {
+        PlayerPrefs.SetInt("DayCount", PlayerPrefs.GetInt("DayCount") + 1);
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(1);
     }
