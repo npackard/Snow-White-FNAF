@@ -16,32 +16,40 @@ public class NightButtonManager : MonoBehaviour
         
     }
 
+    public void DwarfBedroomCam() {
+        NightSwitchCamera.S.SwitchToDwarfBedroomCam();
+    }
+
     public void BathroomCam() {
         NightSwitchCamera.S.SwitchToBathroomCam();
     }
 
-    public void BedroomCam() {
-        NightSwitchCamera.S.SwitchToBedroomCam();
+    public void WorkshopCam() {
+        NightSwitchCamera.S.SwitchToWorkshopCam();
+    }
+
+    public void UnknownCam() {
+        NightSwitchCamera.S.SwitchToUnknownCam();
+    }
+
+    public void MineEntranceCam() {
+        NightSwitchCamera.S.SwitchToMineEntranceCam();
+    }
+
+    public void HallOneCam() {
+        NightSwitchCamera.S.SwitchToHallOneCam();
+    }
+
+    public void HallTwoCam() {
+        NightSwitchCamera.S.SwitchToHallTwoCam();
+    }
+
+    public void LivingRoomCam() {
+        NightSwitchCamera.S.SwitchToLivingRoomCam();
     }
 
     public void KitchenCam() {
         NightSwitchCamera.S.SwitchToKitchenCam();
-    }
-
-    public void MeatGrinderCam() {
-        NightSwitchCamera.S.SwitchToMeatGrindersCam();
-    }
-
-    public void MinesCam() {
-        NightSwitchCamera.S.SwitchToMinesCam();
-    }
-
-    public void StudyCamera() {
-        NightSwitchCamera.S.SwitchToStudyCam();
-    }
-
-    public void WorkspaceCam() {
-        NightSwitchCamera.S.SwitchToWorkspaceCam();
     }
 
     public void SwitchDoor() {

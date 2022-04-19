@@ -118,39 +118,49 @@ public class NightGameManager : MonoBehaviour
         StartCoroutine(MakeTimePass());
     }
 
-    public void SwitchToBathroomCam() {
-        lastCam = camAt;
-        camAt = Location.bathroom;
-    }
-
-    public void SwitchToBedroomCam() {
+    public void SwitchToDwarfBedroom() {
         lastCam = camAt;
         camAt = Location.dwarfBedroom;
     }
 
-    public void SwitchToKitchenCam() {
+    public void SwitchToBathroom() {
+        lastCam = camAt;
+        camAt = Location.bathroom;
+    }
+    
+    public void SwitchToWorkshop() {
+        lastCam = camAt;
+        camAt = Location.workshop;
+    }
+
+    public void SwitchToUnknown() {
+        lastCam = camAt;
+        camAt = Location.unknown;
+    }
+
+    public void SwitchToMineEntrance() {
+        lastCam = camAt;
+        camAt = Location.mineEntrance;
+    }
+
+    public void SwitchToHallOne() {
+        lastCam = camAt;
+        camAt = Location.hallOne;
+    }
+
+    public void SwitchToHallTwo() {
+        lastCam = camAt;
+        camAt = Location.hallTwo;
+    }
+
+    public void SwitchToLivingRoom() {
+        lastCam = camAt;
+        camAt = Location.livingRoom;
+    }
+
+    public void SwitchToKitchen() {
         lastCam = camAt;
         camAt = Location.kitchen;
-    }
-
-    public void SwitchToMeatGrindersCam() {
-        lastCam = camAt;
-        camAt = Location.meatGrinders;
-    }
-
-    public void SwitchToMinesCam() {
-        lastCam = camAt;
-        camAt = Location.mines;
-    }
-
-    public void SwitchToStudyCam() {
-        lastCam = camAt;
-        camAt = Location.study;
-    }
-
-    public void SwitchToWorkspaceCam() {
-        lastCam = camAt;
-        camAt = Location.workspace;
     }
 
     public void MirrorUp() {

@@ -6,13 +6,15 @@ public class NightSwitchCamera : MonoBehaviour
 {
     public static NightSwitchCamera S;
 
-    public Material bathroom;
     public Material dwarfBedroom;
+    public Material bathroom;
+    public Material workshop;
+    public Material unknown;
+    public Material mineEntrance;
+    public Material hallOne;
+    public Material hallTwo;
+    public Material livingRoom;
     public Material kitchen;
-    public Material meatGrinders;
-    public Material mines;
-    public Material study;
-    public Material workspace;
 
     private int counter = 0;
     
@@ -38,38 +40,48 @@ public class NightSwitchCamera : MonoBehaviour
         
     }
 
+    public void SwitchToDwarfBedroomCam() {
+        meshRenderer.material = dwarfBedroom;
+        NightGameManager.S.SwitchToDwarfBedroom();
+    }
+    
     public void SwitchToBathroomCam() {
         meshRenderer.material = bathroom;
-        NightGameManager.S.SwitchToBathroomCam();
+        NightGameManager.S.SwitchToBathroom();
     }
 
-    public void SwitchToBedroomCam() {
-        meshRenderer.material = dwarfBedroom;
-        NightGameManager.S.SwitchToBedroomCam();
+    public void SwitchToWorkshopCam() {
+        meshRenderer.material = workshop;
+        NightGameManager.S.SwitchToWorkshop();
+    }
+
+    public void SwitchToUnknownCam() {
+        meshRenderer.material = unknown;
+        NightGameManager.S.SwitchToUnknown();
+    }
+
+    public void SwitchToMineEntranceCam() {
+        meshRenderer.material = mineEntrance;
+        NightGameManager.S.SwitchToMineEntrance();
+    }
+
+    public void SwitchToHallOneCam() {
+        meshRenderer.material = hallOne;
+        NightGameManager.S.SwitchToHallOne();
+    }
+
+    public void SwitchToHallTwoCam() {
+        meshRenderer.material = hallTwo;
+        NightGameManager.S.SwitchToHallTwo();
+    }
+
+    public void SwitchToLivingRoomCam() {
+        meshRenderer.material = livingRoom;
+        NightGameManager.S.SwitchToLivingRoom();
     }
 
     public void SwitchToKitchenCam() {
         meshRenderer.material = kitchen;
-        NightGameManager.S.SwitchToKitchenCam();
-    }
-
-    public void SwitchToMeatGrindersCam() {
-        meshRenderer.material = meatGrinders;
-        NightGameManager.S.SwitchToMeatGrindersCam();
-    }
-
-    public void SwitchToMinesCam() {
-        meshRenderer.material = mines;
-        NightGameManager.S.SwitchToMinesCam();
-    }
-
-    public void SwitchToStudyCam() {
-        meshRenderer.material = study;
-        NightGameManager.S.SwitchToStudyCam();
-    }
-
-    public void SwitchToWorkspaceCam() {
-        meshRenderer.material = workspace;
-        NightGameManager.S.SwitchToWorkspaceCam();
+        NightGameManager.S.SwitchToKitchen();
     }
 }
