@@ -5,7 +5,6 @@ using UnityEngine;
 public class DayDoor : MonoBehaviour
 {
     public int doorIndex;
-    public int doorDirectToCam;
 
     public bool open = false;
     public AudioClip doorOpen;

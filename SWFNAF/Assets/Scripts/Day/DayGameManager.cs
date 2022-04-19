@@ -38,11 +38,7 @@ public class DayGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
         dayCount = PlayerPrefs.GetInt("DayCount");
         // reset all playerprefs if daycount == 0
         if (dayCount == 0)
@@ -58,7 +54,11 @@ public class DayGameManager : MonoBehaviour
             PlayerPrefs.SetInt("Gem5", 0);
             PlayerPrefs.SetInt("Gem6", 0);
         }
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         doorKeys = new bool[5];
         doorKeys[0] = true;
         doorKeys[1] = PlayerPrefs.GetInt("Key1") == 1;
