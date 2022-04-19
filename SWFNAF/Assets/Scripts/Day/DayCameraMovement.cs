@@ -51,6 +51,7 @@ public class DayCameraMovement : MonoBehaviour
     {
         transform.position = start.gameObject.transform.position;
         curr = start;
+
         curr.OnThisCam();
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -71,7 +72,7 @@ public class DayCameraMovement : MonoBehaviour
         RaycastHit hit;
         int layer_mask = (1 << curr.gameObject.layer) | LayerMask.GetMask("CamLocations");
 
-        if (Physics.Raycast(ray, out hit, 100, layer_mask))
+        if (Physics.Raycast(ray, out hit, 55, layer_mask))
         {
             if (hit.transform.gameObject.tag == "Interactable" ||
                 hit.transform.gameObject.tag == "Gemstone" ||

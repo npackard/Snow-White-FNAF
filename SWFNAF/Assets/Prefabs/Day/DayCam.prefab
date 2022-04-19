@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisLoc: {fileID: 3206897281035103818}
+  roomName: 
+  nearbyCams: []
 --- !u!1 &3206897281035103818
 GameObject:
   m_ObjectHideFlags: 0
