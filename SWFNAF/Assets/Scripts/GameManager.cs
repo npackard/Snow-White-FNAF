@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
     public void EndDay()
     {
         // move to nighttime
+        DayUIManager.instance.DarkerAnim();
         StartCoroutine(EndDayCor());
     }
 

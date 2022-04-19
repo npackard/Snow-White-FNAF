@@ -96,7 +96,6 @@ public class DayGameManager : MonoBehaviour
                     if (inGameTime > maxTime)
                     {
                         // switch to night time
-                        DayUIManager.instance.DarkerAnim();
                         GameManager.instance.EndDay();
                         return;
                     }

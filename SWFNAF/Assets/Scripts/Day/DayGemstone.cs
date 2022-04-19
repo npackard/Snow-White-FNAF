@@ -16,6 +16,9 @@ public class DayGemstone : MonoBehaviour
         bool gem5 = PlayerPrefs.GetInt("Gem3") == 1;
         bool gem6 = PlayerPrefs.GetInt("Gem4") == 1;
 
+        if ((gemIndex == 3 || gemIndex == 4) && gem1 && gem2) gameObject.SetActive(true);
+        if ((gemIndex == 5 || gemIndex == 6) && gem3 && gem4) gameObject.SetActive(true);
+
         if (gemIndex == 1 && gem1) gameObject.SetActive(false);
         if (gemIndex == 2 && gem2) gameObject.SetActive(false);
         if (gemIndex == 3 && gem3) gameObject.SetActive(false);

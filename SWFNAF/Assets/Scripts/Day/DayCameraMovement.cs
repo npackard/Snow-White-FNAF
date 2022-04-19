@@ -50,6 +50,7 @@ public class DayCameraMovement : MonoBehaviour
     void Start()
     {
         transform.position = start.gameObject.transform.position;
+        transform.rotation = Quaternion.Euler(0, 90, 0);
         curr = start;
 
         curr.OnThisCam();
@@ -66,7 +67,7 @@ public class DayCameraMovement : MonoBehaviour
         {
             vertAng -= speedV * Input.GetAxis("Mouse Y");
         }
-        transform.eulerAngles = new Vector3(vertAng, horizAng, 0);
+        transform.eulerAngles = new Vector3(vertAng, 90 + horizAng, 0);
 
         var ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
@@ -74,8 +75,7 @@ public class DayCameraMovement : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 55, layer_mask))
         {
-            if (hit.transform.gameObject.tag == "Interactable" ||
-                hit.transform.gameObject.tag == "Gemstone" ||
+            if (hit.transform.gameObject.tag == "Gemstone" ||
                 hit.transform.gameObject.tag == "Key" ||
                 hit.transform.gameObject.tag == "Camera")
             {
@@ -103,6 +103,17 @@ public class DayCameraMovement : MonoBehaviour
             canTouch = false;
             lastHit = null;
             DayUIManager.instance.PanelInteractableOff();
+        }
+
+        // check for Go To Bed btn
+        if (Physics.Raycast(ray, out hit, 10, layer_mask))
+        {
+            if (hit.transform.gameObject.tag == "Interactable")
+            {
+                canTouch = true;
+                lastHit = hit.transform.gameObject;
+                DayUIManager.instance.PanelInteractableOn();
+            }
         }
 
         if (canTouch && Input.GetKeyDown(KeyCode.F))
@@ -141,6 +152,12 @@ public class DayCameraMovement : MonoBehaviour
                 canTouch = false;
                 DayUIManager.instance.PanelInteractableOff();
                 Move(lastHit.gameObject.transform.parent.gameObject);
+            }
+            else if (lastHit.tag == "Interactable")
+            {
+                canTouch = false;
+                DayUIManager.instance.PanelInteractableOff();
+                GameManager.instance.EndDay();
             }
         }
     }
