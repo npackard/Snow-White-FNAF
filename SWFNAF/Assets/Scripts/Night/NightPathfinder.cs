@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NightPathfinder : MonoBehaviour
 {
-    public NightPathfinder S;
+    public static NightPathfinder S;
 
     public List<Location> sleepyDwarfBedroomNeighbors;
     public List<Location> sleepyBathroomNeighbors;
@@ -78,8 +78,9 @@ public class NightPathfinder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        all = new List<Location>{Location.dwarfBedroom, Location.bathroom, Location.workshop, Location.unknown, Location.hallOne, Location.hallTwo, Location.livingRoom, Location.kitchen};
-        GetKeys();
+        //GetKeys();
+        //Setup(Dwarf.sleepy);
+        //SleepyPath();
     }
 
     // Update is called once per frame
@@ -88,7 +89,7 @@ public class NightPathfinder : MonoBehaviour
         
     }
 
-    private List<List<Location>> Setup(Dwarf dwarf) {
+    public List<List<Location>> Setup(Dwarf dwarf) {
         List<Location> dwarfBedroom;
         List<Location> bathroom;
         List<Location> workshop;
@@ -200,7 +201,7 @@ public class NightPathfinder : MonoBehaviour
         return lists;
     }
 
-    public void SleepyPath() {
+    public List<Location> SleepyPath() {
         List<List<Location>> edges = Setup(Dwarf.sleepy);
         List<int> distances = new List<int>{0, 0, 0, 0, 0, 0, 0, 0};
         // if the bedroom is unlocked, start in the bedroom
@@ -208,32 +209,44 @@ public class NightPathfinder : MonoBehaviour
         Location start;
         if (key4) start = Location.dwarfBedroom;
         else start = Location.livingRoom;
+        return Dijkstra(edges, distances, start);
     }
 
-    public void BasfhulPath() {
+    public List<Location> BasfhulPath() {
         List<List<Location>> edges = Setup(Dwarf.bashful);
         List<int> distances = new List<int>{0, 0, 0, 0, 0, 0, 0, 0};
         Location start = Location.kitchen;
+        if (key3) start = Location.bathroom;
+        else start = Location.kitchen;
+        return Dijkstra(edges, distances, start);
     }
 
-    public void DocPath() {
+    public List<Location> DocPath() {
         List<List<Location>> edges = Setup(Dwarf.doc);
         List<int> distances = new List<int>{0, 0, 0, 0, 0, 0, 0, 0};
+        Location start = Location.bathroom;
+        return Dijkstra(edges, distances, start);
     }
 
-    public void SneezyPath() {
+    public List<Location> SneezyPath() {
         List<List<Location>> edges = Setup(Dwarf.sneezy);
         List<int> distances = new List<int>{0, 0, 0, 0, 0, 0, 0, 0};
+        Location start = Location.dwarfBedroom;
+        return Dijkstra(edges, distances, start);
     }
 
-    public void HappyPath() {
+    public List<Location> HappyPath() {
         List<List<Location>> edges = Setup(Dwarf.happy);
         List<int> distances = new List<int>{0, 0, 0, 0, 0, 0, 0, 0};
+        Location start = Location.unknown;
+        return Dijkstra(edges, distances, start);
     }
 
-    public void GrumpyPath() {
+    public List<Location> GrumpyPath() {
         List<List<Location>> edges = Setup(Dwarf.grumpy);
         List<int> distances = new List<int>{0, 0, 0, 0, 0, 0, 0, 0};
+        Location start = Location.workshop;
+        return Dijkstra(edges, distances, start);
     }
 
     private void GetKeys() {
@@ -241,5 +254,90 @@ public class NightPathfinder : MonoBehaviour
         key2 = PlayerPrefs.GetInt("Key2") == 1;
         key3 = PlayerPrefs.GetInt("Key3") == 1;
         key4 = PlayerPrefs.GetInt("Key4") == 1;
+    }
+
+    private List<Location> Dijkstra(List<List<Location>> edges, List<int> distances, Location first) {
+        all = new List<Location>{Location.dwarfBedroom, Location.bathroom, Location.workshop, Location.unknown, Location.hallOne, Location.hallTwo, Location.livingRoom, Location.kitchen};
+        int start;
+        switch(first) {
+            case (Location.dwarfBedroom):
+                start = 0;
+                break;
+            case (Location.bathroom):
+                start = 1;
+                break;
+            case (Location.workshop):
+                start = 2;
+                break;
+            case (Location.unknown):
+                start = 3;
+                break;
+            case (Location.hallOne):
+                start = 4;
+                break;
+            case (Location.hallTwo):
+                start = 5;
+                break;
+            case (Location.livingRoom):
+                start = 6;
+                break;
+            case (Location.kitchen):
+                start = 7;
+                break;
+            default:
+                start = -1;
+                break;
+        }
+        List<int> visited = new List<int>(distances);
+        List<int> infs = new List<int>{999, 999, 999, 999, 999, 999, 999, 999};
+        List<Location> locBefore = new List<Location>{Location.none, Location.none, Location.none, Location.none, Location.none, Location.none, Location.none, Location.none};
+        List<List<int>> cost = new List<List<int>> {new List<int>(infs), new List<int>(infs),new List<int>(infs),new List<int>(infs),new List<int>(infs),new List<int>(infs),new List<int>(infs),new List<int>(infs)};
+        for (int i = 0; i < all.Count; i++) {
+            for (int j = 0; j < all.Count; j++) {
+                cost[i][j] = 999;
+                foreach(Location lol in edges[i]) {
+                    if (lol == all[j]) {
+                        cost[i][j] = 1;
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < all.Count; i++) {
+            distances[i] = cost[start][i];
+            visited[i] = 0;
+        }
+
+        distances[start] = 0;
+        visited[start] = 1;
+        int count = 1;
+        int nextNode = 0;
+
+        while (count < all.Count) {
+            int minDistance = 999;
+
+            for (int i = 0; i < all.Count; i++) {
+                if (distances[i] < minDistance && visited[i] == 0) {
+                    minDistance = distances[i];
+                    nextNode = i;
+                }
+            }
+
+            visited[nextNode] = 1;
+            for (int i = 0; i < all.Count; i++) {
+                if (visited[i] == 0 && minDistance + cost[nextNode][i] < distances[i]) {
+                    distances[i] = minDistance + cost[nextNode][i];
+                    locBefore[i] = all[nextNode];
+                }
+            }
+
+            count++;
+        }
+
+        for (int i = 0; i < all.Count; i++) {
+            if (distances[i] < 999 && locBefore[i] == Location.none) locBefore[i] = first;
+        }
+
+        return locBefore;
     }
 }

@@ -36,6 +36,10 @@ public class NightDwarfBehaviour : MonoBehaviour
     private bool isActive = false;
     private bool isEnabled = false;
     private bool onCamera = false;
+    private bool key1;
+    private bool key2;
+    private bool key3;
+    private bool key4;
     private float finalDifficulty = 1f;
     private float moveTimer = 0f;
     private int shortWait = 25;
@@ -43,10 +47,15 @@ public class NightDwarfBehaviour : MonoBehaviour
     private int locationIndex = 0;
 
     private Location location;
+    private List<Location> locBefore;
+
+    private List<Location> locationPath;
+    private List<Transform> transformPath;
     
     // Start is called before the first frame update
     void Start()
     {
+        GetKeys();
         StartingPos();
         SetTimes();
         SetFinalDifficulty();
@@ -62,40 +71,55 @@ public class NightDwarfBehaviour : MonoBehaviour
     private void StartingPos() {
         location = Location.dwarfBedroom;
         switch(dwarf) {
-            case Dwarf.sleepy:
+            case Dwarf.sleepy: // living room
                 transform.position = sleepyTransformPath[0].position;
                 transform.rotation = sleepyTransformPath[0].rotation;
-                location = Location.dwarfBedroom;
+                if (key4) location = Location.dwarfBedroom;
+                else location = Location.livingRoom;
+                locBefore = NightPathfinder.S.SleepyPath();
                 break;
-            case Dwarf.bashful:
+            case Dwarf.bashful: // unknown
                 transform.position = bashfulTransformPath[0].position;
                 transform.rotation = bashfulTransformPath[0].rotation;
-                location = Location.dwarfBedroom;
+                if (key3) location = Location.bathroom;
+                else location = Location.kitchen;
+                locBefore = NightPathfinder.S.BasfhulPath();
                 break;
-            case Dwarf.doc:
+            case Dwarf.doc: // bathroom
                 transform.position = docTransformPath[0].position;
                 transform.rotation = docTransformPath[0].rotation;
-                location = Location.dwarfBedroom;
+                location = Location.bathroom;
+                locBefore = NightPathfinder.S.DocPath();
                 break;
-            case Dwarf.sneezy:
+            case Dwarf.sneezy: // unknown
                 transform.position = sneezyTransformPath[0].position;
                 transform.rotation = sneezyTransformPath[0].rotation;
                 location = Location.dwarfBedroom;
+                locBefore = NightPathfinder.S.SneezyPath();
                 break;
-            case Dwarf.happy:
+            case Dwarf.happy: // bathroom
                 transform.position = happyTransformPath[0].position;
                 transform.rotation = happyTransformPath[0].rotation;
-                location = Location.dwarfBedroom;
+                location = Location.unknown;
+                locBefore = NightPathfinder.S.HappyPath();
                 break;
-            case Dwarf.grumpy:
+            case Dwarf.grumpy: // living room
                 transform.position = grumpyTransformPath[0].position;
                 transform.rotation = grumpyTransformPath[0].rotation;
-                location = Location.dwarfBedroom;
+                location = Location.workshop;
+                locBefore = NightPathfinder.S.GrumpyPath();
                 break;
             default:
                 Debug.Log("oh no");
                 break;
         }
+    }
+
+    private void GetKeys() {
+        key1 = PlayerPrefs.GetInt("Key1") == 1;
+        key2 = PlayerPrefs.GetInt("Key2") == 1;
+        key3 = PlayerPrefs.GetInt("Key3") == 1;
+        key4 = PlayerPrefs.GetInt("Key4") == 1;
     }
 
     public void SetTimes() {
@@ -174,6 +198,48 @@ public class NightDwarfBehaviour : MonoBehaviour
         return (int)Random.Range(shortWait, longWait);
     }
 
+    private void MakePath(Dwarf dwarf) {
+        int index = -1;
+        switch(dwarf) {
+            case Dwarf.sleepy:
+                index = 6;
+                break;
+            case Dwarf.bashful:
+                index = 3;
+                break;
+            case Dwarf.doc:
+                index = 1;
+                break;
+            case Dwarf.sneezy:
+                index = 3;
+                break;
+            case Dwarf.happy:
+                index = 1;
+                break;
+            case Dwarf.grumpy:
+                index = 6;
+                break;
+            default:
+                Debug.Log("that's not good");
+                break;
+        }
+
+        /*
+        Location currentLocation = location;
+        while (locBefore[index] != Location.none) {
+            locationPath.Add(currentLocation);
+            int ind = -1;
+            for (int i = 0; i < locBefore.Count; i++) {
+                if (locBefore[i] == currentLocation) ind = i;
+                currentLocation = locBefore[ind];
+            }
+        }
+        foreach(Location loc in locationPath) {
+            Debug.Log(loc);
+        }
+        */
+    }
+
     private IEnumerator DopeyBehaviour() {
         yield return new WaitForSeconds(GetWaitTime());
     }
@@ -195,7 +261,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 transform.rotation = deathPosition.rotation;
                 StartCoroutine(Die());
             }
-        } else if (location == Location.snowWhiteBedroom) {
+        } else if (location == Location.snowWhiteBedroom) { // cam is up
             location = sleepyPath[0];
             locationIndex = 0;
             transform.position = sleepyTransformPath[0].position;
