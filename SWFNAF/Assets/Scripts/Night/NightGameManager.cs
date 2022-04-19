@@ -47,6 +47,11 @@ public class NightGameManager : MonoBehaviour
     private int night;
     public int timePassed = 0;
 
+    private bool bathroomLocked = true;
+    private bool workshopLocked = true;
+    private bool unknownLocked = true;
+    private bool mineEntranceLocked = true;
+
     private void Awake() {
         if (NightGameManager.S) {
             Destroy(this.gameObject);

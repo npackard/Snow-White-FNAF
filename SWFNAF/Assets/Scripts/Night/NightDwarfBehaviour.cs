@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum Dwarf{dopey, sleepy, bashful, doc, sneezy, happy, grunmpy};
+public enum Dwarf{dopey, sleepy, bashful, doc, sneezy, happy, grumpy};
 public enum Location{dwarfBedroom, bathroom, workshop, unknown, mineEntrance, hallOne, hallTwo, livingRoom, kitchen, snowWhiteBedroom, none};
 
 public class NightDwarfBehaviour : MonoBehaviour
@@ -87,7 +87,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 transform.rotation = happyTransformPath[0].rotation;
                 location = Location.dwarfBedroom;
                 break;
-            case Dwarf.grunmpy:
+            case Dwarf.grumpy:
                 transform.position = grumpyTransformPath[0].position;
                 transform.rotation = grumpyTransformPath[0].rotation;
                 location = Location.dwarfBedroom;
@@ -108,7 +108,7 @@ public class NightDwarfBehaviour : MonoBehaviour
             finalDifficulty = (difficultAdjustment / 100f) * easyChance;
         } else if (dwarf == Dwarf.doc || dwarf == Dwarf.sneezy) {
             finalDifficulty = (difficultAdjustment / 100f) * mediumChance;
-        } else if (dwarf == Dwarf.happy || dwarf == Dwarf.grunmpy) {
+        } else if (dwarf == Dwarf.happy || dwarf == Dwarf.grumpy) {
             finalDifficulty = (difficultAdjustment / 100f) * hardChance;
         } else {
             // dopey
@@ -160,7 +160,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 case Dwarf.happy:
                     //StartCoroutine(HappyBehaviour());
                     break;
-                case Dwarf.grunmpy:
+                case Dwarf.grumpy:
                     //StartCoroutine(GrumpyBehaviour());
                     break;
                 default:
