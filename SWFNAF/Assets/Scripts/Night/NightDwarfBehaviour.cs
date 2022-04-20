@@ -210,7 +210,7 @@ public class NightDwarfBehaviour : MonoBehaviour
             }
             // go to next location
             curLocation = locBefore[index];
-        while (curLocation != location) {
+        while (curLocation != location && curLocation != Location.none) {
             locationPath.Add(curLocation);
             // find current index
             for (int i = 0; i < all.Count; i++) {
