@@ -61,4 +61,16 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(1);
     }
+
+    public void LoadMine()
+    {
+        DayUIManager.instance.DarkerAnim();
+        StartCoroutine(LoadMineCor());
+    }
+
+    private IEnumerator LoadMineCor()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(3);
+    }
 }

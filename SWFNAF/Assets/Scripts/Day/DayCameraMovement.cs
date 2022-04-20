@@ -73,7 +73,7 @@ public class DayCameraMovement : MonoBehaviour
         RaycastHit hit;
         int layer_mask = (1 << curr.gameObject.layer) | LayerMask.GetMask("CamLocations");
 
-        if (Physics.Raycast(ray, out hit, 55, layer_mask))
+        if (Physics.Raycast(ray, out hit, 60, layer_mask))
         {
             if (hit.transform.gameObject.tag == "Gemstone" ||
                 hit.transform.gameObject.tag == "Key" ||
@@ -108,7 +108,8 @@ public class DayCameraMovement : MonoBehaviour
         // check for Go To Bed btn
         if (Physics.Raycast(ray, out hit, 10, layer_mask))
         {
-            if (hit.transform.gameObject.tag == "Interactable")
+            if (hit.transform.gameObject.tag == "Interactable" ||
+                hit.transform.gameObject.tag == "Portal")
             {
                 canTouch = true;
                 lastHit = hit.transform.gameObject;
@@ -124,7 +125,6 @@ public class DayCameraMovement : MonoBehaviour
                 PlayerPrefs.SetInt("Gem" + gemInd.ToString(), 1);
                 Destroy(lastHit);
                 canTouch = false;
-                lastHit = null;
                 DayUIManager.instance.PanelInteractableOff();
             }
             else if (lastHit.tag == "Key")
@@ -133,8 +133,6 @@ public class DayCameraMovement : MonoBehaviour
                 PlayerPrefs.SetInt("Key" + keyInd.ToString(), 1);
                 DayGameManager.instance.GetKey(keyInd);
                 Destroy(lastHit);
-                canTouch = false;
-                lastHit = null;
                 DayUIManager.instance.PanelInteractableOff();
             }
             else if (lastHit.tag == "Door")
@@ -159,7 +157,14 @@ public class DayCameraMovement : MonoBehaviour
                 DayUIManager.instance.PanelInteractableOff();
                 GameManager.instance.EndDay();
             }
+            else if (lastHit.tag == "Portal")
+            {
+                canTouch = false;
+                DayUIManager.instance.PanelInteractableOff();
+                GameManager.instance.LoadMine();
+            }
         }
+        lastHit = null;
     }
 
     private void Move(GameObject target)
