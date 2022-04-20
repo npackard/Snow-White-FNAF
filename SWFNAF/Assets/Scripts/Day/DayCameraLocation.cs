@@ -8,6 +8,7 @@ public class DayCameraLocation : MonoBehaviour
     public string roomName;
 
     public GameObject[] nearbyCams;
+    public GameObject[] dayDwarves;
 
     private void Start()
     {
@@ -26,6 +27,11 @@ public class DayCameraLocation : MonoBehaviour
         {
             cam.SetActive(true);
         }
+
+        foreach (GameObject dwarf in dayDwarves)
+        {
+            dwarf.GetComponent<DayDwarf>().canBeSeen = true;
+        }
     }
 
     public void LeaveThisCam()
@@ -37,6 +43,11 @@ public class DayCameraLocation : MonoBehaviour
         foreach (GameObject cam in nearbyCams)
         {
             cam.SetActive(false);
+        }
+
+        foreach (GameObject dwarf in dayDwarves)
+        {
+            dwarf.GetComponent<DayDwarf>().canBeSeen = false;
         }
     }
 }
