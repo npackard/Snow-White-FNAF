@@ -33,6 +33,11 @@ public class NightDwarfBehaviour : MonoBehaviour
     public Transform[] happyTransformPath;
     public Transform[] grumpyTransformPath;
 
+    public AudioClip sneeze;
+    public AudioClip mumble;
+    public AudioClip angry;
+    public AudioClip laugh;
+
     private bool isActive = false;
     private bool isEnabled = false;
     private bool onCamera = false;
@@ -52,6 +57,8 @@ public class NightDwarfBehaviour : MonoBehaviour
     private List<Location> locationPath;
     private List<Transform> transformPath;
     private List<Location> all;
+
+    private AudioSource audio;
     
     // Start is called before the first frame update
     void Start()
@@ -59,6 +66,7 @@ public class NightDwarfBehaviour : MonoBehaviour
         locationPath = new List<Location>();
         transformPath = new List<Transform>();
         all = new List<Location>{Location.dwarfBedroom, Location.bathroom, Location.workshop, Location.unknown, Location.hallOne, Location.hallTwo, Location.livingRoom, Location.kitchen};
+        audio = GetComponent<AudioSource>();
         GetKeys();
         StartingPos();
         SetTimes();
@@ -313,6 +321,10 @@ public class NightDwarfBehaviour : MonoBehaviour
             float chance = Random.Range(0f, 1f);
             Debug.Log(chance);
             if (chance < finalDifficulty) {
+                if (dwarf == Dwarf.doc) audio.PlayOneShot(mumble);
+                else if (dwarf == Dwarf.sneezy) audio.PlayOneShot(sneeze);
+                else if (dwarf == Dwarf.happy) audio.PlayOneShot(laugh);
+                else if (dwarf == Dwarf.grumpy) audio.PlayOneShot(angry);
                 locationIndex++;
                 location = locationPath[locationIndex];
                 transform.position = transformPath[locationIndex].position;
