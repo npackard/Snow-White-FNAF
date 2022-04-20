@@ -222,6 +222,8 @@ public class NightGameManager : MonoBehaviour
         doorClosed = false;
         doorAnim.SetBool("open", true);
         fireLit = true;
+        bashful.ActiveFire();
+        sneezy.ActiveFire();
         StartCoroutine(FireTimer());
     }
 

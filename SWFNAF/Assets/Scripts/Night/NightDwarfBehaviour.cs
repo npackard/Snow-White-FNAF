@@ -334,92 +334,15 @@ public class NightDwarfBehaviour : MonoBehaviour
         StartCoroutine(MoveDwarf());
     }
 
-//// NICOLE NEEDS TO CHANGE ALL OF THE FOLLOWING CODE TO MATCH SLEEPY AND BASHFUL BEHAVIOUR \\\\\
-
-/*
-    private IEnumerator SneezyBehaviour() {
-        yield return new WaitForSeconds(GetWaitTime());
-        // don't do anything if off camera
-        if (location != NightGameManager.S.GetCamLocation()) {
-            // prioritize attacking if in Snow White's bedroom
-            if (location == Location.snowWhiteBedroom) {
-                if (NightGameManager.S.GetDoorClosed()) {
-                    location = sleepyPath[0];
-                    locationIndex = 0;
-                    transform.position = sneezyTransformPath[0].position;
-                } else {
-                    // attack + player dies
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                }
-            } else {
-                float chance = Random.Range(0f, 1f);
-                // move to next room in path, medium chance
-                if (chance < finalDifficulty) {
-                    Move();
-                    // physically move
-                    transform.position = sneezyTransformPath[locationIndex].position;
-                }
-                // give knife if in kitchen or further along path
-            }
+    public void ActiveFire() {
+        if (dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) {
+            StopAllCoroutines();
+            locationIndex = 0;
+            location = locationPath[0];
+            transform.position = transformPath[0].position;
+            transform.rotation = transformPath[0].rotation;
+            StartCoroutine(MoveDwarf());
         }
-        StartCoroutine(SneezyBehaviour());
     }
-
-    private IEnumerator HappyBehaviour() {
-        yield return new WaitForSeconds(GetWaitTime());
-        // don't do anything if off camera
-        if (location != NightGameManager.S.GetCamLocation()) {
-            // prioritize attacking if in Snow White's bedroom
-            if (location == Location.snowWhiteBedroom) {
-                if (NightGameManager.S.GetDoorClosed()) {
-                    location = sleepyPath[0];
-                    locationIndex = 0;
-                    transform.position = sleepyTransformPath[0].position;
-                } else {
-                    // attack + player dies
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                }
-            } else {
-                float chance = Random.Range(0f, 1f);
-                // move to next room in path, hard chance
-                if (chance < finalDifficulty) {
-                    Move();
-                    // physically move
-                    transform.position = sleepyTransformPath[locationIndex].position;
-                }
-                // give knife if in kitchen or further along path
-            }
-        }
-        StartCoroutine(HappyBehaviour());
-    }
-
-    private IEnumerator GrumpyBehaviour() {
-        yield return new WaitForSeconds(GetWaitTime());
-        // don't do anything if off camera
-        if (location != NightGameManager.S.GetCamLocation()) {
-            // prioritize attacking if in Snow White's bedroom
-            if (location == Location.snowWhiteBedroom) {
-                if (NightGameManager.S.GetDoorClosed()) {
-                    location = sleepyPath[0];
-                    locationIndex = 0;
-                    transform.position = sleepyTransformPath[0].position;
-                } else {
-                    // attack + player dies
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                }
-            } else {
-                float chance = Random.Range(0f, 1f);
-                // move to next room in path, hard chance
-                if (chance < finalDifficulty) {
-                    Move();
-                    // physically move
-                    transform.position = sleepyTransformPath[locationIndex].position;
-                }
-                // give knife if in kitchen or further along path
-            }
-        }
-        StartCoroutine(GrumpyBehaviour());
-    }
-*/
 
 }
