@@ -204,7 +204,7 @@ public class NightGameManager : MonoBehaviour
         Debug.Log("yo what?");
         doorClosed = !doorClosed;
         fireLit = false;
-        fire.GetComponent<MeshRenderer>().enabled = false;
+        fire.SetActive(false);
         fireAudio.loop = false;
         fireAudio.Stop();
         StopCoroutine(FireTimer());
