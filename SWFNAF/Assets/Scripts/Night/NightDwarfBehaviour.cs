@@ -247,7 +247,6 @@ public class NightDwarfBehaviour : MonoBehaviour
                             Debug.Log("something is wrong");
                             break;
                     }
-                    Debug.Log(transformPath.Count);
                 }
             }
         }
@@ -276,6 +275,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 break;
         }
 
+        Debug.Log(transformPath.Count);
         locationPath.Add(Location.snowWhiteBedroom);
     }
 
@@ -283,25 +283,21 @@ public class NightDwarfBehaviour : MonoBehaviour
         yield return new WaitForSeconds(GetWaitTime());
         if (location == Location.snowWhiteBedroom && NightGameManager.S.GetCamLocation() == Location.none) {
             if ((dwarf == Dwarf.sleepy || dwarf == Dwarf.grumpy) && NightGameManager.S.GetDoorClosed()) {
-                Debug.Log(1);
                 locationIndex = 0;
                 location = locationPath[0];
                 transform.position = transformPath[0].position;
                 transform.rotation = transformPath[0].rotation;
             } else if ((dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) && NightGameManager.S.GetFireLit()) {
-                Debug.Log(2);
                 locationIndex = 0;
                 location = locationPath[0];
                 transform.position = transformPath[0].position;
                 transform.rotation = transformPath[0].rotation;
             } else if ((dwarf == Dwarf.doc || dwarf == Dwarf.happy) && NightGameManager.S.GetVentClosed()) {
-                Debug.Log(3);
                 locationIndex = 0;
                 location = locationPath[0];
                 transform.position = transformPath[0].position;
                 transform.rotation = transformPath[0].rotation;
             } else {
-                Debug.Log(4);
                 if (NightGameManager.S.GetEyesClosed()) NightGameManager.S.eyes.NoControl();
                 transform.position = deathPosition.position;
                 transform.rotation = deathPosition.rotation;
@@ -309,7 +305,6 @@ public class NightDwarfBehaviour : MonoBehaviour
             }
         } else if (location == Location.snowWhiteBedroom) {
                 // cam is up
-                Debug.Log(5);
                 locationIndex = 0;
                 location = locationPath[0];
                 transform.position = transformPath[0].position;

@@ -60,4 +60,8 @@ public class NightButtonManager : MonoBehaviour
     public void LightFire() {
         NightGameManager.S.LightFire();
     }
+
+    public void SwitchVent() {
+        NightGameManager.S.SwitchVent();
+    }
 }

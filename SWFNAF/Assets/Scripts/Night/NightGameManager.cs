@@ -13,6 +13,7 @@ public class NightGameManager : MonoBehaviour
     public AudioSource fireAudio;
     public AudioSource fireIgnite;
 
+    public GameObject cover;
     public GameObject door;
     public GameObject fire;
 
@@ -201,6 +202,8 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void SwitchDoor() {
+        ventClosed = false;
+        cover.SetActive(false);
         doorClosed = !doorClosed;
         fireLit = false;
         fire.SetActive(false);
@@ -211,6 +214,8 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void LightFire() {
+        ventClosed = false;
+        cover.SetActive(false);
         fire.SetActive(true);
         fireIgnite.PlayOneShot(igniteClip);
         StartCoroutine(StartCrackle());
@@ -260,5 +265,16 @@ public class NightGameManager : MonoBehaviour
         yield return new WaitForSeconds(igniteClip.length);
         fireAudio.loop = true;
         fireAudio.Play();
+    }
+
+    public void SwitchVent() {
+        ventClosed = !ventClosed;
+        cover.SetActive(ventClosed);
+        fire.SetActive(false);
+        fireAudio.loop = false;
+        fireAudio.Stop();
+        fireLit = false;
+        doorClosed = false;
+        doorAnim.SetBool("open", true);
     }
 }
