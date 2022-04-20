@@ -201,7 +201,6 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void SwitchDoor() {
-        Debug.Log("yo what?");
         doorClosed = !doorClosed;
         fireLit = false;
         fire.SetActive(false);

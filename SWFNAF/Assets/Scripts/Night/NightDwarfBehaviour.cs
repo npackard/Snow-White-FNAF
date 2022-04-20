@@ -51,13 +51,18 @@ public class NightDwarfBehaviour : MonoBehaviour
 
     private List<Location> locationPath;
     private List<Transform> transformPath;
+    private List<Location> all;
     
     // Start is called before the first frame update
     void Start()
     {
+        locationPath = new List<Location>();
+        transformPath = new List<Transform>();
+        all = new List<Location>{Location.dwarfBedroom, Location.bathroom, Location.workshop, Location.unknown, Location.hallOne, Location.hallTwo, Location.livingRoom, Location.kitchen};
         GetKeys();
         StartingPos();
         SetTimes();
+        MakePath(dwarf);
         SetFinalDifficulty();
         StartMoving();
     }
@@ -163,35 +168,8 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     public void StartMoving() {
-        if (NightGameManager.S.GetNight() >= introNight) {
-            isEnabled = true;
-            switch(dwarf) {
-                case Dwarf.dopey:
-                    StartCoroutine(DopeyBehaviour());
-                    break;
-                case Dwarf.sleepy:
-                    StartCoroutine(SleepyBehaviour());
-                    break;
-                case Dwarf.bashful:
-                    StartCoroutine(BashfulBehaviour());
-                    break;
-                case Dwarf.doc:
-                    StartCoroutine(DocBehaviour());
-                    break;
-                case Dwarf.sneezy:
-                    StartCoroutine(SneezyBehaviour());
-                    break;
-                case Dwarf.happy:
-                    //StartCoroutine(HappyBehaviour());
-                    break;
-                case Dwarf.grumpy:
-                    //StartCoroutine(GrumpyBehaviour());
-                    break;
-                default:
-                    Debug.Log("you did something wrong");
-                    break;
-                }
-            }
+        locationIndex = 0;
+        StartCoroutine(MoveDwarf());
     }
 
     private int GetWaitTime() {
@@ -224,226 +202,129 @@ public class NightDwarfBehaviour : MonoBehaviour
                 break;
         }
 
-        /*
-        Location currentLocation = location;
-        while (locBefore[index] != Location.none) {
-            locationPath.Add(currentLocation);
-            int ind = -1;
-            for (int i = 0; i < locBefore.Count; i++) {
-                if (locBefore[i] == currentLocation) ind = i;
-                currentLocation = locBefore[ind];
+        int ind = -1;
+        Location curLocation = location;
+        locationPath.Add(curLocation);
+        for (int i = 0; i < all.Count; i++) {
+                if (all[i] == curLocation) ind = i;
             }
+            // go to next location
+            curLocation = locBefore[index];
+        while (curLocation != location) {
+            locationPath.Add(curLocation);
+            // find current index
+            for (int i = 0; i < all.Count; i++) {
+                if (all[i] == curLocation) ind = i;
+            }
+            // go to next location
+            curLocation = locBefore[index];
         }
-        foreach(Location loc in locationPath) {
-            Debug.Log(loc);
-        }
-        */
-    }
+        locationPath.Reverse();
 
-    private IEnumerator DopeyBehaviour() {
-        yield return new WaitForSeconds(GetWaitTime());
-    }
-
-    private IEnumerator SleepyBehaviour() {
-        yield return new WaitForSeconds(GetWaitTime());
-        // prioritize attacking if in Snow White's bedroom
-        if (location == Location.snowWhiteBedroom && NightGameManager.S.GetCamLocation() == Location.none) {
-            if (NightGameManager.S.GetDoorClosed()) {
-                location = Location.dwarfBedroom;
-                locationIndex = 0;
-                transform.position = sleepyTransformPath[0].position;
-                transform.rotation = sleepyTransformPath[0].rotation;
-            } else {
-                if (NightGameManager.S.GetEyesClosed()) {
-                    NightGameManager.S.eyes.NoControl();
-                }
-                transform.position = deathPosition.position;
-                transform.rotation = deathPosition.rotation;
-                StartCoroutine(Die());
-            }
-        } else if (location == Location.snowWhiteBedroom) { // cam is up
-            location = sleepyPath[0];
-            locationIndex = 0;
-            transform.position = sleepyTransformPath[0].position;
-            transform.rotation = sleepyTransformPath[0].rotation;
-        } else if (location != NightGameManager.S.GetCamLocation() && sleepyPath[locationIndex + 1] != NightGameManager.S.GetCamLocation()) {
-            float chance = Random.Range(0f, 1f);
-            // move to next room in path, easy chance
-            if (chance < finalDifficulty) {
-                locationIndex++;
-                location = sleepyPath[locationIndex];
-                transform.position = sleepyTransformPath[locationIndex].position;
-                transform.rotation = sleepyTransformPath[locationIndex].rotation;
-            }
-        }
-        StartCoroutine(SleepyBehaviour());
-    }
-
-    // stays off camera as much as possible, arrives via fireplace
-    private IEnumerator BashfulBehaviour() {
-        yield return new WaitForSeconds(GetWaitTime());
-        // prioritize attacking if in Snow White's bedroom
-        if (location == Location.snowWhiteBedroom && NightGameManager.S.GetCamLocation() == Location.none) {
-            if (NightGameManager.S.GetFireLit()) {
-                location = Location.dwarfBedroom;
-                locationIndex = 0;
-                transform.position = bashfulTransformPath[0].position;
-                transform.rotation = bashfulTransformPath[0].rotation;
-            } else {
-                transform.position = deathPosition.position;
-                transform.rotation = deathPosition.rotation;
-                StartCoroutine(Die());
-            }
-        } else if (location == Location.snowWhiteBedroom) {
-            location = bashfulPath[0];
-            locationIndex = 0;
-            transform.position = bashfulTransformPath[0].position;
-            transform.rotation = bashfulTransformPath[0].rotation;
-        } else if (location != NightGameManager.S.GetCamLocation() && bashfulPath[locationIndex + 1] != NightGameManager.S.GetCamLocation()) {
-            float chance = Random.Range(0f, 1f);
-            // move to next room in path, easy chance
-            if (chance < finalDifficulty) {
-                locationIndex++;
-                location = bashfulPath[locationIndex];
-                transform.position = bashfulTransformPath[locationIndex].position;
-                transform.rotation = bashfulTransformPath[locationIndex].rotation;
-            }
-        }
-        StartCoroutine(BashfulBehaviour());
-    }
-
-    private IEnumerator DocBehaviour() {
-        yield return new WaitForSeconds(GetWaitTime());
-        // prioritize attacking if in Snow White's bedroom
-        if (location == Location.snowWhiteBedroom && NightGameManager.S.GetCamLocation() == Location.none) {
-            // if blocked
-            if (NightGameManager.S.GetVentClosed()) {
-                location = Location.dwarfBedroom;
-                transform.position = docTransformPath[0].position;
-                transform.rotation = docTransformPath[0].rotation;
-            } else {
-                transform.position = deathPosition.position;
-                transform.rotation = deathPosition.rotation;
-                StartCoroutine(Die());
-            }
-        } else if (location == Location.snowWhiteBedroom) {
-            location = Location.dwarfBedroom;
-            locationIndex = 0;
-            transform.position = docTransformPath[0].position;
-            transform.rotation = docTransformPath[0].rotation;
-        } else if (location != NightGameManager.S.GetCamLocation()) {
-            float chance = Random.Range(0f, 1f);
-            // move to next room in path, medium chance
-            if (chance < finalDifficulty) {
-                float newChance = Random.Range(0f, 1f);
-                // potentially add difficulty check to see if movement switches locations or doesn't occur
-                switch(location) {
-                    case Location.dwarfBedroom:
-                        if (NightGameManager.S.GetCamLocation() != Location.hallOne) {
-                            location = Location.hallOne;
-                            transform.position = docTransformPath[1].position;
-                            transform.rotation = docTransformPath[1].rotation;
-                        }
-                        break;
-                    case Location.hallOne:
-                        if (newChance < .5 && NightGameManager.S.GetCamLocation() != Location.workshop) {
-                            location = Location.workshop;
-                            transform.position = docTransformPath[6].position;
-                            transform.rotation = docTransformPath[6].rotation;
-                        } else if (NightGameManager.S.GetCamLocation() != Location.unknown) {
-                            location = Location.unknown;
-                            transform.position = docTransformPath[2].position;
-                            transform.rotation = docTransformPath[2].rotation;
-                        }
-                        break;
-                    case Location.unknown:
-                        if (newChance < .5 && NightGameManager.S.GetCamLocation() != Location.workshop) {
-                            location = Location.workshop;
-                            transform.position = docTransformPath[6].position;
-                            transform.rotation = docTransformPath[6].rotation;
-                        } else if (NightGameManager.S.GetCamLocation() != Location.mineEntrance) {
-                            location = Location.mineEntrance;
-                            transform.position = docTransformPath[3].position;
-                            transform.rotation = docTransformPath[3].rotation;
-                        }
-                        break;
-                    case Location.mineEntrance:
-                        if (newChance < .5 && NightGameManager.S.GetCamLocation() != Location.kitchen) {
-                            location = Location.kitchen;
-                            transform.position = docTransformPath[4].position;
-                            transform.rotation = docTransformPath[4].rotation;
-                        } else if (NightGameManager.S.GetCamLocation() != Location.livingRoom) {
-                            location = Location.livingRoom;
-                            transform.position = docTransformPath[5].position;
-                            transform.rotation = docTransformPath[5].rotation;
-                        }
-                        break;
-                    case Location.kitchen:
-                        if (NightGameManager.S.GetCamLocation() != Location.livingRoom) {
-                            location = Location.livingRoom;
-                            transform.position = docTransformPath[4].position;
-                            transform.rotation = docTransformPath[4].rotation;
-                        }
-                        break;
-                    case Location.livingRoom:
-                        if (NightGameManager.S.GetCamLocation() != Location.workshop) {
-                            location = Location.workshop;
-                            transform.position = docTransformPath[6].position;
-                            transform.rotation = docTransformPath[6].rotation;
-                        }
-                        break;
-                    case Location.workshop:
-                        if (newChance < .5 && NightGameManager.S.GetCamLocation() != Location.bathroom) {
-                            location = Location.bathroom;
-                            transform.position = docTransformPath[7].position;
-                            transform.rotation = docTransformPath[7].rotation;
-                        } else if (NightGameManager.S.GetCamLocation() != Location.livingRoom) {
-                            location = Location.livingRoom;
-                            transform.position = docTransformPath[5].position;
-                            transform.rotation = docTransformPath[5].rotation;
-                        }
-                        break;
-                    case Location.bathroom:
-                        if (NightGameManager.S.GetCamLocation() != Location.none) {
-                            location = Location.snowWhiteBedroom;
-                            transform.position = docTransformPath[8].position;
-                            transform.rotation = docTransformPath[8].rotation;
-                        }
-                        break;
-                    default:
-                        break;
+        for (int i = 0; i < locationPath.Count; i++) {
+            foreach(Location loc in all) {
+                if (loc == locationPath[i]) {
+                    switch(dwarf) {
+                        case Dwarf.sleepy:
+                            transformPath.Add(sleepyTransformPath[i]);
+                            break;
+                        case Dwarf.bashful:
+                            transformPath.Add(bashfulTransformPath[i]);
+                            break;
+                        case Dwarf.doc:
+                            transformPath.Add(docTransformPath[i]);
+                            break;
+                        case Dwarf.sneezy:
+                            transformPath.Add(sneezyTransformPath[i]);
+                            break;
+                        case Dwarf.happy:
+                            transformPath.Add(happyTransformPath[i]);
+                            break;
+                        case Dwarf.grumpy:
+                            transformPath.Add(grumpyTransformPath[i]);
+                            break;
+                        default:
+                            Debug.Log("something is wrong");
+                            break;
+                    }
+                    Debug.Log(transformPath.Count);
                 }
             }
         }
-        StartCoroutine(DocBehaviour());
+
+        switch(dwarf) {
+            case Dwarf.sleepy:
+                transformPath.Add(sleepyTransformPath[sleepyTransformPath.Length - 1]);
+                break;
+            case Dwarf.bashful:
+                transformPath.Add(bashfulTransformPath[bashfulTransformPath.Length - 1]);
+                break;
+            case Dwarf.doc:
+                transformPath.Add(docTransformPath[docTransformPath.Length - 1]);
+                break;
+            case Dwarf.sneezy:
+                transformPath.Add(sneezyTransformPath[sneezyTransformPath.Length - 1]);
+                break;
+            case Dwarf.happy:
+                transformPath.Add(happyTransformPath[happyTransformPath.Length - 1]);
+                break;
+            case Dwarf.grumpy:
+                transformPath.Add(grumpyTransformPath[grumpyTransformPath.Length - 1]);
+                break;
+            default:
+                Debug.Log("oh no");
+                break;
+        }
+
+        locationPath.Add(Location.snowWhiteBedroom);
     }
 
-    private IEnumerator SneezyBehaviour() {
+    private IEnumerator MoveDwarf() {
         yield return new WaitForSeconds(GetWaitTime());
-        // prioritize attacking if in Snow White's bedroom
         if (location == Location.snowWhiteBedroom && NightGameManager.S.GetCamLocation() == Location.none) {
-            if (NightGameManager.S.GetFireLit()) {
-                location = Location.dwarfBedroom;
-                transform.position = bashfulTransformPath[0].position;
-                transform.rotation = bashfulTransformPath[0].rotation;
+            if ((dwarf == Dwarf.sleepy || dwarf == Dwarf.grumpy) && NightGameManager.S.GetDoorClosed()) {
+                Debug.Log(1);
+                locationIndex = 0;
+                location = locationPath[0];
+                transform.position = transformPath[0].position;
+                transform.rotation = transformPath[0].rotation;
+            } else if ((dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) && NightGameManager.S.GetFireLit()) {
+                Debug.Log(2);
+                locationIndex = 0;
+                location = locationPath[0];
+                transform.position = transformPath[0].position;
+                transform.rotation = transformPath[0].rotation;
+            } else if ((dwarf == Dwarf.doc || dwarf == Dwarf.happy) && NightGameManager.S.GetVentClosed()) {
+                Debug.Log(3);
+                locationIndex = 0;
+                location = locationPath[0];
+                transform.position = transformPath[0].position;
+                transform.rotation = transformPath[0].rotation;
             } else {
+                Debug.Log(4);
+                if (NightGameManager.S.GetEyesClosed()) NightGameManager.S.eyes.NoControl();
                 transform.position = deathPosition.position;
                 transform.rotation = deathPosition.rotation;
                 StartCoroutine(Die());
             }
         } else if (location == Location.snowWhiteBedroom) {
-            location = Location.dwarfBedroom;
-            locationIndex = 0;
-            transform.position = docTransformPath[0].position;
-            transform.rotation = docTransformPath[0].rotation;
-        } else if (location != NightGameManager.S.GetCamLocation()) {
+                // cam is up
+                Debug.Log(5);
+                locationIndex = 0;
+                location = locationPath[0];
+                transform.position = transformPath[0].position;
+                transform.rotation = transformPath[0].rotation;
+        } else if (location != NightGameManager.S.GetCamLocation() && locationPath[locationIndex + 1] != NightGameManager.S.GetCamLocation()) {
             float chance = Random.Range(0f, 1f);
-            // move to next room in path, medium chance
+            Debug.Log(chance);
             if (chance < finalDifficulty) {
-                // potentially add difficulty check to see if movement switches locations or doesn't occur
+                locationIndex++;
+                location = locationPath[locationIndex];
+                transform.position = transformPath[locationIndex].position;
+                transform.rotation = transformPath[locationIndex].rotation;
             }
         }
-        StartCoroutine(SneezyBehaviour());
+        StartCoroutine(MoveDwarf());
     }
 
 //// NICOLE NEEDS TO CHANGE ALL OF THE FOLLOWING CODE TO MATCH SLEEPY AND BASHFUL BEHAVIOUR \\\\\
