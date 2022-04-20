@@ -7,6 +7,7 @@ public class DayDwarf : MonoBehaviour
     public bool canBeSeen = false;
     public Camera cam;
 
+    private bool onScreen = false;
     private bool seen = false;
 
     private void Update()
@@ -14,16 +15,15 @@ public class DayDwarf : MonoBehaviour
         if (canBeSeen)
         {
             Vector3 screenPoint = cam.WorldToViewportPoint(transform.position);
-            bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+            onScreen = screenPoint.z > 0 && screenPoint.x > -0.2 && screenPoint.x < 1.2 && screenPoint.y > -0.2 && screenPoint.y < 1.2;
 
             if (onScreen)
             {
                 // play creepy sound
-
                 seen = true;
             }
 
-            if (seen && onScreen) Destroy(this.gameObject);
+            if (seen && !onScreen) Destroy(this.gameObject);
         }
     }
 }

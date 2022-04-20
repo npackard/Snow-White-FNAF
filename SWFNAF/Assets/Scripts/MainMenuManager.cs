@@ -8,6 +8,7 @@ public class MainMenuManager : MonoBehaviour
     public void OnStartBtnClick()
     {
         PlayerPrefs.SetInt("DayCount", 0);
+        PlayerPrefs.SetFloat("Energy", 0);
 
         SceneManager.LoadScene(1);
     }

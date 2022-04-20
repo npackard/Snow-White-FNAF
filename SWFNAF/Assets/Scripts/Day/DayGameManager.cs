@@ -25,10 +25,10 @@ public class DayGameManager : MonoBehaviour
     public void GetKey(int i) { doorKeys[i] = true; }
     public bool CheckKey(int i) { return doorKeys[i]; }
 
-    private int inGameTime = 0;
+    public int inGameTime = 0;
     private float realTime = 0;
     public float unitTime = 3; // 15 min
-    private float maxTime = 40; // linearly interpolated between 1 ~ 10 hours based on "energy"
+    public int maxTime = 40; // linearly interpolated between 1 ~ 10 hours based on "energy"
 
     private int dayCount;
 
@@ -40,6 +40,7 @@ public class DayGameManager : MonoBehaviour
         }
 
         dayCount = PlayerPrefs.GetInt("DayCount");
+        dayCount = 0;
         // reset all playerprefs if daycount == 0
         if (dayCount == 0)
         {

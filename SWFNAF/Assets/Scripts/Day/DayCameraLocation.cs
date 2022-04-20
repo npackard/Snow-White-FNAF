@@ -12,7 +12,6 @@ public class DayCameraLocation : MonoBehaviour
 
     private void Start()
     {
-        //gameObject.SetActive(false);
         gameObject.layer = LayerMask.NameToLayer("CamLocations");
         gameObject.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("CamLocations");
     }
