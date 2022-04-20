@@ -29,7 +29,7 @@ public class DayCameraLocation : MonoBehaviour
 
         foreach (GameObject dwarf in dayDwarves)
         {
-            dwarf.GetComponent<DayDwarf>().canBeSeen = true;
+            if (dwarf) dwarf.GetComponent<DayDwarf>().canBeSeen = true;
         }
     }
 
@@ -46,7 +46,7 @@ public class DayCameraLocation : MonoBehaviour
 
         foreach (GameObject dwarf in dayDwarves)
         {
-            dwarf.GetComponent<DayDwarf>().canBeSeen = false;
+            if (dwarf) dwarf.GetComponent<DayDwarf>().canBeSeen = false;
         }
     }
 }
