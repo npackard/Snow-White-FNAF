@@ -3787,54 +3787,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d3a2dbf131c8d43bd2da1496b7c8e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sleepyDwarfBedroomNeighbors: 
-  sleepyBathroomNeighbors: 
-  sleepyWorkshopNeighbors: 
-  sleepyUnknownNeighbors: 
-  sleepyHallOneNeighbors: 
-  sleepyHallTwoNeighbors: 
-  sleepyLivingRoomNeighbors: 0800000001000000
-  sleepyKitchenNeighbors: 00000000
+  sleepyDwarfBedroomNeighbors: 03000000
+  sleepyBathroomNeighbors: 00000000
+  sleepyWorkshopNeighbors: 09000000
+  sleepyUnknownNeighbors: 02000000
+  sleepyHallOneNeighbors: 01000000
+  sleepyHallTwoNeighbors: 020000000500000003000000
+  sleepyLivingRoomNeighbors: 060000000800000009000000
+  sleepyKitchenNeighbors: 06000000
   bashfulDwarfBedroomNeighbors: 
-  bashfulBathroomNeighbors: 
-  bashfulWorkshopNeighbors: 
-  bashfulUnknownNeighbors: 
-  bashfulHallOneNeighbors: 
-  bashfulHallTwoNeighbors: 
-  bashfulLivingRoomNeighbors: 
-  bashfulKitchenNeighbors: 
+  bashfulBathroomNeighbors: 0500000009000000
+  bashfulWorkshopNeighbors: 01000000
+  bashfulUnknownNeighbors: 09000000
+  bashfulHallOneNeighbors: 07000000
+  bashfulHallTwoNeighbors: 0200000005000000
+  bashfulLivingRoomNeighbors: 09000000
+  bashfulKitchenNeighbors: 06000000
   docDwarfBedroomNeighbors: 
-  docBathroomNeighbors: 
-  docWorkshopNeighbors: 
-  docUnknownNeighbors: 
-  docHallOneNeighbors: 
-  docHallTwoNeighbors: 
-  docLivingRoomNeighbors: 
+  docBathroomNeighbors: 09000000
+  docWorkshopNeighbors: 06000000
+  docUnknownNeighbors: 05000000
+  docHallOneNeighbors: 010000000200000006000000
+  docHallTwoNeighbors: 07000000
+  docLivingRoomNeighbors: 09000000
   docKitchenNeighbors: 
   sneezyDwarfBedroomNeighbors: 
-  sneezyBathroomNeighbors: 
-  sneezyWorkshopNeighbors: 
-  sneezyUnknownNeighbors: 
-  sneezyHallOneNeighbors: 
-  sneezyHallTwoNeighbors: 
-  sneezyLivingRoomNeighbors: 
-  sneezyKitchenNeighbors: 
-  happyDwarfBedroomneighbors: 
-  happyBathroomNeighbors: 
-  happyWorkshopNeighbors: 
-  happyUnknownNeighbors: 
-  happyHallOneNeighbors: 
-  happyHallTwoNeighbors: 
-  happylivingRoomNeighbors: 
-  happyKitchenNeighbors: 
+  sneezyBathroomNeighbors: 05000000
+  sneezyWorkshopNeighbors: 07000000
+  sneezyUnknownNeighbors: 09000000
+  sneezyHallOneNeighbors: 0200000006000000
+  sneezyHallTwoNeighbors: 08000000
+  sneezyLivingRoomNeighbors: 0800000009000000
+  sneezyKitchenNeighbors: 03000000
+  happyDwarfBedroomneighbors: 06000000
+  happyBathroomNeighbors: 09000000
+  happyWorkshopNeighbors: 08000000
+  happyUnknownNeighbors: 07000000
+  happyHallOneNeighbors: 02000000
+  happyHallTwoNeighbors: 0300000005000000
+  happylivingRoomNeighbors: 0200000009000000
+  happyKitchenNeighbors: 01000000
   grumpyDwarfBedroomNeighbors: 
   grumpyBathroomNeighbors: 
-  grumpyWorkshopNeighbors: 
+  grumpyWorkshopNeighbors: 06000000
   grumpyUnknownNeighbors: 
   grumpyHallOneNeighbors: 
-  grumpyHallTwoNeighbors: 
-  grumpyLivingRoomNeighbors: 
-  grumpyKitchenNeighbors: 
+  grumpyHallTwoNeighbors: 08000000
+  grumpyLivingRoomNeighbors: 09000000
+  grumpyKitchenNeighbors: 07000000
 --- !u!114 &886219926
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -42,13 +42,13 @@ public class NightPathfinder : MonoBehaviour
     public List<Location> sneezyLivingRoomNeighbors;
     public List<Location> sneezyKitchenNeighbors;
 
-    public List<Location> happyDwarfBedroomneighbors;
+    public List<Location> happyDwarfBedroomNeighbors;
     public List<Location> happyBathroomNeighbors;
     public List<Location> happyWorkshopNeighbors;
     public List<Location> happyUnknownNeighbors;
     public List<Location> happyHallOneNeighbors;
     public List<Location> happyHallTwoNeighbors;
-    public List<Location> happylivingRoomNeighbors;
+    public List<Location> happyLivingRoomNeighbors;
     public List<Location> happyKitchenNeighbors;
     
     public List<Location> grumpyDwarfBedroomNeighbors;
@@ -140,13 +140,13 @@ public class NightPathfinder : MonoBehaviour
                 kitchen = new List<Location>(sneezyKitchenNeighbors);
                 break;
             case Dwarf.happy:
-                dwarfBedroom = new List<Location>(happyDwarfBedroomneighbors);
+                dwarfBedroom = new List<Location>(happyDwarfBedroomNeighbors);
                 bathroom = new List<Location>(happyBathroomNeighbors);
                 workshop = new List<Location>(happyWorkshopNeighbors);
                 unknown = new List<Location>(happyUnknownNeighbors);
                 hallOne = new List<Location>(happyHallOneNeighbors);
                 hallTwo = new List<Location>(happyHallTwoNeighbors);
-                livingRoom = new List<Location>(happylivingRoomNeighbors);
+                livingRoom = new List<Location>(happyLivingRoomNeighbors);
                 kitchen = new List<Location>(happyKitchenNeighbors);
                 break;
             case Dwarf.grumpy:
