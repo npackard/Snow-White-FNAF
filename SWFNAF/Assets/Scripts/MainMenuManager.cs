@@ -21,6 +21,10 @@ public class MainMenuManager : MonoBehaviour
         PlayerPrefs.SetInt("Gem4", 0);
         PlayerPrefs.SetInt("Gem5", 0);
         PlayerPrefs.SetInt("Gem6", 0);
+        PlayerPrefs.SetInt("DwarfFree3", 0);
+        PlayerPrefs.SetInt("DwarfFree4", 0);
+        PlayerPrefs.SetInt("DwarfFree5", 0);
+        PlayerPrefs.SetInt("DwarfFree6", 0);
 
         SceneManager.LoadScene(1);
     }

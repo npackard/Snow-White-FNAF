@@ -1314,6 +1314,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2053733108}
+    - target: {fileID: 986476643684141527, guid: 5298767a1e918374d8e3032b2e9f1078, type: 3}
+      propertyPath: dwarfIndex
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2378304323805685308, guid: 5298767a1e918374d8e3032b2e9f1078, type: 3}
       propertyPath: m_Name
       value: DwarfHouse with Lights
@@ -1322,14 +1326,26 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2053733108}
+    - target: {fileID: 4958131649217697863, guid: 5298767a1e918374d8e3032b2e9f1078, type: 3}
+      propertyPath: dwarfIndex
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6525362655786872126, guid: 5298767a1e918374d8e3032b2e9f1078, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 2053733108}
+    - target: {fileID: 6525362655786872126, guid: 5298767a1e918374d8e3032b2e9f1078, type: 3}
+      propertyPath: dwarfIndex
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7020711869883565265, guid: 5298767a1e918374d8e3032b2e9f1078, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 2053733108}
+    - target: {fileID: 7020711869883565265, guid: 5298767a1e918374d8e3032b2e9f1078, type: 3}
+      propertyPath: dwarfIndex
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7418509791550666918, guid: 5298767a1e918374d8e3032b2e9f1078, type: 3}
       propertyPath: m_Name
       value: 1FMine

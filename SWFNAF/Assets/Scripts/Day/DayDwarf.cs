@@ -7,6 +7,8 @@ public class DayDwarf : MonoBehaviour
     public bool canBeSeen = false;
     public Camera cam;
 
+    public int dwarfIndex;
+
     private bool onScreen = false;
     private bool seen = false;
 
@@ -24,7 +26,7 @@ public class DayDwarf : MonoBehaviour
                 seen = true;
             }
 
-            if (seen && !onScreen) Destroy(this.gameObject);
+            if (seen && !onScreen) { PlayerPrefs.SetInt("DwarfFree" + dwarfIndex.ToString(), 1); Destroy(this.gameObject); }
         }
     }
 }
