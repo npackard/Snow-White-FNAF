@@ -39,6 +39,9 @@ public class DayCameraMovement : MonoBehaviour
     private GameObject lastHit;
     private bool canTouch;
 
+    private int temp_layer = 0;
+    private int highlightMask;
+
     private void Awake()
     {
         if (instance != this)
@@ -54,6 +57,8 @@ public class DayCameraMovement : MonoBehaviour
         curr = start;
 
         curr.OnThisCam();
+
+        highlightMask = LayerMask.NameToLayer("Highlight");
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -71,7 +76,7 @@ public class DayCameraMovement : MonoBehaviour
 
         var ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
-        int layer_mask = (1 << curr.gameObject.layer) | LayerMask.GetMask("CamLocations");
+        int layer_mask = (1 << curr.gameObject.layer) | LayerMask.GetMask("CamLocations", "Highlight");
 
         if (Physics.Raycast(ray, out hit, 60, layer_mask))
         {
@@ -79,6 +84,10 @@ public class DayCameraMovement : MonoBehaviour
                 hit.transform.gameObject.tag == "Key" ||
                 hit.transform.gameObject.tag == "Camera")
             {
+                if (lastHit && hit.transform.gameObject != lastHit) lastHit.layer = temp_layer;
+                if (hit.transform.gameObject.layer != highlightMask) temp_layer = hit.transform.gameObject.layer;
+                hit.transform.gameObject.layer = highlightMask;
+
                 canTouch = true;
                 lastHit = hit.transform.gameObject;
                 DayUIManager.instance.PanelInteractableOn();
@@ -87,12 +96,17 @@ public class DayCameraMovement : MonoBehaviour
                 if (hit.transform.gameObject.GetComponent<DayDoor>().open) return;
                 else
                 {
+                    if (lastHit && hit.transform.gameObject != lastHit) lastHit.layer = temp_layer;
+                    if (hit.transform.gameObject.layer != highlightMask) temp_layer = hit.transform.gameObject.layer;
+                    hit.transform.gameObject.layer = highlightMask;
+
                     canTouch = true;
                     lastHit = hit.transform.gameObject;
                     DayUIManager.instance.PanelInteractableOn();
                 }
             } else
             {
+                if (lastHit) lastHit.layer = temp_layer;
                 canTouch = false;
                 lastHit = null;
                 DayUIManager.instance.PanelInteractableOff();
@@ -100,17 +114,22 @@ public class DayCameraMovement : MonoBehaviour
         }
         else 
         {
+            if (lastHit) lastHit.layer = temp_layer;
             canTouch = false;
             lastHit = null;
             DayUIManager.instance.PanelInteractableOff();
         }
-
+        
         // check for Go To Bed btn
         if (Physics.Raycast(ray, out hit, 10, layer_mask))
         {
             if (hit.transform.gameObject.tag == "Interactable" ||
                 hit.transform.gameObject.tag == "Portal")
             {
+                if (lastHit && hit.transform.gameObject != lastHit) lastHit.layer = temp_layer;
+                if (hit.transform.gameObject.layer != highlightMask) temp_layer = hit.transform.gameObject.layer;
+                hit.transform.gameObject.layer = highlightMask;
+
                 canTouch = true;
                 lastHit = hit.transform.gameObject;
                 DayUIManager.instance.PanelInteractableOn();
@@ -164,7 +183,6 @@ public class DayCameraMovement : MonoBehaviour
                 GameManager.instance.LoadMine();
             }
         }
-        lastHit = null;
     }
 
     private void Move(GameObject target)
