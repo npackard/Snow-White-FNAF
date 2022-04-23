@@ -36,6 +36,22 @@ public class DayGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // for testing purposes
+        PlayerPrefs.SetInt("DayCount", 0);
+        PlayerPrefs.SetFloat("Energy", 0);
+        PlayerPrefs.SetInt("Key1", 0);
+        PlayerPrefs.SetInt("Key2", 0);
+        PlayerPrefs.SetInt("Key3", 0);
+        PlayerPrefs.SetInt("Key4", 0);
+        PlayerPrefs.SetInt("Key5", 0);
+        PlayerPrefs.SetInt("Gem1", 0);
+        PlayerPrefs.SetInt("Gem2", 0);
+        PlayerPrefs.SetInt("Gem3", 0);
+        PlayerPrefs.SetInt("Gem4", 0);
+        PlayerPrefs.SetInt("Gem5", 0);
+        PlayerPrefs.SetInt("Gem6", 0);
+        // end
     }
 
     // Start is called before the first frame update
