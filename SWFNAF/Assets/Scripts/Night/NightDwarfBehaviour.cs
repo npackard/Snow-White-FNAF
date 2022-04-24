@@ -214,12 +214,16 @@ public class NightDwarfBehaviour : MonoBehaviour
                 }
             } else if (location != NightGameManager.S.GetCamLocation() && locationPath[movementIndex + 1] != NightGameManager.S.GetCamLocation()) { // move along path if path isn't blocked and player isn't looking at dwarf or dwarf's next room
                 if ((dwarf == Dwarf.sleepy || dwarf == Dwarf.grumpy) && !NightGameManager.S.GetDoorClosed()) {
-                    if (dwarf == Dwarf.grumpy) audio.PlayOneShot(angry);
-                    DoMove();
+                    if (CheckDoubleCams()) {
+                        if (dwarf == Dwarf.grumpy) audio.PlayOneShot(angry);
+                        DoMove();
+                    }
                 } else if ((dwarf == Dwarf.doc || dwarf == Dwarf.happy) && !NightGameManager.S.GetVentClosed()) {
-                    if (dwarf == Dwarf.doc) audio.PlayOneShot(mumble);
-                    else audio.PlayOneShot(laugh);
-                    DoMove();
+                    if (CheckDoubleCams()) {
+                        if (dwarf == Dwarf.doc) audio.PlayOneShot(mumble);
+                        else audio.PlayOneShot(laugh);
+                        DoMove();
+                    }
                 } else if (dwarf == Dwarf.sneezy && NightGameManager.S.GetFireLit() && (location == Location.unknown || locationPath[movementIndex + 1] == Location.unknown)) {
                     DoSneeze();
                 } else if (dwarf == Dwarf.bashful && NightGameManager.S.GetFireLit() && !(location == Location.unknown || locationPath[movementIndex + 1] == Location.unknown)) {
@@ -288,5 +292,12 @@ public class NightDwarfBehaviour : MonoBehaviour
 
     public int GetDifficulty() {
         return difficultAdjustment;
+    }
+
+    private bool CheckDoubleCams() {
+        if (location == Location.hallOne && NightGameManager.S.GetCamLocation() == Location.hallTwo) return false;
+        if (location == Location.hallTwo && NightGameManager.S.GetCamLocation() == Location.hallOne) return false;
+        if (location == Location.livingRoom && NightGameManager.S.GetCamLocation() == Location.kitchen) return false;
+        return true;
     }
 }

@@ -308,6 +308,7 @@ public class NightGameManager : MonoBehaviour
         StopAllCoroutines();
         eyes.NoControl();
         OpenEyes();
+        NightMoveMirror.S.MirrorDown();
         alive = false;
         sleepy.PlayerDies();
         bashful.PlayerDies();
