@@ -22,9 +22,9 @@ public class NightGameManager : MonoBehaviour
     public GameObject playAgain;
 
     public Image gameOverImage;
-    public Button doorButton;
-    public Button fireplaceButton;
-    public Button ventButton;
+    public GameObject doorButton;
+    public GameObject fireplaceButton;
+    public GameObject ventButton;
 
     public NightDwarfBehaviour sleepy;
     public NightDwarfBehaviour bashful;
@@ -98,9 +98,9 @@ public class NightGameManager : MonoBehaviour
         winText.enabled = false;
         energyText.enabled = true;
         timerText.enabled = true;
-        doorButton.enabled = true;
-        fireplaceButton.enabled = true;
-        ventButton.enabled = true;
+        doorButton.SetActive(true);
+        fireplaceButton.SetActive(true);
+        ventButton.SetActive(true);
         playAgain.SetActive(false);
         fire.SetActive(false);
         eyes.YesControl();
@@ -335,16 +335,13 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void CloseEyes() {
-        StopCoroutine(ShowButtons());
         eyesClosed = true;
-        doorButton.enabled = false;
-        fireplaceButton.enabled = false;
-        ventButton.enabled = false;
+        NightSleep.S.CloseEyes();
     }
 
     public void OpenEyes() {
         eyesClosed = false;
-        StartCoroutine(ShowButtons());
+        NightSleep.S.OpenEyes();
     }
 
     public bool GetEyesClosed() {
@@ -375,12 +372,5 @@ public class NightGameManager : MonoBehaviour
         gameOverImage.color = new Color(255, 255, 255, count / 255);
         if (count < 255) StartCoroutine(GameOver());
         else playAgain.SetActive(true);
-    }
-    
-    private IEnumerator ShowButtons() {
-        yield return new WaitForSeconds(1f);
-        doorButton.enabled = true;
-        fireplaceButton.enabled = true;
-        ventButton.enabled = true;
     }
 }

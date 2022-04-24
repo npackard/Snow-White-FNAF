@@ -218,6 +218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf50ad92e081dc44af1d12b45775f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorButton: {fileID: 1694663743}
+  fireplaceButton: {fileID: 703880539}
+  ventButton: {fileID: 133458972}
 --- !u!1001 &52013295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10794,9 +10797,9 @@ MonoBehaviour:
   fire: {fileID: 1799495878}
   playAgain: {fileID: 1393301631}
   gameOverImage: {fileID: 1356473508}
-  doorButton: {fileID: 1694663745}
-  fireplaceButton: {fileID: 703880541}
-  ventButton: {fileID: 133458974}
+  doorButton: {fileID: 1694663743}
+  fireplaceButton: {fileID: 703880539}
+  ventButton: {fileID: 133458972}
   sleepy: {fileID: 258369280}
   bashful: {fileID: 1697920001}
   doc: {fileID: 2034027900}

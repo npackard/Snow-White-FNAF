@@ -252,7 +252,6 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     public void ResetDwarf() {
-        Debug.Log(dwarf);
         DwarfSetup();
         movementIndex = 0;
         location = locationPath[movementIndex];
