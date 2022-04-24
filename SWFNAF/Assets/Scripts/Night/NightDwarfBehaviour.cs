@@ -8,6 +8,273 @@ public enum Location{dwarfBedroom, bathroom, workshop, unknown, mineEntrance, ha
 
 public class NightDwarfBehaviour : MonoBehaviour
 {
+    [Range(0, 20)]
+    public int difficultAdjustment = 0;
+
+    public Dwarf dwarf;
+    public Transform death;
+
+    public Location[] sleepyPathHallOneLiving;
+    public Location[] sleepyPathBedroomLiving;
+    public Location[] sleepyPathBedroomUnknownLiving;
+    public Location[] bashfulPathKitchenLiving;
+    public Location[] bashfulPathKitchenUnknown;
+    public Location[] bashfulPathBathroomUnknown;
+    public Location[] docPathUnknownLiving;
+    public Location[] docPathUnknownBathroom;
+    public Location[] sneezyPathBathroomUnknown;
+    public Location[] happyPathBedroomBathroom;
+    public Location[] happyPathBedroomWorkshopBathroom;
+    public Location[] grumpyPathWorkshopLiving;
+
+    public Transform[] sleepyTransformPathHallOneLiving;
+    public Transform[] sleepyTransformPathBedroomLiving;
+    public Transform[] sleepyTransformPathBedroomUnknownLiving;
+    public Transform[] bashfulTransformPathKitchenLiving;
+    public Transform[] bashfulTransformPathKitchenUnknown;
+    public Transform[] bashfulTransformPathBathroomUnknown;
+    public Transform[] docTransformPathUnknownLiving;
+    public Transform[] docTransformPathUnknownBathroom;
+    public Transform[] sneezyTransformPathBathroomUnknown;
+    public Transform[] happyTransformPathBedroomBathroom;
+    public Transform[] happyTransformPathBedroomWorkshopBathroom;
+    public Transform[] grumpyTransformPathWorkshopLiving;
+
+    public AudioClip sneeze;
+    public AudioClip mumble;
+    public AudioClip angry;
+    public AudioClip laugh;
+
+    private bool isActive = false;
+    private bool onCamera = false;
+    private bool playerDead = false;
+
+    private bool docFree = false; // key 1, study
+    private bool sneezyFree = false; // key 2, bathroom
+    private bool happyFree = false; // key 3, dwarf bedroom
+    private bool grumpyFree = false; // key 4, workshop
+
+    private float moveTimer = 0f;
+    private int shortWait = 0;
+    private int longWait = 0;
+    private int movementIndex = 0;
+
+    private Location location;
+    private Location[] locationPath;
+    private Transform[] transformPath;
+
+    private AudioSource audio;
+    private Animator anim;
+
+    private void Start() {
+        anim = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
+        StartNight();
+    }
+
+    private void StartNight() {
+        anim.SetBool("attacking", false);
+        movementIndex = 0;
+        GetFreeDwarves();
+        NightGameManager.S.GetDifficulty(dwarf);
+        DwarfStart();
+    }
+
+    private void GetFreeDwarves() {
+        docFree = PlayerPrefs.GetInt("DwarfFree3") == 1;
+        sneezyFree = PlayerPrefs.GetInt("DwarfFree4") == 1;
+        happyFree = PlayerPrefs.GetInt("DwarfFree5") == 1;
+        grumpyFree = PlayerPrefs.GetInt("DwarfFree6") == 1;
+    }
+
+    private void DwarfStart() {
+        switch(dwarf) {
+            case Dwarf.sleepy:
+                SleepyStart();
+                break;
+            case Dwarf.bashful:
+                BashfulStart();
+                break;
+            case Dwarf.doc:
+                DocStart();
+                break;
+            case Dwarf.sneezy:
+                SneezyStart();
+                break;
+            case Dwarf.happy:
+                HappyStart();
+                break;
+            case Dwarf.grumpy:
+                GrumpyStart();
+                break;
+            default:
+                Debug.Log("something is wrong");
+                break;
+        }
+        GoHome();
+        SetWaitTimes();
+        if (difficultAdjustment > 0) StartCoroutine(Move());
+    }
+
+    public void SetDifficulty(int diff) {
+        difficultAdjustment = Mathf.Clamp(diff, 0, 20);
+    }
+
+    private void SetWaitTimes() {
+        shortWait = Mathf.Clamp(15 - difficultAdjustment, 5, 20);
+        longWait = Mathf.Clamp(25 - difficultAdjustment, 5, 20);
+    }
+
+    private int GetWaitTime() {
+        return (int)Random.Range(shortWait, longWait);
+    }
+
+    private void GoHome() {
+        location = locationPath[0];
+        transform.position = transformPath[0].position;
+        transform.rotation = transformPath[0].rotation;
+    }
+
+    private void SleepyStart() {
+        if (happyFree) {
+            locationPath = sleepyPathBedroomLiving;
+            transformPath = sleepyTransformPathBedroomLiving;
+        } else {
+            locationPath = sleepyPathHallOneLiving;
+            transformPath = sleepyTransformPathHallOneLiving;
+        }
+    }
+
+    private void BashfulStart() {
+        if (sneezyFree) {
+            locationPath = bashfulPathBathroomUnknown;
+            transformPath = bashfulTransformPathBathroomUnknown;
+        } else {
+            locationPath = bashfulPathKitchenLiving;
+            transformPath = bashfulTransformPathKitchenLiving;
+        }
+    }
+
+    private void DocStart() {
+        if (sneezyFree) {
+            locationPath = docPathUnknownBathroom;
+            transformPath = docTransformPathUnknownBathroom;
+        } else {
+            locationPath = docPathUnknownLiving;
+            transformPath = docTransformPathUnknownLiving;
+        }
+    }
+
+    private void SneezyStart() {
+        locationPath = sneezyPathBathroomUnknown;
+        transformPath = sneezyTransformPathBathroomUnknown;
+    }
+
+    private void HappyStart() {
+        if (grumpyFree) {
+            locationPath = happyPathBedroomWorkshopBathroom;
+            transformPath = happyTransformPathBedroomWorkshopBathroom;
+        } else {
+            locationPath = happyPathBedroomBathroom;
+            transformPath = happyTransformPathBedroomBathroom;
+        }
+    }
+
+    private void GrumpyStart() {
+        locationPath = grumpyPathWorkshopLiving;
+        transformPath = grumpyTransformPathWorkshopLiving;
+    }
+
+    private IEnumerator Move() {
+        yield return new WaitForSeconds(GetWaitTime());
+        // roll to move
+        if (difficultAdjustment > (int)Random.Range(1, 20)) {
+            // prioritize attacking
+            if (location == Location.snowWhiteBedroom) {
+                // check special blocked cases, then the rest
+                if (dwarf == Dwarf.grumpy && NightGameManager.S.GetDoorClosed()) {
+                    // bang on door
+                    GoHome();
+                } else if (dwarf == Dwarf.sleepy && NightGameManager.S.GetDoorClosed()) { // other blocked cases
+                    GoHome();
+                } else if (dwarf == Dwarf.sleepy && NightGameManager.S.GetDoorClosed()) {
+                    GoHome();
+                } else if (dwarf == Dwarf.bashful && NightGameManager.S.GetFireLit()) {
+                    GoHome();
+                } else if ((dwarf == Dwarf.doc || dwarf == Dwarf.happy) && NightGameManager.S.GetVentClosed()) {
+                    GoHome();
+                } else { // able to attack
+                    transform.position = death.position;
+                    transform.rotation = death.rotation;
+                    playerDead = true;
+                    KillPlayer(); // start countdown to force mirror down
+                }
+            } else { // move along path if path isn't blocked
+                if ((dwarf == Dwarf.sleepy || dwarf == Dwarf.grumpy) && !NightGameManager.S.GetDoorClosed()) {
+                    if (dwarf == Dwarf.grumpy) audio.PlayOneShot(angry);
+                    DoMove();
+                } else if ((dwarf == Dwarf.doc || dwarf == Dwarf.happy) && !NightGameManager.S.GetVentClosed()) {
+                    if (dwarf == Dwarf.doc) audio.PlayOneShot(mumble);
+                    else audio.PlayOneShot(laugh);
+                    DoMove();
+                } else if ((dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) && !NightGameManager.S.GetFireLit()) {
+                    DoMove();
+                } else if (dwarf == Dwarf.sneezy && NightGameManager.S.GetFireLit()) {
+                    DoSneeze();
+                }
+            }
+        }
+        if (!playerDead) StartCoroutine(Move());
+    }
+
+    private IEnumerator KillPlayer() {  // start countdown to force mirror down
+        yield return new WaitForSeconds(6f);
+        PlayerDies();
+        NightGameManager.S.Die();
+    }
+
+    public void PlayerDies() { // killing animation & resetting game
+        anim.SetBool("attacking", true);
+        StopAllCoroutines();
+    }
+
+    public void ResetDwarf() {
+        movementIndex = 0;
+        location = locationPath[movementIndex];
+        transform.position = transformPath[movementIndex].position;
+        transform.rotation = transformPath[movementIndex].rotation;
+    }
+
+    private void DoMove() {
+        movementIndex++;
+        location = locationPath[movementIndex];
+        transform.position = transformPath[movementIndex].position;
+        transform.rotation = transformPath[movementIndex].rotation;
+    }
+
+    public void PlayerLitFire() {
+        if (dwarf == Dwarf.bashful) {
+            StopAllCoroutines();
+            GoHome();
+            StartCoroutine(Move());
+        } else if (dwarf == Dwarf.sneezy) {
+            StopAllCoroutines();
+            DoSneeze();
+        }
+    }
+
+    private void DoSneeze() {
+        audio.PlayOneShot(sneeze);
+        NightGameManager.S.PutFireOut();
+        GoHome();
+        StartCoroutine(Move());
+    }
+
+
+
+
+
+    /*
     [Range(1, 20)]
     public int difficultAdjustment = 1;
     [Range(1, 3)]
@@ -41,6 +308,10 @@ public class NightDwarfBehaviour : MonoBehaviour
     private bool isActive = false;
     private bool isEnabled = false;
     private bool onCamera = false;
+    private bool dwarfThreeFree;
+    private bool dwarfFourFree;
+    private bool dwarfFiveFree;
+    private bool dwarfSixFree;
     private bool key1;
     private bool key2;
     private bool key3;
@@ -133,6 +404,13 @@ public class NightDwarfBehaviour : MonoBehaviour
         key2 = PlayerPrefs.GetInt("Key2") == 1;
         key3 = PlayerPrefs.GetInt("Key3") == 1;
         key4 = PlayerPrefs.GetInt("Key4") == 1;
+    }
+
+    private void GetDwarves() {
+        dwarfThreeFree = PlayerPrefs.GetInt("DwarfFree3") == 1;
+        dwarfFourFree = PlayerPrefs.GetInt("DwarfFree4") == 1;
+        dwarfFiveFree = PlayerPrefs.GetInt("DwarfFree5") == 1;
+        dwarfSixFree = PlayerPrefs.GetInt("DwarfFree6") == 1;
     }
 
     public void SetTimes() {
@@ -344,5 +622,5 @@ public class NightDwarfBehaviour : MonoBehaviour
             StartCoroutine(MoveDwarf());
         }
     }
-
+    */
 }

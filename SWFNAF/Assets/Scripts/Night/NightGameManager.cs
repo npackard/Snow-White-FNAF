@@ -8,7 +8,7 @@ public class NightGameManager : MonoBehaviour
 {
     public static NightGameManager S;
 
-    public int secondsPerHour = 50;
+    public int secondsPerHour = 35;
     
     public AudioSource fireAudio;
     public AudioSource fireIgnite;
@@ -17,7 +17,6 @@ public class NightGameManager : MonoBehaviour
     public GameObject door;
     public GameObject fire;
 
-    public NightDwarfBehaviour dopey;
     public NightDwarfBehaviour sleepy;
     public NightDwarfBehaviour bashful;
     public NightDwarfBehaviour doc;
@@ -39,19 +38,22 @@ public class NightGameManager : MonoBehaviour
     private Location camAt = Location.none;
     private Location lastCam = Location.none;
 
+    private bool docFree = false; // key 1, study
+    private bool sneezyFree = false; // key 2, bathroom
+    private bool happyFree = false; // key 3, dwarf bedroom
+    private bool grumpyFree = false; // key 4, workshop
+
     private bool alive = true;
     private bool doorClosed = false;
     private bool eyesClosed = false;
     private bool fireLit = false;
     private bool ventClosed = false;
     private float energy = 0f;
-    private int night;
     public int timePassed = 0;
 
-    private bool bathroomLocked = true;
-    private bool workshopLocked = true;
-    private bool unknownLocked = true;
-    private bool mineEntranceLocked = true;
+    private int easy = 3;
+    private int medium = 5;
+    private int hard = 7;
 
     private void Awake() {
         if (NightGameManager.S) {
@@ -64,7 +66,9 @@ public class NightGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerPrefs.SetInt("nights", PlayerPrefs.GetInt("night") + 1);
         doorAnim = door.GetComponent<Animator>();
+        GetFreeDwarves();
         fire.SetActive(false);
         timerText.text = "12am";
         deathText.enabled = false;
@@ -79,28 +83,41 @@ public class NightGameManager : MonoBehaviour
         
     }
 
-    public int GetNight() {
-        return night;
+    private void GetFreeDwarves() {
+        docFree = PlayerPrefs.GetInt("DwarfFree3") == 1;
+        sneezyFree = PlayerPrefs.GetInt("DwarfFree4") == 1;
+        happyFree = PlayerPrefs.GetInt("DwarfFree5") == 1;
+        grumpyFree = PlayerPrefs.GetInt("DwarfFree6") == 1;
+    }
+
+    public int GetDifficulty(Dwarf dwarf) {
+        int value = 3;
+        if (docFree) value += 2;
+        if (sneezyFree) value += 2;
+        if (happyFree) value += 2;
+        if (grumpyFree) {
+            value += 2;
+            value += Mathf.Clamp((PlayerPrefs.GetInt("night") - 3), 0, 20);
+        }
+        return value;
     }
 
     // indicates which night is next
     private void NightEnd() {
-        deathText.text = "YOU WIN";
+        deathText.text = "6 am";
         deathText.enabled = true;
         ResetDwarves();
-        night++;
         timePassed = 0;
         StartCoroutine(MoveToDay());
     }
 
     private void ResetDwarves() {
-        //dopey.ResetDwarf();
         sleepy.ResetDwarf();
         bashful.ResetDwarf();
-        //doc.ResetDwarf();
-        //sneezy.ResetDwarf();
-        //happy.ResetDwarf();
-        //grumpy.ResetDwarf();
+        doc.ResetDwarf();
+        sneezy.ResetDwarf();
+        happy.ResetDwarf();
+        grumpy.ResetDwarf();
     }
 
     private IEnumerator MakeTimePass() {
@@ -171,8 +188,6 @@ public class NightGameManager : MonoBehaviour
 
     public void MirrorUp() {
         camAt = lastCam;
-        Debug.Log(camAt);
-        lastCam = camAt;
     }
 
     public void MirrorDown() {
@@ -202,29 +217,32 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void SwitchDoor() {
+        // open vent
         ventClosed = false;
         cover.SetActive(false);
-        doorClosed = !doorClosed;
-        fireLit = false;
-        fire.SetActive(false);
-        fireAudio.loop = false;
-        fireAudio.Stop();
-        StopCoroutine(FireTimer());
-        doorAnim.SetBool("open", !doorClosed);
+        // close door
+        doorClosed = true;
+        doorAnim.SetBool("open", false);
+        // put out fire
+        PutFireOut();
     }
 
     public void LightFire() {
+        // open vent
         ventClosed = false;
         cover.SetActive(false);
+        // open door
+        doorClosed = false;
+        doorAnim.SetBool("open", true);
+        // light fire
         fire.SetActive(true);
         fireIgnite.PlayOneShot(igniteClip);
         StartCoroutine(StartCrackle());
-        doorClosed = false;
-        doorAnim.SetBool("open", true);
-        fireLit = true;
-        bashful.ActiveFire();
-        sneezy.ActiveFire();
         StartCoroutine(FireTimer());
+        fireLit = true;
+        // kick dwarves out of fireplace
+        bashful.PlayerLitFire();
+        sneezy.PlayerLitFire();
     }
 
     private IEnumerator FireTimer() {
@@ -235,9 +253,28 @@ public class NightGameManager : MonoBehaviour
         fire.SetActive(false);
     }
 
+    public void SwitchVent() {
+        // close vent
+        ventClosed = true;
+        cover.SetActive(true);
+        // open door
+        doorClosed = false;
+        doorAnim.SetBool("open", true);
+        // put out fire
+        PutFireOut();
+    }
+
+    public void PutFireOut() {
+        StopCoroutine(FireTimer());
+        fire.SetActive(false);
+        fireAudio.loop = false;
+        fireAudio.Stop();
+        fireLit = false;
+    }
+
     public void Die() {
         alive = false;
-        deathText.text = "GAME OVER";
+        deathText.text = "You Died";
         deathText.enabled = true;
     }
 
@@ -267,16 +304,5 @@ public class NightGameManager : MonoBehaviour
         yield return new WaitForSeconds(igniteClip.length);
         fireAudio.loop = true;
         fireAudio.Play();
-    }
-
-    public void SwitchVent() {
-        ventClosed = !ventClosed;
-        cover.SetActive(ventClosed);
-        fire.SetActive(false);
-        fireAudio.loop = false;
-        fireAudio.Stop();
-        fireLit = false;
-        doorClosed = false;
-        doorAnim.SetBool("open", true);
     }
 }

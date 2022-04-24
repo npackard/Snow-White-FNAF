@@ -34,6 +34,7 @@ public class MainMenuManager : MonoBehaviour
         PlayerPrefs.SetInt("DwarfFree4", 0);
         PlayerPrefs.SetInt("DwarfFree5", 0);
         PlayerPrefs.SetInt("DwarfFree6", 0);
+        PlayerPrefs.SetInt("night", 0);
 
         SceneManager.LoadScene(1);
     }
