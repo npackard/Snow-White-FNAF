@@ -305,4 +305,14 @@ public class NightGameManager : MonoBehaviour
         fireAudio.loop = true;
         fireAudio.Play();
     }
+
+    public int GetTotalDifficulty() {
+        int value = sleepy.GetDifficulty() + bashful.GetDifficulty() + doc.GetDifficulty();
+        value += sneezy.GetDifficulty() + happy.GetDifficulty() + grumpy.GetDifficulty();
+        return (int)(value / 6);
+    }
+
+    public int GetGameLength() {
+        return secondsPerHour * 6;
+    }
 }

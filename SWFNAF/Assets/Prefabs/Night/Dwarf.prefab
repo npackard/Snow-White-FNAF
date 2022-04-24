@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6757086316705776435}
   - component: {fileID: 4407945600527916901}
   - component: {fileID: 2306908312850258041}
+  - component: {fileID: -609304821054916435}
   m_Layer: 0
   m_Name: Dwarf
   m_TagString: Untagged
@@ -77,6 +78,8 @@ MonoBehaviour:
   mumble: {fileID: 8300000, guid: fc12163940f2ac3418f7e78fb456cc7c, type: 3}
   angry: {fileID: 8300000, guid: 784036b8ebc2100458d66e1be2ce3cbb, type: 3}
   laugh: {fileID: 8300000, guid: d0b484da65592c1499e3d0099ebedc9a, type: 3}
+  deathSound: {fileID: 8300000, guid: dc224ef10d50aba4aabd27cc5b81c8a9, type: 3}
+  doorSlam: {fileID: 8300000, guid: 582f8bf535816a94187d2f8acb8aa7f8, type: 3}
 --- !u!82 &4407945600527916901
 AudioSource:
   m_ObjectHideFlags: 0
@@ -192,6 +195,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-609304821054916435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6757086316705776328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95880d81aa98c7e49890f5b96edf9c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7070650740645835482
 PrefabInstance:
   m_ObjectHideFlags: 0
