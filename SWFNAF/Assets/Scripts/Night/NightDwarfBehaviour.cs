@@ -209,7 +209,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                     playerDead = true;
                     KillPlayer(); // start countdown to force mirror down
                 }
-            } else { // move along path if path isn't blocked
+            } else if (location != NightGameManager.S.GetCamLocation() && locationPath[movementIndex + 1] != NightGameManager.S.GetCamLocation()) { // move along path if path isn't blocked and player isn't looking at dwarf or dwarf's next room
                 if ((dwarf == Dwarf.sleepy || dwarf == Dwarf.grumpy) && !NightGameManager.S.GetDoorClosed()) {
                     if (dwarf == Dwarf.grumpy) audio.PlayOneShot(angry);
                     DoMove();
