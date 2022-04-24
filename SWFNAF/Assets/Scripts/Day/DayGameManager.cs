@@ -108,8 +108,9 @@ public class DayGameManager : MonoBehaviour
 
     private IEnumerator Brighter()
     {
-        DayUIManager.instance.BrighterAnim();
+        int time = 2;
+        DayUIManager.instance.BrighterAnim(time);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(time + 1);
     }
 }

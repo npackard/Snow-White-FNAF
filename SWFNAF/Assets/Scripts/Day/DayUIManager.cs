@@ -22,8 +22,11 @@ public class DayUIManager : MonoBehaviour
 
     public GameObject panelInteractable;
     public GameObject panelEndDay;
+    public GameObject dayCount;
+    public Text dayCountText;
     private Image panelEndDayImg;
     public Text timeText;
+    public GameObject imageAim;
 
     private bool darkerAnim = false;
     private bool maxOpac = false;
@@ -43,7 +46,9 @@ public class DayUIManager : MonoBehaviour
     {
         panelInteractable.SetActive(false);
         panelEndDay.SetActive(false);
+        dayCount.SetActive(false);
         panelEndDayImg = panelEndDay.GetComponent<Image>();
+        imageAim.SetActive(false);
     }
 
     private void Update()
@@ -51,17 +56,21 @@ public class DayUIManager : MonoBehaviour
         if (darkerAnim && !maxOpac)
         {
             panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, panelEndDayImg.color.a + 0.005f);
+            dayCountText.color = new Color(dayCountText.color.r, dayCountText.color.g, dayCountText.color.b, dayCountText.color.a + 0.005f);
 
             if (panelEndDayImg.color.a >= 1.0f) maxOpac = true;
         }
         if (brighterAnim && !minOpac)
         {
             panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, panelEndDayImg.color.a - 0.005f);
+            dayCountText.color = new Color(dayCountText.color.r, dayCountText.color.g, dayCountText.color.b, dayCountText.color.a - 0.005f);
 
             if (panelEndDayImg.color.a <= 0f)
             {
                 minOpac = true;
                 panelEndDay.SetActive(false);
+                dayCount.SetActive(false);
+                imageAim.SetActive(true);
             }
         }
     }
@@ -85,18 +94,35 @@ public class DayUIManager : MonoBehaviour
         panelInteractable.SetActive(false);
     }
 
-    public void BrighterAnim()
+    // synonymous to starting day
+    public void BrighterAnim(int time)
     {
+        imageAim.SetActive(false);
+
         panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, 1);
+
+        dayCountText.text = "Day " + (PlayerPrefs.GetInt("DayCount") + 1).ToString();
+
+        panelEndDay.SetActive(true);
+        dayCount.SetActive(true);
+
+        StartCoroutine(WaitOneSecBrighter(time));
+
+    }
+
+    private IEnumerator WaitOneSecBrighter(int time)
+    {
+        yield return new WaitForSeconds(time);
 
         brighterAnim = true;
         minOpac = false;
-
-        panelEndDay.SetActive(true);
     }
 
+    // synonymous to ending day
     public void DarkerAnim()
     {
+        dayCount.SetActive(false);
+
         panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, 0);
 
         darkerAnim = true;
