@@ -2787,10 +2787,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f65d7c9b303e88948add459d6891d801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 10
-  smoothing: 2
-  minY: -30
-  maxY: 30
+  minY: 182.5
+  maxY: 242.5
+  speed: 0.8
 --- !u!114 &443426626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2817,7 +2816,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 56371a219ad560c41beb6ec4cd83bdb8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
