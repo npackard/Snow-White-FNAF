@@ -133,6 +133,7 @@ public class NightDwarfBehaviour : MonoBehaviour
 
     private void GoHome() {
         location = locationPath[0];
+        movementIndex = 0;
         transform.position = transformPath[0].position;
         transform.rotation = transformPath[0].rotation;
     }
@@ -219,10 +220,11 @@ public class NightDwarfBehaviour : MonoBehaviour
                     if (dwarf == Dwarf.doc) audio.PlayOneShot(mumble);
                     else audio.PlayOneShot(laugh);
                     DoMove();
-                } else if ((dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) && !NightGameManager.S.GetFireLit()) {
-                    DoMove();
-                } else if (dwarf == Dwarf.sneezy && NightGameManager.S.GetFireLit()) {
+                } else if (dwarf == Dwarf.sneezy && NightGameManager.S.GetFireLit() && (location == Location.unknown || locationPath[movementIndex + 1] == Location.unknown)) {
                     DoSneeze();
+                } else if (dwarf == Dwarf.bashful && NightGameManager.S.GetFireLit() && !(location == Location.unknown || locationPath[movementIndex + 1] == Location.unknown)) {
+                    if (dwarf == Dwarf.sneezy) audio.PlayOneShot(sneeze);
+                    DoMove();
                 }
             }
         }
@@ -236,6 +238,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     public void PlayerDies() { // killing animation & resetting game
+        playerDead = true;
         anim.SetBool("attacking", true);
         StopAllCoroutines();
     }
@@ -256,13 +259,15 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     public void PlayerLitFire() {
-        if (dwarf == Dwarf.bashful) {
-            StopAllCoroutines();
-            GoHome();
-            StartCoroutine(Move());
-        } else if (dwarf == Dwarf.sneezy) {
-            StopAllCoroutines();
-            DoSneeze();
+        if (location == Location.snowWhiteBedroom) {
+            if (dwarf == Dwarf.bashful) {
+                StopAllCoroutines();
+                GoHome();
+                StartCoroutine(Move());
+            } else if (dwarf == Dwarf.sneezy) {
+                StopAllCoroutines();
+                DoSneeze();
+            }
         }
     }
 

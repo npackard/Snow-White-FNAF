@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NightButtonManager : MonoBehaviour
 {
@@ -66,5 +67,13 @@ public class NightButtonManager : MonoBehaviour
 
     public void SwitchVent() {
         NightGameManager.S.SwitchVent();
+    }
+
+    public void PlayAgain() {
+        SceneManager.LoadScene(1);
+    }
+
+    public void Quit() {
+        Application.Quit();
     }
 }

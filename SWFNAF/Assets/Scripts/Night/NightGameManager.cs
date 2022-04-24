@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class NightGameManager : MonoBehaviour
 {
     public static NightGameManager S;
 
     public int secondsPerHour = 35;
+
+    public AudioClip win;
     
     public AudioSource fireAudio;
     public AudioSource fireIgnite;
@@ -16,6 +19,12 @@ public class NightGameManager : MonoBehaviour
     public GameObject cover;
     public GameObject door;
     public GameObject fire;
+    public GameObject playAgain;
+
+    public Image gameOverImage;
+    public Button doorButton;
+    public Button fireplaceButton;
+    public Button ventButton;
 
     public NightDwarfBehaviour sleepy;
     public NightDwarfBehaviour bashful;
@@ -24,7 +33,7 @@ public class NightGameManager : MonoBehaviour
     public NightDwarfBehaviour happy;
     public NightDwarfBehaviour grumpy;
 
-    public TextMeshProUGUI deathText;
+    public TextMeshProUGUI winText;
     public TextMeshProUGUI energyText;
     public TextMeshProUGUI timerText;
 
@@ -34,6 +43,7 @@ public class NightGameManager : MonoBehaviour
     public NightSleep eyes;
 
     private Animator doorAnim;
+    private AudioSource audio;
 
     private Location camAt = Location.none;
     private Location lastCam = Location.none;
@@ -54,6 +64,7 @@ public class NightGameManager : MonoBehaviour
     private int easy = 3;
     private int medium = 5;
     private int hard = 7;
+    private int count = 0;
 
     private void Awake() {
         if (NightGameManager.S) {
@@ -66,21 +77,36 @@ public class NightGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("nights", PlayerPrefs.GetInt("night") + 1);
+        audio = GetComponent<AudioSource>();
         doorAnim = door.GetComponent<Animator>();
-        GetFreeDwarves();
-        fire.SetActive(false);
-        timerText.text = "12am";
-        deathText.enabled = false;
-        energyText.text = "Energy: 0";
-        lastCam = Location.dwarfBedroom;
-        StartCoroutine(MakeTimePass());
+        DoSetup();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void DoSetup() {
+        count = 0;
+        timePassed = 0;
+        lastCam = Location.dwarfBedroom;
+        energy = PlayerPrefs.GetInt("Energy");
+        timerText.text = "12am";
+        energyText.text = "Energy: " +  energy.ToString();
+        winText.enabled = false;
+        energyText.enabled = true;
+        timerText.enabled = true;
+        doorButton.enabled = true;
+        fireplaceButton.enabled = true;
+        ventButton.enabled = true;
+        playAgain.SetActive(false);
+        fire.SetActive(false);
+        eyes.YesControl();
+        GetFreeDwarves();
+        ResetDwarves();
+        StartCoroutine(MakeTimePass());
     }
 
     private void GetFreeDwarves() {
@@ -104,20 +130,28 @@ public class NightGameManager : MonoBehaviour
 
     // indicates which night is next
     private void NightEnd() {
-        deathText.text = "6 am";
-        deathText.enabled = true;
+        winText.text = "6 am";
+        winText.enabled = true;
         ResetDwarves();
         timePassed = 0;
         StartCoroutine(MoveToDay());
     }
 
     private void ResetDwarves() {
+        doc.gameObject.SetActive(true);
+        sneezy.gameObject.SetActive(true);
+        happy.gameObject.SetActive(true);
+        grumpy.gameObject.SetActive(true);
         sleepy.ResetDwarf();
         bashful.ResetDwarf();
         doc.ResetDwarf();
         sneezy.ResetDwarf();
         happy.ResetDwarf();
         grumpy.ResetDwarf();
+        if (!grumpyFree) grumpy.gameObject.SetActive(false);
+        if (!happyFree) happy.gameObject.SetActive(false);
+        if (!sneezyFree) sneezy.gameObject.SetActive(false);
+        if (!docFree) doc.gameObject.SetActive(false);
     }
 
     private IEnumerator MakeTimePass() {
@@ -241,8 +275,8 @@ public class NightGameManager : MonoBehaviour
         StartCoroutine(FireTimer());
         fireLit = true;
         // kick dwarves out of fireplace
-        bashful.PlayerLitFire();
-        sneezy.PlayerLitFire();
+        if (bashful.gameObject.activeInHierarchy) bashful.PlayerLitFire();
+        if (sneezy.gameObject.activeInHierarchy) sneezy.PlayerLitFire();
     }
 
     private IEnumerator FireTimer() {
@@ -267,15 +301,25 @@ public class NightGameManager : MonoBehaviour
     public void PutFireOut() {
         StopCoroutine(FireTimer());
         fire.SetActive(false);
-        fireAudio.loop = false;
-        fireAudio.Stop();
         fireLit = false;
     }
 
     public void Die() {
+        StopAllCoroutines();
+        eyes.NoControl();
+        OpenEyes();
         alive = false;
-        deathText.text = "You Died";
-        deathText.enabled = true;
+        sleepy.PlayerDies();
+        bashful.PlayerDies();
+        doc.PlayerDies();
+        sneezy.PlayerDies();
+        happy.PlayerDies();
+        grumpy.PlayerDies();
+        winText.enabled = false;
+        energyText.enabled = false;
+        timerText.enabled = false;
+        gameOverImage.enabled = true;
+        StartCoroutine(GameOver());
     }
 
     public void StartLevelAgain() {
@@ -284,7 +328,8 @@ public class NightGameManager : MonoBehaviour
 
     private IEnumerator MoveToDay() {
         PlayerPrefs.SetFloat("Energy", energy);
-        yield return new WaitForSeconds(4f);
+        audio.PlayOneShot(win);
+        yield return new WaitForSeconds(win.length);
         GameManager.instance.EndNight();
     }
 
@@ -302,8 +347,10 @@ public class NightGameManager : MonoBehaviour
 
     private IEnumerator StartCrackle() {
         yield return new WaitForSeconds(igniteClip.length);
-        fireAudio.loop = true;
-        fireAudio.Play();
+        if (fireLit) {
+            fireAudio.loop = true;
+            fireAudio.Play();
+        }
     }
 
     public int GetTotalDifficulty() {
@@ -314,5 +361,13 @@ public class NightGameManager : MonoBehaviour
 
     public int GetGameLength() {
         return secondsPerHour * 6;
+    }
+
+    private IEnumerator GameOver() {
+        yield return new WaitForSeconds(.1f);
+        count++;
+        gameOverImage.color = new Color(255, 255, 255, count / 255);
+        if (count < 255) StartCoroutine(GameOver());
+        else playAgain.SetActive(true);
     }
 }
