@@ -90,6 +90,13 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     private void DwarfStart() {
+        DwarfSetup();
+        GoHome();
+        SetWaitTimes();
+        if (difficultAdjustment > 0) StartCoroutine(Move());
+    }
+
+    private void DwarfSetup() {
         switch(dwarf) {
             case Dwarf.sleepy:
                 SleepyStart();
@@ -113,9 +120,6 @@ public class NightDwarfBehaviour : MonoBehaviour
                 Debug.Log("something is wrong");
                 break;
         }
-        GoHome();
-        SetWaitTimes();
-        if (difficultAdjustment > 0) StartCoroutine(Move());
     }
 
     public void SetDifficulty(int diff) {
@@ -248,7 +252,8 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     public void ResetDwarf() {
-        anim.SetBool("attacking", false);
+        Debug.Log(dwarf);
+        DwarfSetup();
         movementIndex = 0;
         location = locationPath[movementIndex];
         transform.position = transformPath[movementIndex].position;

@@ -144,7 +144,7 @@ public class NightGameManager : MonoBehaviour
         grumpy.gameObject.SetActive(true);
         sleepy.ResetDwarf();
         bashful.ResetDwarf();
-        doc.ResetDwarf();
+        if (doc.gameObject.activeInHierarchy) doc.ResetDwarf();
         sneezy.ResetDwarf();
         happy.ResetDwarf();
         grumpy.ResetDwarf();
@@ -335,11 +335,16 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void CloseEyes() {
+        StopCoroutine(ShowButtons());
         eyesClosed = true;
+        doorButton.enabled = false;
+        fireplaceButton.enabled = false;
+        ventButton.enabled = false;
     }
 
     public void OpenEyes() {
         eyesClosed = false;
+        StartCoroutine(ShowButtons());
     }
 
     public bool GetEyesClosed() {
@@ -370,5 +375,12 @@ public class NightGameManager : MonoBehaviour
         gameOverImage.color = new Color(255, 255, 255, count / 255);
         if (count < 255) StartCoroutine(GameOver());
         else playAgain.SetActive(true);
+    }
+    
+    private IEnumerator ShowButtons() {
+        yield return new WaitForSeconds(1f);
+        doorButton.enabled = true;
+        fireplaceButton.enabled = true;
+        ventButton.enabled = true;
     }
 }
