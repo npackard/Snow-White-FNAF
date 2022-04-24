@@ -2800,6 +2800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad56c04b40e06040a04f47579d54c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rejectedSound: {fileID: 8300000, guid: 92e0608d62d1686419f593b885d3ad52, type: 3}
   dwarfBedroom: {fileID: 2100000, guid: d976d529865b3124782ed7611991ff49, type: 2}
   bathroom: {fileID: 2100000, guid: 9fbf244c90ed3c64a973f74388ed8ae1, type: 2}
   workshop: {fileID: 2100000, guid: b52bc7503e177ce4b88e0061a4c83274, type: 2}
@@ -2809,6 +2810,102 @@ MonoBehaviour:
   hallTwo: {fileID: 2100000, guid: 7694bb33b642ee04ead724923ee6dead, type: 2}
   livingRoom: {fileID: 2100000, guid: 8b4b84ce487ad884fafa6fb9dc9e58cb, type: 2}
   kitchen: {fileID: 2100000, guid: b61575b1be687dc448f534a156440ba3, type: 2}
+--- !u!82 &462076495
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462076490}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &462262344
 GameObject:
   m_ObjectHideFlags: 0
@@ -11595,6 +11692,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ae17fec3415ac44b154c7d4ea96495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &281106689977091489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281106689977091486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2cc3696888f7345b423a9f9d89412a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 134624480}
+  basic: {fileID: 21300000, guid: d26fe09680ca91341aecc43c5bfb46b9, type: 3}
+  study: {fileID: 21300000, guid: 2f7aee43ded78564c98b12196daec97e, type: 3}
+  bathroom: {fileID: 21300000, guid: ac740d0b303916e46bb1f34fd25a2c61, type: 3}
+  bedroom: {fileID: 21300000, guid: 5dece485b506c0a4582a5bd2ffb54d21, type: 3}
+  workshop: {fileID: 21300000, guid: 4b6952b3f04556045b73ce1ee77ce6d9, type: 3}
+  all: {fileID: 21300000, guid: ef3c5cfaf891c0d4481f27ad881daff2, type: 3}
 --- !u!4 &594349394183976786
 Transform:
   m_ObjectHideFlags: 0

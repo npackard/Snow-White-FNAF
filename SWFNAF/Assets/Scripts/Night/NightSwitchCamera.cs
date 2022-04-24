@@ -6,6 +6,8 @@ public class NightSwitchCamera : MonoBehaviour
 {
     public static NightSwitchCamera S;
 
+    public AudioClip rejectedSound;
+
     public Material dwarfBedroom;
     public Material bathroom;
     public Material workshop;
@@ -18,6 +20,7 @@ public class NightSwitchCamera : MonoBehaviour
 
     private int counter = 0;
     
+    private AudioSource audio;
     private MeshRenderer meshRenderer;
 
     private void Awake() {
@@ -31,6 +34,7 @@ public class NightSwitchCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         meshRenderer = GetComponent<MeshRenderer>();
     }
 
@@ -83,5 +87,9 @@ public class NightSwitchCamera : MonoBehaviour
     public void SwitchToKitchenCam() {
         meshRenderer.material = kitchen;
         NightGameManager.S.SwitchToKitchen();
+    }
+
+    public void RejectedSound() {
+        audio.PlayOneShot(rejectedSound);
     }
 }

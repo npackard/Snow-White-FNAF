@@ -47,33 +47,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficultAdjustment: 1
-  introNight: 0
-  easyChance: 5
-  mediumChance: 7
-  hardChance: 10
   dwarf: 1
-  deathPosition: {fileID: 0}
-  dopeyPath: 01000000
-  sleepyPath: 000000000500000001000000060000000700000009000000
-  bashfulPath: 00000000020000000300000009000000
-  happyPath: 01000000
-  grumpyPath: 01000000
-  sleepyTransformPath:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  bashfulTransformPath:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  docTransformPath: []
-  sneezyTransformPath: []
-  happyTransformPath: []
-  grumpyTransformPath: []
+  death: {fileID: 0}
+  sleepyPathHallOneLiving: 
+  sleepyPathBedroomLiving: 
+  sleepyPathBedroomUnknownLiving: 
+  bashfulPathKitchenLiving: 
+  bashfulPathKitchenUnknown: 
+  bashfulPathBathroomUnknown: 
+  docPathUnknownLiving: 
+  docPathUnknownBathroom: 
+  sneezyPathBathroomUnknown: 
+  happyPathBedroomBathroom: 
+  happyPathBedroomWorkshopBathroom: 
+  grumpyPathWorkshopLiving: 
+  sleepyTransformPathHallOneLiving: []
+  sleepyTransformPathBedroomLiving: []
+  sleepyTransformPathBedroomUnknownLiving: []
+  bashfulTransformPathKitchenLiving: []
+  bashfulTransformPathKitchenUnknown: []
+  bashfulTransformPathBathroomUnknown: []
+  docTransformPathUnknownLiving: []
+  docTransformPathUnknownBathroom: []
+  sneezyTransformPathBathroomUnknown: []
+  happyTransformPathBedroomBathroom: []
+  happyTransformPathBedroomWorkshopBathroom: []
+  grumpyTransformPathWorkshopLiving: []
   sneeze: {fileID: 8300000, guid: 06447bdaa40aafa45bd9e6a832fe535b, type: 3}
   mumble: {fileID: 8300000, guid: fc12163940f2ac3418f7e78fb456cc7c, type: 3}
   angry: {fileID: 8300000, guid: 784036b8ebc2100458d66e1be2ce3cbb, type: 3}
@@ -184,7 +183,7 @@ Animator:
   m_GameObject: {fileID: 6757086316705776328}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac44a6c5e59d1f94da23a38597b5d035, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

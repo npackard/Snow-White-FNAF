@@ -17,23 +17,31 @@ public class NightButtonManager : MonoBehaviour
     }
 
     public void DwarfBedroomCam() {
-        NightSwitchCamera.S.SwitchToDwarfBedroomCam();
+        Debug.Log("why");
+        if (PlayerPrefs.GetInt("Key3") == 1) NightSwitchCamera.S.SwitchToDwarfBedroomCam();
+        else NightSwitchCamera.S.RejectedSound();
     }
 
     public void BathroomCam() {
-        NightSwitchCamera.S.SwitchToBathroomCam();
+        Debug.Log("hey");
+        if (PlayerPrefs.GetInt("Key2") == 1) NightSwitchCamera.S.SwitchToBathroomCam();
+        else NightSwitchCamera.S.RejectedSound();
     }
 
     public void WorkshopCam() {
-        NightSwitchCamera.S.SwitchToWorkshopCam();
+        Debug.Log("hi");
+        if (PlayerPrefs.GetInt("Key4") == 1) NightSwitchCamera.S.SwitchToWorkshopCam();
+        else NightSwitchCamera.S.RejectedSound();
     }
 
     public void UnknownCam() {
-        NightSwitchCamera.S.SwitchToUnknownCam();
+        Debug.Log("hello");
+        if (PlayerPrefs.GetInt("Key1") == 1) NightSwitchCamera.S.SwitchToUnknownCam();
+        else NightSwitchCamera.S.RejectedSound();
     }
 
     public void MineEntranceCam() {
-        NightSwitchCamera.S.SwitchToMineEntranceCam();
+        NightSwitchCamera.S.RejectedSound();
     }
 
     public void HallOneCam() {
@@ -53,7 +61,6 @@ public class NightButtonManager : MonoBehaviour
     }
 
     public void SwitchDoor() {
-        Debug.Log("wanna be");
         NightGameManager.S.SwitchDoor();
     }
 
