@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Mine.unity
     guid: 21f632dab996c4444926175c3bc3a36d
   - enabled: 1
+    path: Assets/Scenes/IntermissionScene.unity
+    guid: e9574e376b454ca4e89d3d9b027ec7ab
+  - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: a55499705f3359a4bac98a21551e254d
   m_configObjects: {}

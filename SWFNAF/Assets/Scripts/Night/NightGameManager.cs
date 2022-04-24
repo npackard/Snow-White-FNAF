@@ -246,7 +246,7 @@ public class NightGameManager : MonoBehaviour
     }
 
     private IEnumerator MoveToDay() {
-        PlayerPrefs.SetFloat("energy", energy);
+        PlayerPrefs.SetFloat("Energy", energy);
         yield return new WaitForSeconds(4f);
         GameManager.instance.EndNight();
     }

@@ -30,10 +30,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Equals))
+        /*if (Input.GetKeyDown(KeyCode.Equals))
         {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }*/
     }
 
     public void EndNight() {
@@ -43,8 +43,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndNightCor()
     {
+        PlayerPrefs.SetInt("IsNight", 0);
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(4); // intermission scene
     }
 
     public void EndDay()
@@ -56,10 +57,23 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndDayCor()
     {
+        PlayerPrefs.SetInt("IsNight", 1);
         PlayerPrefs.SetInt("DayCount", PlayerPrefs.GetInt("DayCount") + 1);
         PlayerPrefs.SetFloat("Energy", DayGameManager.instance.maxTime - DayGameManager.instance.inGameTime);
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(4); // intermission scene
+    }
+
+    public void EndIntermission()
+    {
+        StartCoroutine(EndIntermissionCor());
+    }
+
+    private IEnumerator EndIntermissionCor()
+    {
+        yield return new WaitForSeconds(1);
+        if (PlayerPrefs.GetInt("IsNight") == 0) SceneManager.LoadScene(2); // load Day
+        else SceneManager.LoadScene(1); // load Night
     }
 
     public void LoadMine()
@@ -72,5 +86,10 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(3);
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

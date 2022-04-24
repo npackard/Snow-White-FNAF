@@ -121,6 +121,7 @@ public class DayUIManager : MonoBehaviour
     // synonymous to ending day
     public void DarkerAnim()
     {
+        imageAim.SetActive(false);
         dayCount.SetActive(false);
 
         panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, 0);

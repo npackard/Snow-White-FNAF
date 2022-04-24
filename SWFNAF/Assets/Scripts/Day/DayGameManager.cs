@@ -38,6 +38,7 @@ public class DayGameManager : MonoBehaviour
         }
 
         // for testing purposes
+        PlayerPrefs.SetInt("IsNight", 0);
         PlayerPrefs.SetInt("DayCount", 0);
         PlayerPrefs.SetFloat("Energy", 0);
         PlayerPrefs.SetInt("Key1", 0);
@@ -69,7 +70,7 @@ public class DayGameManager : MonoBehaviour
         doorKeys[4] = PlayerPrefs.GetInt("Key4") == 1;
         doorKeys[5] = PlayerPrefs.GetInt("Key5") == 1;
 
-        inGameTime = (int) Mathf.Clamp((100 - PlayerPrefs.GetFloat("energy")) / 10, 0, 9) * 4;
+        inGameTime = (int) Mathf.Clamp((100 - PlayerPrefs.GetFloat("Energy")) / 10, 0, 9) * 4;
 
         DayUIManager.instance.UpdateTime(inGameTime);
     }

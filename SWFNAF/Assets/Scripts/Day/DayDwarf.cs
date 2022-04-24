@@ -24,9 +24,10 @@ public class DayDwarf : MonoBehaviour
             {
                 // play creepy sound
                 seen = true;
+                PlayerPrefs.SetInt("DwarfFree" + dwarfIndex.ToString(), 1);
             }
 
-            if (seen && !onScreen) { PlayerPrefs.SetInt("DwarfFree" + dwarfIndex.ToString(), 1); Destroy(this.gameObject); }
+            if (seen && !onScreen) Destroy(this.gameObject);
         }
     }
 }

@@ -5,9 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public GameObject btnContinue;
+
+    private void Start()
+    {
+        if (PlayerPrefs.GetInt("DayCount") > 0) btnContinue.SetActive(true);
+        else btnContinue.SetActive(false);
+    }
+
     public void OnStartBtnClick()
     {
         // reset all playerprefs
+        PlayerPrefs.SetInt("IsNight", 1);
         PlayerPrefs.SetInt("DayCount", 0);
         PlayerPrefs.SetFloat("Energy", 0);
         PlayerPrefs.SetInt("Key1", 0);
