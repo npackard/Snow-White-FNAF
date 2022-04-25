@@ -136,7 +136,7 @@ public class DayCameraMovement : MonoBehaviour
             }
         }
 
-        if (canTouch && Input.GetKeyDown(KeyCode.F))
+        if (canTouch && Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (lastHit.tag == "Gemstone")
             {
