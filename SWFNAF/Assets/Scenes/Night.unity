@@ -10850,7 +10850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsPerHour: 30
-  win: {fileID: 8300000, guid: 56e9a93f8df248b419d769e3e17f2694, type: 3}
+  win: {fileID: 8300000, guid: 1b1a163e52a6743bd949473d544842d8, type: 3}
   fireAudio: {fileID: 1799495883}
   fireIgnite: {fileID: 1675255480}
   cover: {fileID: 2043211868}
