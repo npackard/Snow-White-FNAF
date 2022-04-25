@@ -140,18 +140,19 @@ public class DayCameraMovement : MonoBehaviour
         {
             if (lastHit.tag == "Gemstone")
             {
+                lastHit.GetComponent<DayGemstone>().PlayAudio();
                 int gemInd = lastHit.GetComponent<DayGemstone>().gemIndex;
                 PlayerPrefs.SetInt("Gem" + gemInd.ToString(), 1);
-                Destroy(lastHit);
                 canTouch = false;
                 DayUIManager.instance.PanelInteractableOff();
             }
             else if (lastHit.tag == "Key")
             {
+                lastHit.GetComponent<DayKey>().PlayAudio();
                 int keyInd = lastHit.gameObject.GetComponent<DayKey>().keyIndex;
                 PlayerPrefs.SetInt("Key" + keyInd.ToString(), 1);
                 DayGameManager.instance.GetKey(keyInd);
-                Destroy(lastHit);
+                canTouch = false;
                 DayUIManager.instance.PanelInteractableOff();
             }
             else if (lastHit.tag == "Door")

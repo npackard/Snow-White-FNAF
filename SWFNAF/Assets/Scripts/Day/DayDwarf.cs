@@ -12,6 +12,15 @@ public class DayDwarf : MonoBehaviour
     private bool onScreen = false;
     private bool seen = false;
 
+    public AudioClip dwarfScareClip;
+    public AudioClip dwarfGoneClip;
+    private AudioSource audio;
+
+    private void Start()
+    {
+        audio = GetComponent<AudioSource>();
+    }
+
     private void Update()
     {
         if (canBeSeen)
@@ -20,14 +29,20 @@ public class DayDwarf : MonoBehaviour
             onScreen = screenPoint.z > 0 && screenPoint.x > -0.2 && 
                 screenPoint.x < 1.2 && screenPoint.y > -0.2 && screenPoint.y < 1.2;
 
-            if (onScreen)
+            if (onScreen && !seen)
             {
                 // play creepy sound
                 seen = true;
                 PlayerPrefs.SetInt("DwarfFree" + dwarfIndex.ToString(), 1);
+                audio.PlayOneShot(dwarfScareClip);
+
             }
 
-            if (seen && !onScreen) Destroy(this.gameObject);
+            if (seen && !onScreen)
+            {
+                audio.PlayOneShot(dwarfGoneClip);
+                Destroy(this.gameObject);
+            }
         }
     }
 }

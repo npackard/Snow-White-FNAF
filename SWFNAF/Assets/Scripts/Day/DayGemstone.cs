@@ -5,10 +5,20 @@ using UnityEngine;
 public class DayGemstone : MonoBehaviour
 {
     public int gemIndex;
+    public AudioClip gemClip;
+    private AudioSource audio;
+    private bool played = false;
+
+    private MeshRenderer mr;
+    private BoxCollider bc;
 
     // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource>();
+        mr = GetComponent<MeshRenderer>();
+        bc = GetComponent<BoxCollider>();
+
         bool gem1 = PlayerPrefs.GetInt("Gem1") == 1;
         bool gem2 = PlayerPrefs.GetInt("Gem2") == 1;
         bool gem3 = PlayerPrefs.GetInt("Gem3") == 1;
@@ -25,5 +35,12 @@ public class DayGemstone : MonoBehaviour
         if (gemIndex == 4 && gem4) gameObject.SetActive(false);
         if (gemIndex == 5 && gem5) gameObject.SetActive(false);
         if (gemIndex == 6 && gem6) gameObject.SetActive(false);
+    }
+
+    public void PlayAudio()
+    {
+        audio.PlayOneShot(gemClip);
+        mr.enabled = false;
+        bc.enabled = false;
     }
 }
