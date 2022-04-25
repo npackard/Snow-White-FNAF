@@ -34,6 +34,7 @@ public class NightAmbienceManager : MonoBehaviour
     void Start()
     {
         audio = GetComponent<AudioSource>();
+        GetStats();
         StartSoundCycle();
     }
 
