@@ -13,7 +13,6 @@ public class NightAmbienceManager : MonoBehaviour
     public AudioClip sneeze;
     public AudioClip table;
 
-    private float sneezeChance;
     private float waitTime;
     private int count = 0;
     private int gameTime;
@@ -34,7 +33,6 @@ public class NightAmbienceManager : MonoBehaviour
     void Start()
     {
         audio = GetComponent<AudioSource>();
-        GetStats();
         StartSoundCycle();
     }
 
@@ -55,13 +53,12 @@ public class NightAmbienceManager : MonoBehaviour
         gameTime = NightGameManager.S.GetGameLength();
         numberSounds = 20 - totalDifficulty;
         waitTime = gameTime / numberSounds;
-        sneezeChance = totalDifficulty / 15f;
     }
 
     private IEnumerator PlaySounds() {
         yield return new WaitForSeconds(waitTime);
         count++;
-        float chance = Random.Range(0f, sneezeChance);
+        float chance = Random.Range(0f, 6f);
         if (chance < 1) {
             audio.PlayOneShot(creak);
         } else if (chance < 2) {
