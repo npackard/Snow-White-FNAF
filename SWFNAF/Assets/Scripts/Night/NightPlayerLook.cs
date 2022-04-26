@@ -22,10 +22,12 @@ public class NightPlayerLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.mousePosition.x < Screen.width / 5) {
-            newY -= speed;
-        } else if (Input.mousePosition.x > 4 * Screen.width / 5) {
-            newY += speed;
+        if (Input.mousePosition.y > Screen.height / 5) {
+            if (Input.mousePosition.x < Screen.width / 5) {
+                newY -= speed;
+            } else if (Input.mousePosition.x > 4 * Screen.width / 5) {
+                newY += speed;
+            }
         }
         if (newY < 0) newY = 360 + newY;
         newY = Mathf.Clamp(newY, minY, maxY);
