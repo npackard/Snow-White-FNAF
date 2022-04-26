@@ -26,8 +26,8 @@ public class DayDwarf : MonoBehaviour
         if (canBeSeen)
         {
             Vector3 screenPoint = cam.WorldToViewportPoint(transform.position);
-            onScreen = screenPoint.z > 0 && screenPoint.x > -0.2 && 
-                screenPoint.x < 1.2 && screenPoint.y > -0.2 && screenPoint.y < 1.2;
+            onScreen = screenPoint.z > 0 && screenPoint.x > -0.4 && 
+                screenPoint.x < 1.4 && screenPoint.y > -0.4 && screenPoint.y < 1.4;
 
             if (onScreen && !seen)
             {
