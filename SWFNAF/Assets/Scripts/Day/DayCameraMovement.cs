@@ -138,6 +138,7 @@ public class DayCameraMovement : MonoBehaviour
 
         if (canTouch && Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse0))
         {
+            if (!lastHit) return;
             if (lastHit.tag == "Gemstone")
             {
                 lastHit.GetComponent<DayGemstone>().PlayAudio();

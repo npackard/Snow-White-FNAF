@@ -28,14 +28,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        /*if (Input.GetKeyDown(KeyCode.Equals))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }*/
-    }
-
     public void EndNight() {
         // move to daytime
         StartCoroutine(EndNightCor());
@@ -44,7 +36,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator EndNightCor()
     {
         PlayerPrefs.SetInt("IsNight", 0);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0);
         SceneManager.LoadScene(4); // intermission scene
     }
 
@@ -71,7 +63,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndIntermissionCor()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0);
         if (PlayerPrefs.GetInt("IsNight") == 0) SceneManager.LoadScene(2); // load Day
         else SceneManager.LoadScene(1); // load Night
     }
