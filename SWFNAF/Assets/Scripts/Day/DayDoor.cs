@@ -30,12 +30,17 @@ public class DayDoor : MonoBehaviour
     public void OpenDoor()
     {
         open = true;
-        anim.SetBool("Open", true);
+        if (anim) anim.SetBool("Open", true);
         audio.PlayOneShot(doorOpen);
 
         foreach (GameObject cam in cams)
         {
             cam.SetActive(true);
+        }
+
+        if (doorIndex == 6)
+        {
+            DayGameManager.instance.GameEnding(); // placeholder if we want to exit through front door
         }
     }
 

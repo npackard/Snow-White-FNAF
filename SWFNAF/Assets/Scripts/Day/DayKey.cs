@@ -16,6 +16,8 @@ public class DayKey : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.GetInt("DayCount") == 0) { gameObject.SetActive(false); return; }
+
         audio = GetComponent<AudioSource>();
         mr = GetComponent<MeshRenderer>();
         bc = GetComponent<BoxCollider>();

@@ -12,6 +12,7 @@ TagManager:
   - Portal
   - Pedestal
   - Mirror
+  - FirstDay
   layers:
   - Default
   - TransparentFX

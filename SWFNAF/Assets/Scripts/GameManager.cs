@@ -82,6 +82,12 @@ public class GameManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        StartCoroutine(LoadMainMenuCor());
+    }
+
+    private IEnumerator LoadMainMenuCor()
+    {
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene(0);
     }
 }

@@ -30,6 +30,9 @@ public class DayGameManager : MonoBehaviour
     public float unitTime = 3; // 15 min
     public int maxTime = 40; // linearly interpolated between 1 ~ 10 hours based on "energy"
 
+    public bool day0Done = false;
+    private int firstDayItems = 3; // map, mirror, gem
+
     private void Awake()
     {
         if (instance != this)
@@ -62,13 +65,14 @@ public class DayGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        doorKeys = new bool[6];
+        doorKeys = new bool[7];
         doorKeys[0] = true;
         doorKeys[1] = PlayerPrefs.GetInt("Key1") == 1;
         doorKeys[2] = PlayerPrefs.GetInt("Key2") == 1;
         doorKeys[3] = PlayerPrefs.GetInt("Key3") == 1;
         doorKeys[4] = PlayerPrefs.GetInt("Key4") == 1;
         doorKeys[5] = PlayerPrefs.GetInt("Key5") == 1;
+        doorKeys[6] = PlayerPrefs.GetInt("Key5") == 1;
 
         inGameTime = (int) Mathf.Clamp((100 - PlayerPrefs.GetFloat("Energy")) / 10, 0, 9) * 4;
 
@@ -86,7 +90,7 @@ public class DayGameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!gettingBrighter)
+        if (!gettingBrighter && PlayerPrefs.GetInt("DayCount") != 0)
         {
             if (inGameTime <= maxTime)
             {
@@ -107,11 +111,25 @@ public class DayGameManager : MonoBehaviour
         }
     }
 
+    public void FirstDayCollected()
+    {
+        firstDayItems--;
+        if (firstDayItems == 0) day0Done = true;
+    }
+
     private IEnumerator Brighter()
     {
         int time = 2;
         DayUIManager.instance.BrighterAnim(time);
 
         yield return new WaitForSeconds(time + 1);
+    }
+
+    public void GameEnding()
+    {
+        DayUIManager.instance.DarkerAnim();
+
+        // placeholder if we want to exit through front door
+        GameManager.instance.LoadMainMenu();
     }
 }

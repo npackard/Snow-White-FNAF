@@ -7,7 +7,6 @@ public class DayGemstone : MonoBehaviour
     public int gemIndex;
     public AudioClip gemClip;
     private AudioSource audio;
-    private bool played = false;
 
     private MeshRenderer mr;
     private BoxCollider bc;
@@ -15,6 +14,9 @@ public class DayGemstone : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.GetInt("DayCount") == 0 && gemIndex != 0) { gameObject.SetActive(false); return; }
+        if (PlayerPrefs.GetInt("DayCount") != 0 && gemIndex == 0) { gameObject.SetActive(false); return; }
+
         audio = GetComponent<AudioSource>();
         mr = GetComponent<MeshRenderer>();
         bc = GetComponent<BoxCollider>();

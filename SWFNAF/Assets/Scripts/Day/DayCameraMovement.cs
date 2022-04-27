@@ -23,6 +23,7 @@ public class DayCameraMovement : MonoBehaviour
 
     public VolumeProfile volume;
 
+    public DayCameraLocation firstDay;
     public DayCameraLocation start;
     public DayCameraLocation curr;
 
@@ -52,9 +53,18 @@ public class DayCameraMovement : MonoBehaviour
 
     void Start()
     {
-        transform.position = start.gameObject.transform.position;
-        transform.rotation = Quaternion.Euler(0, 90, 0);
-        curr = start;
+        if (PlayerPrefs.GetInt("DayCount") == 0)
+        {
+            transform.position = firstDay.gameObject.transform.position;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            curr = firstDay;
+        }
+        else
+        {
+            transform.position = start.gameObject.transform.position;
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+            curr = start;
+        }
 
         curr.OnThisCam();
 
@@ -82,7 +92,8 @@ public class DayCameraMovement : MonoBehaviour
         {
             if (hit.transform.gameObject.tag == "Gemstone" ||
                 hit.transform.gameObject.tag == "Key" ||
-                hit.transform.gameObject.tag == "Camera")
+                hit.transform.gameObject.tag == "Camera" ||
+                hit.transform.gameObject.tag == "FirstDay")
             {
                 if (lastHit && hit.transform.gameObject != lastHit) lastHit.layer = temp_layer;
                 if (hit.transform.gameObject.layer != highlightMask) temp_layer = hit.transform.gameObject.layer;
@@ -121,7 +132,7 @@ public class DayCameraMovement : MonoBehaviour
         }
         
         // check for Go To Bed btn
-        if (Physics.Raycast(ray, out hit, 10, layer_mask))
+        if (Physics.Raycast(ray, out hit, 20, layer_mask))
         {
             if (hit.transform.gameObject.tag == "Interactable" ||
                 hit.transform.gameObject.tag == "Portal")
@@ -143,6 +154,7 @@ public class DayCameraMovement : MonoBehaviour
             {
                 lastHit.GetComponent<DayGemstone>().PlayAudio();
                 int gemInd = lastHit.GetComponent<DayGemstone>().gemIndex;
+                if (gemInd == 0) DayGameManager.instance.FirstDayCollected();
                 PlayerPrefs.SetInt("Gem" + gemInd.ToString(), 1);
                 canTouch = false;
                 DayUIManager.instance.PanelInteractableOff();
@@ -183,6 +195,12 @@ public class DayCameraMovement : MonoBehaviour
                 canTouch = false;
                 DayUIManager.instance.PanelInteractableOff();
                 GameManager.instance.LoadMine();
+            }
+            else if (lastHit.tag == "FirstDay")
+            {
+                canTouch = false;
+                DayUIManager.instance.PanelInteractableOff();
+                lastHit.gameObject.GetComponent<DayFirstInteractable>().Interact();
             }
         }
     }

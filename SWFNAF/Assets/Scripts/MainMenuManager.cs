@@ -24,6 +24,8 @@ public class MainMenuManager : MonoBehaviour
         PlayerPrefs.SetInt("Key3", 0);
         PlayerPrefs.SetInt("Key4", 0);
         PlayerPrefs.SetInt("Key5", 0);
+        PlayerPrefs.SetInt("Key6", 0);
+        PlayerPrefs.SetInt("Gem0", 0);
         PlayerPrefs.SetInt("Gem1", 0);
         PlayerPrefs.SetInt("Gem2", 0);
         PlayerPrefs.SetInt("Gem3", 0);
@@ -36,7 +38,7 @@ public class MainMenuManager : MonoBehaviour
         PlayerPrefs.SetInt("DwarfFree6", 0);
         PlayerPrefs.SetInt("night", 0);
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void OnContinueBtnClick()

@@ -25,6 +25,7 @@ public class DayUIManager : MonoBehaviour
     public GameObject dayCount;
     public Text dayCountText;
     private Image panelEndDayImg;
+    public GameObject timeTextObject;
     public Text timeText;
     public GameObject imageAim;
 
@@ -49,6 +50,8 @@ public class DayUIManager : MonoBehaviour
         dayCount.SetActive(false);
         panelEndDayImg = panelEndDay.GetComponent<Image>();
         imageAim.SetActive(false);
+
+        if (PlayerPrefs.GetInt("DayCount") == 0) timeTextObject.SetActive(false);
     }
 
     private void Update()
@@ -101,10 +104,10 @@ public class DayUIManager : MonoBehaviour
 
         panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, 1);
 
-        dayCountText.text = "Day " + (PlayerPrefs.GetInt("DayCount") + 1).ToString();
+        dayCountText.text = "Day " + (PlayerPrefs.GetInt("DayCount")).ToString();
 
         panelEndDay.SetActive(true);
-        dayCount.SetActive(true);
+        if (PlayerPrefs.GetInt("DayCount") != 0) dayCount.SetActive(true);
 
         StartCoroutine(WaitOneSecBrighter(time));
 

@@ -10,8 +10,11 @@ public class DayCameraLocation : MonoBehaviour
     public GameObject[] nearbyCams;
     public GameObject[] dayDwarves;
 
+    public GameObject bedText;
+
     private void Start()
     {
+        if (bedText && PlayerPrefs.GetInt("DayCount") != 0) bedText.SetActive(true);
         gameObject.layer = LayerMask.NameToLayer("CamLocations");
         gameObject.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("CamLocations");
     }
@@ -31,6 +34,18 @@ public class DayCameraLocation : MonoBehaviour
         {
             if (dwarf) dwarf.GetComponent<DayDwarf>().canBeSeen = true;
         }
+
+        if (bedText)
+        {
+            if (PlayerPrefs.GetInt("DayCount") == 0)
+            {
+                if (DayGameManager.instance.day0Done) bedText.SetActive(true);
+            }
+            else
+            {
+                bedText.SetActive(true);
+            }
+        }
     }
 
     public void LeaveThisCam()
@@ -47,6 +62,11 @@ public class DayCameraLocation : MonoBehaviour
         foreach (GameObject dwarf in dayDwarves)
         {
             if (dwarf) dwarf.GetComponent<DayDwarf>().canBeSeen = false;
+        }
+
+        if (bedText)
+        {
+            bedText.SetActive(false);
         }
     }
 }

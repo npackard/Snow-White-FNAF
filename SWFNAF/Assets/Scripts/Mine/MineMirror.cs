@@ -8,14 +8,8 @@ public class MineMirror : MonoBehaviour
     {
         gameObject.tag = "Untagged";
 
-        StartCoroutine(Darker());
-    }
-    private IEnumerator Darker()
-    {
         MineUIManager.instance.DarkerAnim();
-
-        yield return new WaitForSeconds(1);
-
+        PlayerPrefs.SetInt("Key6", 1);
         GameManager.instance.LoadMainMenu();
     }
 }
