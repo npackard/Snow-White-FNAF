@@ -2668,6 +2668,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039461099}
   m_CullTransparentMesh: 1
+--- !u!1 &1047096171 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4079216110792870643, guid: 968d1561b516dcb468baf805c9c3d7aa, type: 3}
+  m_PrefabInstance: {fileID: 744004887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1101020352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6579,7 +6584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29e9cf06715bed44aa5ae24351fed26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allGems: 0
+  lastKey: {fileID: 1047096171}
   inGameTime: 0
   unitTime: 10
   maxTime: 40
@@ -7493,9 +7498,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 82313841}
     m_Modifications:
+    - target: {fileID: 8214909600023638260, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8745623890910113257, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
       propertyPath: m_Name
       value: Gem5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8745623890910113257, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8745623890910113257, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
       propertyPath: m_IsActive
@@ -7511,15 +7524,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8745623890910113268, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.8
+      value: 9.84
       objectReference: {fileID: 0}
     - target: {fileID: 8745623890910113268, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.32
+      value: -2.87
       objectReference: {fileID: 0}
     - target: {fileID: 8745623890910113268, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -77.65
+      value: -86.96
       objectReference: {fileID: 0}
     - target: {fileID: 8745623890910113268, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8020,9 +8033,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 82313841}
     m_Modifications:
+    - target: {fileID: 5796113963336834655, guid: 7160b493f338b9544a498abf0302d67a, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6570862523981529922, guid: 7160b493f338b9544a498abf0302d67a, type: 3}
       propertyPath: m_Name
       value: Gem6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570862523981529922, guid: 7160b493f338b9544a498abf0302d67a, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6570862523981529922, guid: 7160b493f338b9544a498abf0302d67a, type: 3}
       propertyPath: m_IsActive

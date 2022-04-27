@@ -25,7 +25,7 @@ public class DayGameManager : MonoBehaviour
     public void GetKey(int i) { doorKeys[i] = true; }
     public bool CheckKey(int i) { return doorKeys[i]; }
 
-    public bool allGems = false;
+    public GameObject lastKey;
 
     public int inGameTime = 0;
     private float realTime = 0;
@@ -48,16 +48,16 @@ public class DayGameManager : MonoBehaviour
         PlayerPrefs.SetFloat("Energy", 50);
         PlayerPrefs.SetInt("Key1", 1);
         PlayerPrefs.SetInt("Key2", 1);
-        PlayerPrefs.SetInt("Key3", 0);
-        PlayerPrefs.SetInt("Key4", 0);
+        PlayerPrefs.SetInt("Key3", 1);
+        PlayerPrefs.SetInt("Key4", 1);
         PlayerPrefs.SetInt("Key5", 0);
-        PlayerPrefs.SetInt("Gem1", 0);
-        PlayerPrefs.SetInt("Gem2", 0);
-        PlayerPrefs.SetInt("Gem3", 0);
-        PlayerPrefs.SetInt("Gem4", 0);
-        PlayerPrefs.SetInt("Gem5", 0);
-        PlayerPrefs.SetInt("Gem6", 0);
-        PlayerPrefs.SetInt("DwarfFree3", 0);
+        PlayerPrefs.SetInt("Gem1", 1);
+        PlayerPrefs.SetInt("Gem2", 1);
+        PlayerPrefs.SetInt("Gem3", 1);
+        PlayerPrefs.SetInt("Gem4", 1);
+        PlayerPrefs.SetInt("Gem5", 1);
+        PlayerPrefs.SetInt("Gem6", 1);
+        PlayerPrefs.SetInt("DwarfFree3", 1);
         PlayerPrefs.SetInt("DwarfFree4", 0);
         PlayerPrefs.SetInt("DwarfFree5", 0);
         PlayerPrefs.SetInt("DwarfFree6", 0);*/
@@ -78,7 +78,7 @@ public class DayGameManager : MonoBehaviour
 
         inGameTime = (int) Mathf.Clamp((100 - PlayerPrefs.GetFloat("Energy")) / 10, 0, 9) * 4;
 
-        if (PlayerPrefs.GetInt("Gem6") == 1) allGems = true;
+        if (PlayerPrefs.GetInt("Gem6") == 1) lastKey.SetActive(true);
 
         DayUIManager.instance.UpdateTime(inGameTime);
     }

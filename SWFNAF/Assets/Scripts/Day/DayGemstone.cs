@@ -28,8 +28,8 @@ public class DayGemstone : MonoBehaviour
         bool gem2 = PlayerPrefs.GetInt("Gem2") == 1;
         bool gem3 = PlayerPrefs.GetInt("Gem3") == 1;
         bool gem4 = PlayerPrefs.GetInt("Gem4") == 1;
-        bool gem5 = PlayerPrefs.GetInt("Gem3") == 1;
-        bool gem6 = PlayerPrefs.GetInt("Gem4") == 1;
+        bool gem5 = PlayerPrefs.GetInt("Gem5") == 1;
+        bool gem6 = PlayerPrefs.GetInt("Gem6") == 1;
 
         gameObject.SetActive(false);
         if (gemIndex == 1 && !gem1) gameObject.SetActive(true);
@@ -47,7 +47,6 @@ public class DayGemstone : MonoBehaviour
         bc.enabled = false;
 
         if (gemIndex == 0) DayGameManager.instance.FirstDayCollected();
-        if (gemIndex == 6) DayGameManager.instance.allGems = true;
         PlayerPrefs.SetInt("Gem" + gemIndex.ToString(), 1);
 
         if(nextGemstone) nextGemstone.SetActive(true);

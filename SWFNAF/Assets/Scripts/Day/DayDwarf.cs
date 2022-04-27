@@ -18,6 +18,7 @@ public class DayDwarf : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerPrefs.GetInt("DwarfFree" + dwarfIndex.ToString()) == 1) gameObject.SetActive(false);
         audio = GetComponent<AudioSource>();
     }
 

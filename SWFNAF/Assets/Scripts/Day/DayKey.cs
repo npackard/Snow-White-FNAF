@@ -26,14 +26,11 @@ public class DayKey : MonoBehaviour
         bool key2 = PlayerPrefs.GetInt("Key2") == 1;
         bool key3 = PlayerPrefs.GetInt("Key3") == 1;
         bool key4 = PlayerPrefs.GetInt("Key4") == 1;
-        bool key5 = PlayerPrefs.GetInt("Key5") == 1;
-        bool allKeys = key1 && key2 && key3 && key4;
 
         gameObject.SetActive(false);
         if (keyIndex == 1 && !key1) gameObject.SetActive(true);
         if (keyIndex == 2 && !key2) gameObject.SetActive(true);
         if ((keyIndex == 3 || keyIndex == 4) && key1 && key2) gameObject.SetActive(true);
-        if (keyIndex == 5 && allKeys && DayGameManager.instance.allGems) gameObject.SetActive(true);
     }
 
     public void CollectKey()
