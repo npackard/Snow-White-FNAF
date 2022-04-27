@@ -6,7 +6,16 @@ public class MineMirror : MonoBehaviour
 {
     public void InteractMirror()
     {
-        // placeholder
+        gameObject.tag = "Untagged";
+
+        StartCoroutine(Darker());
+    }
+    private IEnumerator Darker()
+    {
+        MineUIManager.instance.DarkerAnim();
+
+        yield return new WaitForSeconds(1);
+
         GameManager.instance.LoadMainMenu();
     }
 }

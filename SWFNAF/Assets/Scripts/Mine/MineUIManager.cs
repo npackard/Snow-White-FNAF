@@ -21,6 +21,7 @@ public class MineUIManager : MonoBehaviour
     public static MineUIManager m_instance;
 
     public GameObject panelInteractable;
+    public GameObject textInteractable;
     public GameObject panelEndDay;
     private Image panelEndDayImg;
     public GameObject imageAim;
@@ -42,6 +43,7 @@ public class MineUIManager : MonoBehaviour
     void Start()
     {
         panelInteractable.SetActive(false);
+        textInteractable.SetActive(false);
         panelEndDay.SetActive(false);
         panelEndDayImg = panelEndDay.GetComponent<Image>();
         imageAim.SetActive(false);
@@ -71,11 +73,13 @@ public class MineUIManager : MonoBehaviour
     public void PanelInteractableOn()
     {
         panelInteractable.SetActive(true);
+        textInteractable.SetActive(true);
     }
 
     public void PanelInteractableOff()
     {
         panelInteractable.SetActive(false);
+        textInteractable.SetActive(false);
     }
 
     // synonymous to starting day
@@ -102,6 +106,7 @@ public class MineUIManager : MonoBehaviour
     public void DarkerAnim()
     {
         imageAim.SetActive(false);
+        textInteractable.SetActive(false);
 
         panelEndDayImg.color = new Color(panelEndDayImg.color.r, panelEndDayImg.color.g, panelEndDayImg.color.b, 0);
 
