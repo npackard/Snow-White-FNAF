@@ -152,31 +152,25 @@ public class DayCameraMovement : MonoBehaviour
             if (!lastHit) return;
             if (lastHit.tag == "Gemstone")
             {
-                lastHit.GetComponent<DayGemstone>().PlayAudio();
-                int gemInd = lastHit.GetComponent<DayGemstone>().gemIndex;
-                if (gemInd == 0) DayGameManager.instance.FirstDayCollected();
-                PlayerPrefs.SetInt("Gem" + gemInd.ToString(), 1);
                 canTouch = false;
+                lastHit.GetComponent<DayGemstone>().CollectGem();
                 DayUIManager.instance.PanelInteractableOff();
             }
             else if (lastHit.tag == "Key")
             {
-                lastHit.GetComponent<DayKey>().PlayAudio();
-                int keyInd = lastHit.gameObject.GetComponent<DayKey>().keyIndex;
-                PlayerPrefs.SetInt("Key" + keyInd.ToString(), 1);
-                DayGameManager.instance.GetKey(keyInd);
                 canTouch = false;
+                lastHit.GetComponent<DayKey>().CollectKey();
                 DayUIManager.instance.PanelInteractableOff();
             }
             else if (lastHit.tag == "Door")
             {
+                canTouch = false;
                 if (DayGameManager.instance.CheckKey(lastHit.gameObject.GetComponent<DayDoor>().doorIndex)) {
                     lastHit.gameObject.GetComponent<DayDoor>().OpenDoor();
                 } else
                 {
                     lastHit.gameObject.GetComponent<DayDoor>().LockedDoor();
                 }
-                canTouch = false;
             }
             else if (lastHit.tag == "Camera")
             {

@@ -25,6 +25,8 @@ public class DayGameManager : MonoBehaviour
     public void GetKey(int i) { doorKeys[i] = true; }
     public bool CheckKey(int i) { return doorKeys[i]; }
 
+    public bool allGems = false;
+
     public int inGameTime = 0;
     private float realTime = 0;
     public float unitTime = 3; // 15 min
@@ -42,10 +44,10 @@ public class DayGameManager : MonoBehaviour
 
         // for testing purposes
         /*PlayerPrefs.SetInt("IsNight", 0);
-        PlayerPrefs.SetInt("DayCount", 0);
-        PlayerPrefs.SetFloat("Energy", 0);
-        PlayerPrefs.SetInt("Key1", 0);
-        PlayerPrefs.SetInt("Key2", 0);
+        PlayerPrefs.SetInt("DayCount", 1);
+        PlayerPrefs.SetFloat("Energy", 50);
+        PlayerPrefs.SetInt("Key1", 1);
+        PlayerPrefs.SetInt("Key2", 1);
         PlayerPrefs.SetInt("Key3", 0);
         PlayerPrefs.SetInt("Key4", 0);
         PlayerPrefs.SetInt("Key5", 0);
@@ -75,6 +77,8 @@ public class DayGameManager : MonoBehaviour
         doorKeys[6] = PlayerPrefs.GetInt("Key5") == 1;
 
         inGameTime = (int) Mathf.Clamp((100 - PlayerPrefs.GetFloat("Energy")) / 10, 0, 9) * 4;
+
+        if (PlayerPrefs.GetInt("Gem6") == 1) allGems = true;
 
         DayUIManager.instance.UpdateTime(inGameTime);
     }

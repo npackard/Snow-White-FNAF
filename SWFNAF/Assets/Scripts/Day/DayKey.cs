@@ -29,20 +29,20 @@ public class DayKey : MonoBehaviour
         bool key5 = PlayerPrefs.GetInt("Key5") == 1;
         bool allKeys = key1 && key2 && key3 && key4;
 
+        gameObject.SetActive(false);
+        if (keyIndex == 1 && !key1) gameObject.SetActive(true);
+        if (keyIndex == 2 && !key2) gameObject.SetActive(true);
         if ((keyIndex == 3 || keyIndex == 4) && key1 && key2) gameObject.SetActive(true);
-        if (keyIndex == 5 && allKeys) gameObject.SetActive(true);
-
-        if (keyIndex == 1 && key1) gameObject.SetActive(false);
-        if (keyIndex == 2 && key2) gameObject.SetActive(false);
-        if (keyIndex == 3 && key3) gameObject.SetActive(false);
-        if (keyIndex == 4 && key4) gameObject.SetActive(false);
-        if (keyIndex == 5 && key5) gameObject.SetActive(false);
+        if (keyIndex == 5 && allKeys && DayGameManager.instance.allGems) gameObject.SetActive(true);
     }
 
-    public void PlayAudio()
+    public void CollectKey()
     {
         audio.PlayOneShot(keyClip);
         mr.enabled = false;
         bc.enabled = false;
+
+        PlayerPrefs.SetInt("Key" + keyIndex.ToString(), 1);
+        DayGameManager.instance.GetKey(keyIndex);
     }
 }

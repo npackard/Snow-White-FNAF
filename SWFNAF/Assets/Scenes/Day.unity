@@ -4021,6 +4021,10 @@ PrefabInstance:
       propertyPath: gemIndex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7102723197337578469, guid: a189cd9be252c114492d8fb2416b9a13, type: 3}
+      propertyPath: nextGemstone
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7102723197337578494, guid: a189cd9be252c114492d8fb2416b9a13, type: 3}
       propertyPath: m_Name
       value: Gem0
@@ -6575,6 +6579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e29e9cf06715bed44aa5ae24351fed26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allGems: 0
   inGameTime: 0
   unitTime: 10
   maxTime: 40
@@ -6925,6 +6930,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gem2
       objectReference: {fileID: 0}
+    - target: {fileID: 7271674120101727791, guid: 26d6eee3485f26349a7f0f257213508e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7271674120101727794, guid: 26d6eee3485f26349a7f0f257213508e, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -6969,8 +6978,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7271674120101727796, guid: 26d6eee3485f26349a7f0f257213508e, type: 3}
+      propertyPath: nextGemstone
+      value: 
+      objectReference: {fileID: 6009951138799095890}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26d6eee3485f26349a7f0f257213508e, type: 3}
+--- !u!1 &467208915393947203 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7271674120101727791, guid: 26d6eee3485f26349a7f0f257213508e, type: 3}
+  m_PrefabInstance: {fileID: 467208915393947202}
+  m_PrefabAsset: {fileID: 0}
 --- !u!33 &505430671959777981
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7399,16 +7417,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8825240646976474639, guid: 8bb27dc7f0e794541a4a925a48e8b175, type: 3}
+      propertyPath: nextGemstone
+      value: 
+      objectReference: {fileID: 2003894619893673175}
     - target: {fileID: 8825240646976474644, guid: 8bb27dc7f0e794541a4a925a48e8b175, type: 3}
       propertyPath: m_Name
       value: Gem4
       objectReference: {fileID: 0}
     - target: {fileID: 8825240646976474644, guid: 8bb27dc7f0e794541a4a925a48e8b175, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb27dc7f0e794541a4a925a48e8b175, type: 3}
+--- !u!1 &1794821348480651695 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8825240646976474644, guid: 8bb27dc7f0e794541a4a925a48e8b175, type: 3}
+  m_PrefabInstance: {fileID: 1794821348480651694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1828824729226412348
 Transform:
   m_ObjectHideFlags: 0
@@ -7472,8 +7499,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8745623890910113257, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8745623890910113266, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
+      propertyPath: nextGemstone
+      value: 
+      objectReference: {fileID: 4152764962628658475}
     - target: {fileID: 8745623890910113268, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -7520,6 +7551,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
+--- !u!1 &2003894619893673175 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8745623890910113257, guid: ae9ae384478693b45a40a43029fed8b7, type: 3}
+  m_PrefabInstance: {fileID: 2003894619893673174}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2049909887933765324
 Transform:
   m_ObjectHideFlags: 0
@@ -7990,7 +8026,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570862523981529922, guid: 7160b493f338b9544a498abf0302d67a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6570862523981529951, guid: 7160b493f338b9544a498abf0302d67a, type: 3}
       propertyPath: m_RootOrder
@@ -8038,6 +8074,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7160b493f338b9544a498abf0302d67a, type: 3}
+--- !u!1 &4152764962628658475 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6570862523981529922, guid: 7160b493f338b9544a498abf0302d67a, type: 3}
+  m_PrefabInstance: {fileID: 4152764962628658474}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4187195760783685030
 GameObject:
   m_ObjectHideFlags: 0
@@ -9104,7 +9145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3600156942653444780, guid: 32a5395fffe131f48a7e4e54aaff6fc3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3600156942653444785, guid: 32a5395fffe131f48a7e4e54aaff6fc3, type: 3}
       propertyPath: m_RootOrder
@@ -9150,8 +9191,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3600156942653444791, guid: 32a5395fffe131f48a7e4e54aaff6fc3, type: 3}
+      propertyPath: nextGemstone
+      value: 
+      objectReference: {fileID: 1794821348480651695}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32a5395fffe131f48a7e4e54aaff6fc3, type: 3}
+--- !u!1 &6009951138799095890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3600156942653444780, guid: 32a5395fffe131f48a7e4e54aaff6fc3, type: 3}
+  m_PrefabInstance: {fileID: 6009951138799095889}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &6038038365229030562
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9777,6 +9827,10 @@ PrefabInstance:
       propertyPath: gemIndex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7102723197337578469, guid: a189cd9be252c114492d8fb2416b9a13, type: 3}
+      propertyPath: nextGemstone
+      value: 
+      objectReference: {fileID: 467208915393947203}
     - target: {fileID: 7102723197337578494, guid: a189cd9be252c114492d8fb2416b9a13, type: 3}
       propertyPath: m_Name
       value: Gem1

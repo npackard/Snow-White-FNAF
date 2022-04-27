@@ -5,6 +5,9 @@ using UnityEngine;
 public class DayGemstone : MonoBehaviour
 {
     public int gemIndex;
+
+    public GameObject nextGemstone;
+
     public AudioClip gemClip;
     private AudioSource audio;
 
@@ -28,21 +31,25 @@ public class DayGemstone : MonoBehaviour
         bool gem5 = PlayerPrefs.GetInt("Gem3") == 1;
         bool gem6 = PlayerPrefs.GetInt("Gem4") == 1;
 
-        if ((gemIndex == 3 || gemIndex == 4) && gem1 && gem2) gameObject.SetActive(true);
-        if ((gemIndex == 5 || gemIndex == 6) && gem3 && gem4) gameObject.SetActive(true);
-
-        if (gemIndex == 1 && gem1) gameObject.SetActive(false);
-        if (gemIndex == 2 && gem2) gameObject.SetActive(false);
-        if (gemIndex == 3 && gem3) gameObject.SetActive(false);
-        if (gemIndex == 4 && gem4) gameObject.SetActive(false);
-        if (gemIndex == 5 && gem5) gameObject.SetActive(false);
-        if (gemIndex == 6 && gem6) gameObject.SetActive(false);
+        gameObject.SetActive(false);
+        if (gemIndex == 1 && !gem1) gameObject.SetActive(true);
+        if (gemIndex == 2 && !gem2) gameObject.SetActive(true);
+        if (gemIndex == 3 && !gem3) gameObject.SetActive(true);
+        if (gemIndex == 4 && !gem4) gameObject.SetActive(true);
+        if (gemIndex == 5 && !gem5) gameObject.SetActive(true);
+        if (gemIndex == 6 && !gem6) gameObject.SetActive(true);
     }
 
-    public void PlayAudio()
+    public void CollectGem()
     {
         audio.PlayOneShot(gemClip);
         mr.enabled = false;
         bc.enabled = false;
+
+        if (gemIndex == 0) DayGameManager.instance.FirstDayCollected();
+        if (gemIndex == 6) DayGameManager.instance.allGems = true;
+        PlayerPrefs.SetInt("Gem" + gemIndex.ToString(), 1);
+
+        if(nextGemstone) nextGemstone.SetActive(true);
     }
 }
