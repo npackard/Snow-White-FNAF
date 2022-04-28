@@ -160,6 +160,7 @@ public class NightGameManager : MonoBehaviour
         if (timePassed < secondsPerHour * 6f) {
             yield return new WaitForSeconds(1f);
             timePassed++;
+            if (eyesClosed) timePassed++;
             if (timePassed > secondsPerHour * 5f) timerText.text = "5am";
             else if (timePassed > secondsPerHour * 4f) timerText.text = "4am";
             else if (timePassed > secondsPerHour * 3f) timerText.text = "3am";

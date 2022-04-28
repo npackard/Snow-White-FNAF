@@ -37,16 +37,16 @@ public class NightMapSelector : MonoBehaviour
             image.sprite = basic;
         }
 
-        if (PlayerPrefs.GetInt("DwarfFree3") == 1) unknownButton.SetActive(true);
+        if (PlayerPrefs.GetInt("Key1") == 1) unknownButton.SetActive(true);
         else unknownButton.SetActive(false);
 
-        if (PlayerPrefs.GetInt("DwarfFree4") == 1) bathroomButton.SetActive(true);
+        if (PlayerPrefs.GetInt("key2") == 1) bathroomButton.SetActive(true);
         else bathroomButton.SetActive(false);
 
-        if (PlayerPrefs.GetInt("DwarfFree5") == 1) dwarfBedrooomButton.SetActive(true);
+        if (PlayerPrefs.GetInt("key3") == 1) dwarfBedrooomButton.SetActive(true);
         else dwarfBedrooomButton.SetActive(false);
 
-        if (PlayerPrefs.GetInt("DwarfFree6") == 1) workshopButton.SetActive(true);
+        if (PlayerPrefs.GetInt("key4") == 1) workshopButton.SetActive(true);
         else workshopButton.SetActive(false);
     }
 }
