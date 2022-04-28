@@ -27,6 +27,9 @@ public class NightSleep : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        doorButton.SetActive(true);
+        fireplaceButton.SetActive(NightGameManager.S.GetStudyUnlocked());
+        ventButton.SetActive(NightGameManager.S.GetBathroomUnlocked());
     }
 
     // Update is called once per frame
@@ -68,8 +71,8 @@ public class NightSleep : MonoBehaviour
     private IEnumerator ShowButtons() {
         yield return new WaitForSeconds(.4f);
         doorButton.SetActive(true);
-        fireplaceButton.SetActive(true);
-        ventButton.SetActive(true);
+        fireplaceButton.SetActive(NightGameManager.S.GetStudyUnlocked());
+        ventButton.SetActive(NightGameManager.S.GetBathroomUnlocked());
     }
 
     public void CloseEyes() {

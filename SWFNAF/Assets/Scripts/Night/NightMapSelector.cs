@@ -14,6 +14,12 @@ public class NightMapSelector : MonoBehaviour
     public Sprite workshop;
     public Sprite all;
 
+    public GameObject dwarfBedrooomButton;
+    public GameObject bathroomButton;
+    public GameObject workshopButton;
+    public GameObject unknownButton;
+    public GameObject mineEntranceButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,11 +36,17 @@ public class NightMapSelector : MonoBehaviour
         } else {
             image.sprite = basic;
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (PlayerPrefs.GetInt("DwarfFree3") == 1) unknownButton.SetActive(true);
+        else unknownButton.SetActive(false);
+
+        if (PlayerPrefs.GetInt("DwarfFree4") == 1) bathroomButton.SetActive(true);
+        else bathroomButton.SetActive(false);
+
+        if (PlayerPrefs.GetInt("DwarfFree5") == 1) dwarfBedrooomButton.SetActive(true);
+        else dwarfBedrooomButton.SetActive(false);
+
+        if (PlayerPrefs.GetInt("DwarfFree6") == 1) workshopButton.SetActive(true);
+        else workshopButton.SetActive(false);
     }
 }

@@ -50,6 +50,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     private bool isActive = false;
     private bool onCamera = false;
     private bool playerDead = false;
+    private bool playerEyesOpen = true;
 
     private bool docFree = false; // key 1, study
     private bool sneezyFree = false; // key 2, bathroom
@@ -132,7 +133,10 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     private int GetWaitTime() {
-        return (int)Random.Range(shortWait, longWait);
+        if (!playerEyesOpen && difficultAdjustment > 0) {
+            return (int)Mathf.Log(difficultAdjustment + 1);
+        }
+        return (int)Random.RandomRange(shortWait, longWait);
     }
 
     private void GoHome() {
@@ -303,5 +307,17 @@ public class NightDwarfBehaviour : MonoBehaviour
         if (location == Location.hallTwo && NightGameManager.S.GetCamLocation() == Location.hallOne) return false;
         if (location == Location.livingRoom && NightGameManager.S.GetCamLocation() == Location.kitchen) return false;
         return true;
+    }
+
+    public void PlayerClosedEyes() {
+        playerEyesOpen = false;
+        StopCoroutine(Move());
+        StartCoroutine(Move());
+    }
+
+    public void PlayerOpenedEyes() {
+        playerEyesOpen = true;
+        StopCoroutine(Move());
+        StartCoroutine(Move());
     }
 }

@@ -59,12 +59,14 @@ public class NightGameManager : MonoBehaviour
     private bool fireLit = false;
     private bool ventClosed = false;
     private float energy = 0f;
-    public int timePassed = 0;
+    private int timePassed = 0;
 
     private int easy = 3;
     private int medium = 5;
     private int hard = 7;
     private int count = 0;
+
+    private int lastButtonPressed = -1;
 
     private void Awake() {
         if (NightGameManager.S) {
@@ -99,8 +101,8 @@ public class NightGameManager : MonoBehaviour
         energyText.enabled = true;
         timerText.enabled = true;
         doorButton.SetActive(true);
-        fireplaceButton.SetActive(true);
-        ventButton.SetActive(true);
+        fireplaceButton.SetActive(docFree);
+        ventButton.SetActive(sneezyFree);
         playAgain.SetActive(false);
         fire.SetActive(false);
         eyes.YesControl();
@@ -144,7 +146,7 @@ public class NightGameManager : MonoBehaviour
         grumpy.gameObject.SetActive(true);
         sleepy.ResetDwarf();
         bashful.ResetDwarf();
-        if (doc.gameObject.activeInHierarchy) doc.ResetDwarf();
+        doc.ResetDwarf();
         sneezy.ResetDwarf();
         happy.ResetDwarf();
         grumpy.ResetDwarf();
@@ -336,11 +338,23 @@ public class NightGameManager : MonoBehaviour
 
     public void CloseEyes() {
         eyesClosed = true;
+        sleepy.PlayerClosedEyes();
+        bashful.PlayerClosedEyes();
+        if (doc.gameObject.activeInHierarchy) doc.PlayerClosedEyes();
+        if (sneezy.gameObject.activeInHierarchy) sneezy.PlayerClosedEyes();
+        if (happy.gameObject.activeInHierarchy) happy.PlayerClosedEyes();
+        if (grumpy.gameObject.activeInHierarchy) grumpy.PlayerClosedEyes();
         NightSleep.S.CloseEyes();
     }
 
     public void OpenEyes() {
         eyesClosed = false;
+        sleepy.PlayerOpenedEyes();
+        bashful.PlayerOpenedEyes();
+        if (doc.gameObject.activeInHierarchy) doc.PlayerOpenedEyes();
+        if (sneezy.gameObject.activeInHierarchy) sneezy.PlayerOpenedEyes();
+        if (happy.gameObject.activeInHierarchy) happy.PlayerOpenedEyes();
+        if (grumpy.gameObject.activeInHierarchy) grumpy.PlayerOpenedEyes();
         NightSleep.S.OpenEyes();
     }
 
@@ -372,5 +386,19 @@ public class NightGameManager : MonoBehaviour
         gameOverImage.color = new Color(255, 255, 255, count / 255);
         if (count < 255) StartCoroutine(GameOver());
         else playAgain.SetActive(true);
+    }
+
+    public bool GetStudyUnlocked() {
+        return docFree;
+    }
+
+    public bool GetBathroomUnlocked() {
+        return sneezyFree;
+    }
+
+    public int ButtonNumber(int set) {
+        int val = lastButtonPressed;
+        if (set != -1) lastButtonPressed = set;
+        return val;
     }
 }

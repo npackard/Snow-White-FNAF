@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class NightButtonManager : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,55 +19,91 @@ public class NightButtonManager : MonoBehaviour
     }
 
     public void DwarfBedroomCam() {
-        if (PlayerPrefs.GetInt("Key3") == 1) NightSwitchCamera.S.SwitchToDwarfBedroomCam();
-        else NightSwitchCamera.S.RejectedSound();
+        if (NightGameManager.S.ButtonNumber(-1) != 0) {
+            if (PlayerPrefs.GetInt("Key3") == 1) NightSwitchCamera.S.SwitchToDwarfBedroomCam();
+            else NightSwitchCamera.S.RejectedSound();
+            NightGameManager.S.ButtonNumber(0);
+        }
     }
 
     public void BathroomCam() {
-        if (PlayerPrefs.GetInt("Key2") == 1) NightSwitchCamera.S.SwitchToBathroomCam();
-        else NightSwitchCamera.S.RejectedSound();
+        if (NightGameManager.S.ButtonNumber(-1) != 1) {
+            if (PlayerPrefs.GetInt("Key2") == 1) NightSwitchCamera.S.SwitchToBathroomCam();
+            else NightSwitchCamera.S.RejectedSound();
+            NightGameManager.S.ButtonNumber(1);
+        }
     }
 
     public void WorkshopCam() {
-        if (PlayerPrefs.GetInt("Key4") == 1) NightSwitchCamera.S.SwitchToWorkshopCam();
-        else NightSwitchCamera.S.RejectedSound();
+        if (NightGameManager.S.ButtonNumber(-1) != 2) {
+            if (PlayerPrefs.GetInt("Key4") == 1) NightSwitchCamera.S.SwitchToWorkshopCam();
+            else NightSwitchCamera.S.RejectedSound();
+            NightGameManager.S.ButtonNumber(2);
+        }
     }
 
     public void UnknownCam() {
-        if (PlayerPrefs.GetInt("Key1") == 1) NightSwitchCamera.S.SwitchToUnknownCam();
-        else NightSwitchCamera.S.RejectedSound();
+        if (NightGameManager.S.ButtonNumber(-1) != 3) {
+            if (PlayerPrefs.GetInt("Key1") == 1) NightSwitchCamera.S.SwitchToUnknownCam();
+            else NightSwitchCamera.S.RejectedSound();
+            NightGameManager.S.ButtonNumber(3);
+        }
     }
 
     public void MineEntranceCam() {
-        NightSwitchCamera.S.RejectedSound();
+        if (NightGameManager.S.ButtonNumber(-1) != 4) {
+            NightSwitchCamera.S.RejectedSound();
+            NightGameManager.S.ButtonNumber(4);
+        }
     }
 
     public void HallOneCam() {
-        NightSwitchCamera.S.SwitchToHallOneCam();
+        if (NightGameManager.S.ButtonNumber(-1) != 5) {
+            NightSwitchCamera.S.SwitchToHallOneCam();
+            NightGameManager.S.ButtonNumber(5);
+        }
     }
 
     public void HallTwoCam() {
-        NightSwitchCamera.S.SwitchToHallTwoCam();
+        if (NightGameManager.S.ButtonNumber(-1) != 6) {
+            NightSwitchCamera.S.SwitchToHallTwoCam();
+            NightGameManager.S.ButtonNumber(6);
+        }
     }
 
     public void LivingRoomCam() {
-        NightSwitchCamera.S.SwitchToLivingRoomCam();
+        if (NightGameManager.S.ButtonNumber(-1) != 7) {
+            NightSwitchCamera.S.SwitchToLivingRoomCam();
+            NightGameManager.S.ButtonNumber(7);
+        }
     }
 
     public void KitchenCam() {
-        NightSwitchCamera.S.SwitchToKitchenCam();
+        if (NightGameManager.S.ButtonNumber(-1) != 8) {
+            NightSwitchCamera.S.SwitchToKitchenCam();
+            NightGameManager.S.ButtonNumber(8);
+        }
     }
 
     public void SwitchDoor() {
-        NightGameManager.S.SwitchDoor();
+        if (NightGameManager.S.ButtonNumber(-1) != 9) {
+            NightGameManager.S.SwitchDoor();
+            NightGameManager.S.ButtonNumber(9);
+        }
     }
 
     public void LightFire() {
-        NightGameManager.S.LightFire();
+        if (NightGameManager.S.ButtonNumber(-1) != 10) {
+            NightGameManager.S.LightFire();
+            NightGameManager.S.ButtonNumber(10);
+        }
     }
 
     public void SwitchVent() {
-        NightGameManager.S.SwitchVent();
+        if (NightGameManager.S.ButtonNumber(-1) != 11) {
+            NightGameManager.S.SwitchVent();
+            NightGameManager.S.ButtonNumber(11);
+        }
     }
 
     public void PlayAgain() {
