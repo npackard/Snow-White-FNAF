@@ -106,6 +106,6 @@ public class NightButtonManager : MonoBehaviour
     }
 
     public void Quit() {
-        Application.Quit();
+        SceneManager.LoadScene(0);
     }
 }
