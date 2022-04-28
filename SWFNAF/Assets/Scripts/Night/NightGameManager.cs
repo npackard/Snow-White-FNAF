@@ -381,11 +381,9 @@ public class NightGameManager : MonoBehaviour
     }
 
     private IEnumerator GameOver() {
-        yield return new WaitForSeconds(.1f);
-        count++;
-        gameOverImage.color = new Color(255, 255, 255, count / 255);
-        if (count < 255) StartCoroutine(GameOver());
-        else playAgain.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        gameOverImage.gameObject.SetActive(true);
+        playAgain.SetActive(true);
     }
 
     public bool GetStudyUnlocked() {
@@ -400,5 +398,37 @@ public class NightGameManager : MonoBehaviour
         int val = lastButtonPressed;
         if (set != -1) lastButtonPressed = set;
         return val;
+    }
+
+    public void StopOtherDwarves(Dwarf dwarf) {
+        Debug.Log(dwarf);
+        if (dwarf != Dwarf.sleepy) {
+            sleepy.NotKiller();
+            sleepy.PlayerDies();
+        } else if (dwarf != Dwarf.bashful) {
+            bashful.NotKiller();
+            bashful.PlayerDies();
+        } else if (doc.gameObject.activeInHierarchy && dwarf != Dwarf.doc) {
+            doc.NotKiller();
+            doc.PlayerDies();
+        } else if (sneezy.gameObject.activeInHierarchy && dwarf != Dwarf.sneezy) {
+            sneezy.NotKiller();
+            sneezy.PlayerDies();
+        } else if (happy.gameObject.activeInHierarchy && dwarf != Dwarf.happy) {
+            happy.NotKiller();
+            happy.PlayerDies();
+        } else if (grumpy.gameObject.activeInHierarchy && dwarf != Dwarf.grumpy) {
+            grumpy.NotKiller();
+            grumpy.PlayerDies();
+        }
+    }
+
+    public void SetAllPlayerDead() {
+        sleepy.SetPlayerDead();
+        bashful.SetPlayerDead();
+        if (doc.gameObject.activeInHierarchy) doc.SetPlayerDead();
+        if (sneezy.gameObject.activeInHierarchy) sneezy.SetPlayerDead();
+        if (happy.gameObject.activeInHierarchy) happy.SetPlayerDead();
+        if (grumpy.gameObject.activeInHierarchy) grumpy.SetPlayerDead();
     }
 }

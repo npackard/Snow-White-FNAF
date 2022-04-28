@@ -972,6 +972,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: fc12163940f2ac3418f7e78fb456cc7c, type: 3}
     - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 443426624}
+    - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
       propertyPath: sneeze
       value: 
       objectReference: {fileID: 8300000, guid: 06447bdaa40aafa45bd9e6a832fe535b, type: 3}
@@ -2154,7 +2158,7 @@ Transform:
   - {fileID: 1776391898}
   - {fileID: 739396571}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &246046491
 GameObject:
@@ -2193,7 +2197,7 @@ Transform:
   - {fileID: 2121060766}
   - {fileID: 1337913579}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &258369280 stripped
 MonoBehaviour:
@@ -2776,7 +2780,7 @@ Transform:
   - {fileID: 625263293340213028}
   - {fileID: 16237750}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 212.5, z: 0}
 --- !u!114 &443426625
 MonoBehaviour:
@@ -3326,7 +3330,7 @@ Transform:
   - {fileID: 296299504}
   - {fileID: 312417127}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &550954551
 GameObject:
@@ -4482,7 +4486,7 @@ Transform:
   - {fileID: 1092491330}
   - {fileID: 1563645516}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &833353684
 GameObject:
@@ -4519,7 +4523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.5, y: -6.3}
+  m_AnchoredPosition: {x: -1.4, y: -6.3}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &833353686
@@ -4788,7 +4792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -4818,7 +4822,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 946701970}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 206893247}
+        m_TargetAssemblyTypeName: NightButtonManager, Assembly-CSharp
+        m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &946701970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5350,13 +5366,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117549230}
-  m_LocalRotation: {x: -0, y: 0.24988922, z: -0, w: 0.96827453}
-  m_LocalPosition: {x: 52.95, y: 11.74, z: 6.64}
+  m_LocalRotation: {x: -0.0024217148, y: -0.9993756, z: 0.033947375, w: 0.009495275}
+  m_LocalPosition: {x: 51.28, y: 11.74, z: 10.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
-  m_LocalEulerAnglesHint: {x: 0, y: 28.942, z: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 3.888, y: -178.901, z: 0.315}
 --- !u!1 &1121129571
 GameObject:
   m_ObjectHideFlags: 0
@@ -6282,7 +6298,7 @@ Transform:
   - {fileID: 731395972}
   - {fileID: 316648526}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1457670165
 GameObject:
@@ -6448,7 +6464,7 @@ Transform:
   - {fileID: 1945385033}
   - {fileID: 1121129572}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1520171081
 GameObject:
@@ -6627,6 +6643,10 @@ PrefabInstance:
       propertyPath: mumble
       value: 
       objectReference: {fileID: 8300000, guid: fc12163940f2ac3418f7e78fb456cc7c, type: 3}
+    - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 443426624}
     - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
       propertyPath: sneeze
       value: 
@@ -7656,6 +7676,10 @@ PrefabInstance:
       propertyPath: mumble
       value: 
       objectReference: {fileID: 8300000, guid: fc12163940f2ac3418f7e78fb456cc7c, type: 3}
+    - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 443426624}
     - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
       propertyPath: sneeze
       value: 
@@ -9062,7 +9086,7 @@ Transform:
   - {fileID: 6780961244308377352}
   - {fileID: 195821290}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1799495883
 AudioSource:
@@ -9670,6 +9694,10 @@ PrefabInstance:
       propertyPath: mumble
       value: 
       objectReference: {fileID: 8300000, guid: fc12163940f2ac3418f7e78fb456cc7c, type: 3}
+    - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 443426624}
     - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
       propertyPath: sneeze
       value: 
@@ -10836,7 +10864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -10866,7 +10894,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1942304594}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 206893247}
+        m_TargetAssemblyTypeName: NightButtonManager, Assembly-CSharp
+        m_MethodName: PlayAgain
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1942304594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11065,7 +11105,7 @@ RectTransform:
   - {fileID: 1356473507}
   - {fileID: 1393301632}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11271,7 +11311,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.5, y: 12.5}
+  m_AnchoredPosition: {x: 0, y: 12.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981634240
@@ -11958,6 +11998,10 @@ PrefabInstance:
       propertyPath: mumble
       value: 
       objectReference: {fileID: 8300000, guid: fc12163940f2ac3418f7e78fb456cc7c, type: 3}
+    - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 443426624}
     - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
       propertyPath: sneeze
       value: 
@@ -12871,7 +12915,7 @@ Transform:
   - {fileID: 622816181}
   - {fileID: 209447610}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2121060765
 GameObject:
@@ -28166,6 +28210,10 @@ PrefabInstance:
       propertyPath: mumble
       value: 
       objectReference: {fileID: 8300000, guid: fc12163940f2ac3418f7e78fb456cc7c, type: 3}
+    - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 443426624}
     - target: {fileID: 6757086316705776435, guid: b0e6bcdf3ce286246b0233e87e38cd8f, type: 3}
       propertyPath: sneeze
       value: 

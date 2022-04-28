@@ -88,8 +88,4 @@ public class NightSwitchCamera : MonoBehaviour
         meshRenderer.material = kitchen;
         NightGameManager.S.SwitchToKitchen();
     }
-
-    public void RejectedSound() {
-        audio.PlayOneShot(rejectedSound);
-    }
 }

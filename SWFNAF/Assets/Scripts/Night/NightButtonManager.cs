@@ -21,7 +21,6 @@ public class NightButtonManager : MonoBehaviour
     public void DwarfBedroomCam() {
         if (NightGameManager.S.ButtonNumber(-1) != 0) {
             if (PlayerPrefs.GetInt("Key3") == 1) NightSwitchCamera.S.SwitchToDwarfBedroomCam();
-            else NightSwitchCamera.S.RejectedSound();
             NightGameManager.S.ButtonNumber(0);
         }
     }
@@ -29,7 +28,6 @@ public class NightButtonManager : MonoBehaviour
     public void BathroomCam() {
         if (NightGameManager.S.ButtonNumber(-1) != 1) {
             if (PlayerPrefs.GetInt("Key2") == 1) NightSwitchCamera.S.SwitchToBathroomCam();
-            else NightSwitchCamera.S.RejectedSound();
             NightGameManager.S.ButtonNumber(1);
         }
     }
@@ -37,7 +35,6 @@ public class NightButtonManager : MonoBehaviour
     public void WorkshopCam() {
         if (NightGameManager.S.ButtonNumber(-1) != 2) {
             if (PlayerPrefs.GetInt("Key4") == 1) NightSwitchCamera.S.SwitchToWorkshopCam();
-            else NightSwitchCamera.S.RejectedSound();
             NightGameManager.S.ButtonNumber(2);
         }
     }
@@ -45,14 +42,12 @@ public class NightButtonManager : MonoBehaviour
     public void UnknownCam() {
         if (NightGameManager.S.ButtonNumber(-1) != 3) {
             if (PlayerPrefs.GetInt("Key1") == 1) NightSwitchCamera.S.SwitchToUnknownCam();
-            else NightSwitchCamera.S.RejectedSound();
             NightGameManager.S.ButtonNumber(3);
         }
     }
 
     public void MineEntranceCam() {
         if (NightGameManager.S.ButtonNumber(-1) != 4) {
-            NightSwitchCamera.S.RejectedSound();
             NightGameManager.S.ButtonNumber(4);
         }
     }

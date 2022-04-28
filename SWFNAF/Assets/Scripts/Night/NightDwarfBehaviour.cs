@@ -13,6 +13,7 @@ public class NightDwarfBehaviour : MonoBehaviour
 
     public Dwarf dwarf;
     public Transform death;
+    public Transform player;
 
     public Location[] sleepyPathHallOneLiving;
     public Location[] sleepyPathBedroomLiving;
@@ -51,6 +52,8 @@ public class NightDwarfBehaviour : MonoBehaviour
     private bool onCamera = false;
     private bool playerDead = false;
     private bool playerEyesOpen = true;
+    private bool killingPlayer = false;
+    private bool playerKilled = false;
 
     private bool docFree = false; // key 1, study
     private bool sneezyFree = false; // key 2, bathroom
@@ -91,6 +94,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     private void DwarfStart() {
+        killingPlayer = false;
         DwarfSetup();
         GoHome();
         SetWaitTimes();
@@ -98,6 +102,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     private void DwarfSetup() {
+        transform.SetParent(null);
         switch(dwarf) {
             case Dwarf.sleepy:
                 SleepyStart();
@@ -134,9 +139,9 @@ public class NightDwarfBehaviour : MonoBehaviour
 
     private int GetWaitTime() {
         if (!playerEyesOpen && difficultAdjustment > 0) {
-            return (int)Mathf.Log(difficultAdjustment + 1);
+            return (int)Mathf.Log(difficultAdjustment * 100);
         }
-        return (int)Random.RandomRange(shortWait, longWait);
+        return (int)Random.Range(shortWait, longWait);
     }
 
     private void GoHome() {
@@ -213,12 +218,13 @@ public class NightDwarfBehaviour : MonoBehaviour
                     GoHome();
                 } else if ((dwarf == Dwarf.doc || dwarf == Dwarf.happy) && NightGameManager.S.GetVentClosed()) {
                     GoHome();
-                } else { // able to attack
-                    audio.PlayOneShot(deathSound);
+                } else if (!playerDead) { // able to attack
                     transform.position = death.position;
                     transform.rotation = death.rotation;
+                    transform.SetParent(player);
+                    transform.localRotation = death.localRotation;
                     playerDead = true;
-                    KillPlayer(); // start countdown to force mirror down
+                    StartCoroutine(KillPlayer()); // start countdown to force mirror down & eyes open
                 }
             } else if (location != NightGameManager.S.GetCamLocation() && locationPath[movementIndex + 1] != NightGameManager.S.GetCamLocation()) { // move along path if path isn't blocked and player isn't looking at dwarf or dwarf's next room
                 if ((dwarf == Dwarf.sleepy || dwarf == Dwarf.grumpy) && !NightGameManager.S.GetDoorClosed()) {
@@ -235,7 +241,6 @@ public class NightDwarfBehaviour : MonoBehaviour
                 } else if (dwarf == Dwarf.sneezy && NightGameManager.S.GetFireLit() && (location == Location.unknown || locationPath[movementIndex + 1] == Location.unknown)) {
                     DoSneeze();
                 } else if (dwarf == Dwarf.bashful && NightGameManager.S.GetFireLit() && !(location == Location.unknown || locationPath[movementIndex + 1] == Location.unknown)) {
-                    if (dwarf == Dwarf.sneezy) audio.PlayOneShot(sneeze);
                     DoMove();
                 }
             }
@@ -244,15 +249,21 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     private IEnumerator KillPlayer() {  // start countdown to force mirror down
+        NightGameManager.S.StopOtherDwarves(dwarf);
+        killingPlayer = true;
         yield return new WaitForSeconds(6f);
         PlayerDies();
-        NightGameManager.S.Die();
     }
 
     public void PlayerDies() { // killing animation & resetting game
-        playerDead = true;
-        anim.SetBool("attacking", true);
-        StopAllCoroutines();
+        if (killingPlayer && !playerKilled) {
+            playerKilled = true;
+            audio.PlayOneShot(deathSound);
+            NightGameManager.S.SetAllPlayerDead();
+            anim.SetBool("attacking", true);
+            StopAllCoroutines();
+            NightGameManager.S.Die();
+        }
     }
 
     public void ResetDwarf() {
@@ -311,13 +322,28 @@ public class NightDwarfBehaviour : MonoBehaviour
 
     public void PlayerClosedEyes() {
         playerEyesOpen = false;
-        StopCoroutine(Move());
-        StartCoroutine(Move());
+        if (!playerDead) RestartMove();
     }
 
     public void PlayerOpenedEyes() {
         playerEyesOpen = true;
+        if (!playerDead) {
+            RestartMove();
+        } else {
+            PlayerDies();
+        }
+    }
+
+    public void NotKiller() {
+        killingPlayer = false;
+    }
+
+    private void RestartMove() {
         StopCoroutine(Move());
         StartCoroutine(Move());
+    }
+
+    public void SetPlayerDead() {
+        playerDead = true;
     }
 }
