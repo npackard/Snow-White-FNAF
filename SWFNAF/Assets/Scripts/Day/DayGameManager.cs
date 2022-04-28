@@ -44,7 +44,7 @@ public class DayGameManager : MonoBehaviour
 
         // for testing purposes
         /*PlayerPrefs.SetInt("IsNight", 0);
-        PlayerPrefs.SetInt("DayCount", 1);
+        PlayerPrefs.SetInt("DayCount", 0);
         PlayerPrefs.SetFloat("Energy", 50);
         PlayerPrefs.SetInt("Key1", 1);
         PlayerPrefs.SetInt("Key2", 1);
