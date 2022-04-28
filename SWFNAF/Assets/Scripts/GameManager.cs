@@ -63,9 +63,12 @@ public class GameManager : MonoBehaviour
     private IEnumerator EndIntermissionCor()
     {
         yield return new WaitForSeconds(0);
-        PlayerPrefs.SetInt("DayCount", PlayerPrefs.GetInt("DayCount") + 1);
         if (PlayerPrefs.GetInt("IsNight") == 0) SceneManager.LoadScene(2); // load Day
-        else SceneManager.LoadScene(1); // load Night
+        else
+        {
+            PlayerPrefs.SetInt("DayCount", PlayerPrefs.GetInt("DayCount") + 1);
+            SceneManager.LoadScene(1); // load Night
+        }
     }
 
     public void LoadMine()
