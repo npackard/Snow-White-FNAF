@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
     private IEnumerator EndDayCor()
     {
         PlayerPrefs.SetInt("IsNight", 1);
-        PlayerPrefs.SetInt("DayCount", PlayerPrefs.GetInt("DayCount") + 1);
         PlayerPrefs.SetFloat("Energy", DayGameManager.instance.maxTime - DayGameManager.instance.inGameTime);
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(4); // intermission scene
@@ -64,6 +63,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator EndIntermissionCor()
     {
         yield return new WaitForSeconds(0);
+        PlayerPrefs.SetInt("DayCount", PlayerPrefs.GetInt("DayCount") + 1);
         if (PlayerPrefs.GetInt("IsNight") == 0) SceneManager.LoadScene(2); // load Day
         else SceneManager.LoadScene(1); // load Night
     }
