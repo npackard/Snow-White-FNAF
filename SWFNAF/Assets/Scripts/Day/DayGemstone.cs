@@ -17,12 +17,13 @@ public class DayGemstone : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("DayCount") == 0 && gemIndex != 0) { gameObject.SetActive(false); return; }
-        if (PlayerPrefs.GetInt("DayCount") != 0 && gemIndex == 0) { gameObject.SetActive(false); return; }
-
         audio = GetComponent<AudioSource>();
         mr = GetComponent<MeshRenderer>();
         bc = GetComponent<BoxCollider>();
+
+        if (PlayerPrefs.GetInt("DayCount") == 0 && gemIndex == 0) { return; }
+        if (PlayerPrefs.GetInt("DayCount") == 0 && gemIndex != 0) { gameObject.SetActive(false); return; }
+        if (PlayerPrefs.GetInt("DayCount") != 0 && gemIndex == 0) { gameObject.SetActive(false); return; }
 
         bool gem1 = PlayerPrefs.GetInt("Gem1") == 1;
         bool gem2 = PlayerPrefs.GetInt("Gem2") == 1;
