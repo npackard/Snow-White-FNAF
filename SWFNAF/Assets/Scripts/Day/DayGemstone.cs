@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DayGemstone : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class DayGemstone : MonoBehaviour
         audio = GetComponent<AudioSource>();
         mr = GetComponent<MeshRenderer>();
         bc = GetComponent<BoxCollider>();
+
+        if (SceneManager.GetActiveScene().buildIndex == 3) return;
 
         if (PlayerPrefs.GetInt("DayCount") == 0 && gemIndex == 0) { return; }
         if (PlayerPrefs.GetInt("DayCount") == 0 && gemIndex != 0) { gameObject.SetActive(false); return; }

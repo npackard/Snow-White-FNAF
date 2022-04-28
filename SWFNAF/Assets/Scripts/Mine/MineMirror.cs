@@ -4,12 +4,34 @@ using UnityEngine;
 
 public class MineMirror : MonoBehaviour
 {
+    private SkinnedMeshRenderer smr;
+    private AudioSource audio;
+    public Material brokenMirror;
+    public AudioClip glassCrack;
+
+    private bool interactedOnce = false;
+
+    private void Start()
+    {
+        smr = GetComponent<SkinnedMeshRenderer>();
+        audio = GetComponent<AudioSource>();
+    }
+
     public void InteractMirror()
     {
-        gameObject.tag = "Untagged";
+        if (!interactedOnce)
+        {
+            smr.material = brokenMirror;
+            audio.PlayOneShot(glassCrack);
+            interactedOnce = true;
+        }
+        else
+        {
+            gameObject.tag = "Untagged";
 
-        MineUIManager.instance.DarkerAnim();
-        PlayerPrefs.SetInt("Key6", 1);
-        GameManager.instance.LoadMainMenu();
+            MineUIManager.instance.DarkerAnim();
+            PlayerPrefs.SetInt("Key6", 1);
+            GameManager.instance.LoadMainMenu();
+        }
     }
 }
