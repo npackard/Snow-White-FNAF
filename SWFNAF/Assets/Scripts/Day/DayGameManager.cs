@@ -117,9 +117,6 @@ public class DayGameManager : MonoBehaviour
         if (PlayerPrefs.GetInt("Gem5") == 1) activeGems--;
         if (PlayerPrefs.GetInt("Gem6") == 1) activeGems--;
 
-        print(activeKeys);
-        print(activeGems);
-
         inGameTime = (int) Mathf.Clamp((100 - PlayerPrefs.GetFloat("Energy")) / 10, 0, 9) * 4;
 
         if (PlayerPrefs.GetInt("Gem6") == 1) lastKey.SetActive(true);
