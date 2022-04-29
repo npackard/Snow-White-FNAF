@@ -57,6 +57,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     private bool killingPlayer = false;
     private bool playerKilled = false;
     private bool freddyKill = false;
+    private bool changedPose = false;
 
     private bool docFree = false; // key 1, study
     private bool sneezyFree = false; // key 2, bathroom
@@ -86,6 +87,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     private void StartNight() {
         freddy.SetActive(false);
         anim.SetBool("attacking", false);
+        anim.SetBool("peeking", false);
         if (dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) anim.SetBool("bs", true);
         else anim.SetBool("bs", false);
         movementIndex = 0;
@@ -262,7 +264,10 @@ public class NightDwarfBehaviour : MonoBehaviour
             }
             // make bashful and sneezy pose in fireplace
             if (dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) {
-                if (location == Location.snowWhiteBedroom) anim.SetBool("peeking", true);
+                if (location == Location.snowWhiteBedroom) {
+                    anim.SetBool("peeking", true);
+                    changedPose = true;
+                }
                 else anim.SetBool("peeking", false);
             }
         }
@@ -297,6 +302,11 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     private void DoMove() {
+        if (!changedPose) {
+            int num = (int)Random.Range(1, 4);
+            anim.SetInteger("random", num);
+            changedPose = false;
+        }
         movementIndex++;
         location = locationPath[movementIndex];
         transform.position = transformPath[movementIndex].position;
