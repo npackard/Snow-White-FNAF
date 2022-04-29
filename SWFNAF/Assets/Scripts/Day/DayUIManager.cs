@@ -54,6 +54,7 @@ public class DayUIManager : MonoBehaviour
         imageAim.SetActive(false);
 
         if (PlayerPrefs.GetInt("DayCount") == 0) timeTextObject.SetActive(false);
+        if (PlayerPrefs.GetInt("Key5") == 1) UpdateToMineText();
     }
 
     private void Update()
@@ -92,6 +93,11 @@ public class DayUIManager : MonoBehaviour
     public void CollectiblesDone()
     {
         shouldSleepText.SetActive(true);
+    }
+
+    public void UpdateToMineText()
+    {
+        shouldSleepText.GetComponent<Text>().text = "I am ready now...";
     }
 
     public void PanelInteractableOn()

@@ -36,7 +36,7 @@ public class DayGameManager : MonoBehaviour
     public int maxTime = 40; // linearly interpolated between 1 ~ 10 hours based on "energy"
 
     public bool day0Done = false;
-    private int firstDayItems = 3; // map, mirror, gem
+    private int firstDayItems = 4; // map, mirror, gem
 
     private void Awake()
     {
@@ -49,17 +49,17 @@ public class DayGameManager : MonoBehaviour
         /*PlayerPrefs.SetInt("IsNight", 0);
         PlayerPrefs.SetInt("DayCount", 1);
         PlayerPrefs.SetFloat("Energy", 50);
-        PlayerPrefs.SetInt("Key1", 0);
-        PlayerPrefs.SetInt("Key2", 0);
-        PlayerPrefs.SetInt("Key3", 0);
-        PlayerPrefs.SetInt("Key4", 0);
-        PlayerPrefs.SetInt("Key5", 0);
-        PlayerPrefs.SetInt("Gem1", 0);
-        PlayerPrefs.SetInt("Gem2", 0);
-        PlayerPrefs.SetInt("Gem3", 0);
-        PlayerPrefs.SetInt("Gem4", 0);
-        PlayerPrefs.SetInt("Gem5", 0);
-        PlayerPrefs.SetInt("Gem6", 0);
+        PlayerPrefs.SetInt("Key1", 1);
+        PlayerPrefs.SetInt("Key2", 1);
+        PlayerPrefs.SetInt("Key3", 1);
+        PlayerPrefs.SetInt("Key4", 1);
+        PlayerPrefs.SetInt("Key5", 1);
+        PlayerPrefs.SetInt("Gem1", 1);
+        PlayerPrefs.SetInt("Gem2", 1);
+        PlayerPrefs.SetInt("Gem3", 1);
+        PlayerPrefs.SetInt("Gem4", 1);
+        PlayerPrefs.SetInt("Gem5", 1);
+        PlayerPrefs.SetInt("Gem6", 1);
         PlayerPrefs.SetInt("DwarfFree3", 0);
         PlayerPrefs.SetInt("DwarfFree4", 0);
         PlayerPrefs.SetInt("DwarfFree5", 0);

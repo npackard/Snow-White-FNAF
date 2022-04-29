@@ -48,8 +48,9 @@ MonoBehaviour:
   canBeSeen: 0
   cam: {fileID: 0}
   dwarfIndex: 5
+  dwarfBody: {fileID: 738151509554694704}
   dwarfScareClip: {fileID: 8300000, guid: cc287c4d5fdbb4e3bb8974e132bfd91e, type: 3}
-  dwarfGoneClip: {fileID: 0}
+  dwarfGoneClip: {fileID: 8300000, guid: 5771b88d754df41beb8b33093d7ea679, type: 3}
 --- !u!82 &8063257193568809681
 AudioSource:
   m_ObjectHideFlags: 0
@@ -511,6 +512,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34c714d70697644429a79f4501aad595, type: 3}
+--- !u!1 &738151509554694704 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4817165853494342778, guid: 34c714d70697644429a79f4501aad595, type: 3}
+  m_PrefabInstance: {fileID: 5252448621622132298}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &105166429889581194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5301249678675521216, guid: 34c714d70697644429a79f4501aad595, type: 3}

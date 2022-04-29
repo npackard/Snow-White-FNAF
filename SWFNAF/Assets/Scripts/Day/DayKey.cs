@@ -42,5 +42,7 @@ public class DayKey : MonoBehaviour
         DayGameManager.instance.activeKeys--;
         PlayerPrefs.SetInt("Key" + keyIndex.ToString(), 1);
         DayGameManager.instance.GetKey(keyIndex);
+
+        if (keyIndex == 5) DayUIManager.instance.UpdateToMineText();
     }
 }

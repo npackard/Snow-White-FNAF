@@ -12,9 +12,11 @@ public class DayDwarf : MonoBehaviour
     private bool onScreen = false;
     private bool seen = false;
 
+    public GameObject dwarfBody;
     public AudioClip dwarfScareClip;
     public AudioClip dwarfGoneClip;
     private AudioSource audio;
+    private bool playedOnce = false;
 
     private void Start()
     {
@@ -39,10 +41,11 @@ public class DayDwarf : MonoBehaviour
 
             }
 
-            if (seen && !onScreen)
+            if (seen && !onScreen && !playedOnce)
             {
+                playedOnce = true;
                 audio.PlayOneShot(dwarfGoneClip);
-                Destroy(this.gameObject);
+                dwarfBody.SetActive(false);
             }
         }
     }

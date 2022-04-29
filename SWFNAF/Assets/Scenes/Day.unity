@@ -1161,6 +1161,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2053733108}
+    - target: {fileID: 2070116092750660508, guid: eaef74a0d3b3a5f42919b487c5947a81, type: 3}
+      propertyPath: dwarfGoneClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5771b88d754df41beb8b33093d7ea679, type: 3}
     - target: {fileID: 3014344140534724847, guid: eaef74a0d3b3a5f42919b487c5947a81, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0000000018626451
@@ -3630,6 +3634,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2053733108}
+    - target: {fileID: 5584823214662568797, guid: 68bb028b6066db640938d816c89b5171, type: 3}
+      propertyPath: dwarfGoneClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5771b88d754df41beb8b33093d7ea679, type: 3}
     - target: {fileID: 5642759389482588003, guid: 68bb028b6066db640938d816c89b5171, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000000004656613
@@ -7676,6 +7684,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2053733108}
+    - target: {fileID: 7712822633581538465, guid: 19e864457ca82dd4690c1695b5d9db91, type: 3}
+      propertyPath: dwarfGoneClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5771b88d754df41beb8b33093d7ea679, type: 3}
     - target: {fileID: 8389945447748141193, guid: 19e864457ca82dd4690c1695b5d9db91, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0022041644
@@ -10038,6 +10050,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2053733108}
+    - target: {fileID: 8087256525472580831, guid: f864166b3ab02ce47ad2028c1840ff7b, type: 3}
+      propertyPath: dwarfGoneClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5771b88d754df41beb8b33093d7ea679, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f864166b3ab02ce47ad2028c1840ff7b, type: 3}
 --- !u!1 &2100312483 stripped
