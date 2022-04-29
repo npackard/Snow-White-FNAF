@@ -12,6 +12,7 @@ public class NightGameManager : MonoBehaviour
     public int secondsPerHour = 35;
 
     public AudioClip win;
+    public AudioClip fireOut;
     
     public AudioSource fireAudio;
     public AudioSource fireIgnite;
@@ -20,6 +21,7 @@ public class NightGameManager : MonoBehaviour
     public GameObject door;
     public GameObject fire;
     public GameObject playAgain;
+    public NightDopey dopey;
 
     public Image gameOverImage;
     public GameObject doorButton;
@@ -108,6 +110,7 @@ public class NightGameManager : MonoBehaviour
         fireplaceButton.SetActive(docFree);
         ventButton.SetActive(sneezyFree);
         ResetDwarves();
+        dopey.Home();
         StartCoroutine(MakeTimePass());
     }
 
@@ -254,6 +257,8 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void SwitchDoor() {
+        Debug.Log("please");
+        dopey.Door();
         // open vent
         ventClosed = false;
         cover.SetActive(false);
@@ -265,6 +270,7 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void LightFire() {
+        dopey.Fire();
         // open vent
         ventClosed = false;
         cover.SetActive(false);
@@ -286,11 +292,14 @@ public class NightGameManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         fireAudio.loop = false;
         fireAudio.Stop();
+        audio.PlayOneShot(fireOut);
         fireLit = false;
         fire.SetActive(false);
+        dopey.Home();
     }
 
     public void SwitchVent() {
+        dopey.Vent();
         // close vent
         ventClosed = true;
         cover.SetActive(true);
@@ -302,6 +311,7 @@ public class NightGameManager : MonoBehaviour
     }
 
     public void PutFireOut() {
+        if (dopey.AtFire()) dopey.Home();
         StopCoroutine(FireTimer());
         fire.SetActive(false);
         fireLit = false;

@@ -49,6 +49,8 @@ public class NightDwarfBehaviour : MonoBehaviour
     public AudioClip deathSound;
     public AudioClip doorSlam;
     public AudioClip freddyDeathSound;
+    public AudioClip oh;
+    public AudioClip yawn;
 
     private bool isActive = false;
     private bool onCamera = false;
@@ -248,6 +250,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 if ((dwarf == Dwarf.sleepy || dwarf == Dwarf.grumpy) && !NightGameManager.S.GetDoorClosed()) {
                     if (CheckDoubleCams()) {
                         if (dwarf == Dwarf.grumpy) audio.PlayOneShot(angry);
+                        else audio.PlayOneShot(yawn);
                         DoMove();
                     }
                 } else if ((dwarf == Dwarf.doc || dwarf == Dwarf.happy) && !NightGameManager.S.GetVentClosed()) {
@@ -259,6 +262,7 @@ public class NightDwarfBehaviour : MonoBehaviour
                 } else if (dwarf == Dwarf.sneezy && NightGameManager.S.GetFireLit() && (location == Location.unknown || locationPath[movementIndex + 1] == Location.unknown)) {
                     DoSneeze();
                 } else if (dwarf == Dwarf.bashful && NightGameManager.S.GetFireLit() && !(location == Location.unknown || locationPath[movementIndex + 1] == Location.unknown)) {
+                    audio.PlayOneShot(oh);
                     DoMove();
                 }
             }

@@ -85,6 +85,8 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: dc224ef10d50aba4aabd27cc5b81c8a9, type: 3}
   doorSlam: {fileID: 8300000, guid: 582f8bf535816a94187d2f8acb8aa7f8, type: 3}
   freddyDeathSound: {fileID: 8300000, guid: 43b02efbe573c764c8f2ce7aad2f6a6a, type: 3}
+  oh: {fileID: 8300000, guid: a9c573f03763843bb96fce7dad21ae42, type: 3}
+  yawn: {fileID: 8300000, guid: c06d87282b1ba418fb35f5eee1361bc2, type: 3}
 --- !u!82 &4407945600527916901
 AudioSource:
   m_ObjectHideFlags: 0
