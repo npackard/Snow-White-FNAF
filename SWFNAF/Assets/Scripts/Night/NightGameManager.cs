@@ -96,7 +96,7 @@ public class NightGameManager : MonoBehaviour
         count = 0;
         timePassed = 0;
         lastCam = Location.dwarfBedroom;
-        energy = PlayerPrefs.GetInt("Energy");
+        energy = PlayerPrefs.GetFloat("Energy");
         timerText.text = "12am";
         energyText.text = "Energy: " +  energy.ToString();
         winText.enabled = false;

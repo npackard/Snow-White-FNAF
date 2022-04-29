@@ -36,6 +36,9 @@ public class DayUIManager : MonoBehaviour
     private bool brighterAnim = false;
     private bool minOpac = false;
 
+    public GameObject[] gemSprites;
+    public GameObject[] keySprites;
+
     private void Awake()
     {
         if (instance != this)
@@ -55,6 +58,20 @@ public class DayUIManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("DayCount") == 0) timeTextObject.SetActive(false);
         if (PlayerPrefs.GetInt("Key5") == 1) UpdateToMineText();
+
+        if (PlayerPrefs.GetInt("Gem0") == 1) gemSprites[0].SetActive(true);
+        if (PlayerPrefs.GetInt("Gem1") == 1) gemSprites[1].SetActive(true);
+        if (PlayerPrefs.GetInt("Gem2") == 1) gemSprites[2].SetActive(true);
+        if (PlayerPrefs.GetInt("Gem3") == 1) gemSprites[3].SetActive(true);
+        if (PlayerPrefs.GetInt("Gem4") == 1) gemSprites[4].SetActive(true);
+        if (PlayerPrefs.GetInt("Gem5") == 1) gemSprites[5].SetActive(true);
+        if (PlayerPrefs.GetInt("Gem6") == 1) gemSprites[6].SetActive(true);
+
+        if (PlayerPrefs.GetInt("Key1") == 1) keySprites[0].SetActive(true);
+        if (PlayerPrefs.GetInt("Key2") == 1) keySprites[1].SetActive(true);
+        if (PlayerPrefs.GetInt("Key3") == 1) keySprites[2].SetActive(true);
+        if (PlayerPrefs.GetInt("Key4") == 1) keySprites[3].SetActive(true);
+        if (PlayerPrefs.GetInt("Key5") == 1) keySprites[4].SetActive(true);
     }
 
     private void Update()
@@ -88,6 +105,16 @@ public class DayUIManager : MonoBehaviour
         newTime += (t % 4 == 0) ? "00" : ((t % 4) * 15).ToString();
         newTime += isPM ? " PM" : " AM";
         timeText.text = newTime;
+    }
+
+    public void CollectKey(int i)
+    {
+        keySprites[i].SetActive(true);
+    }
+
+    public void CollectGem(int i)
+    {
+        gemSprites[i].SetActive(true);
     }
 
     public void CollectiblesDone()

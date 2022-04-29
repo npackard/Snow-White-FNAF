@@ -50,6 +50,7 @@ public class DayGemstone : MonoBehaviour
         mr.enabled = false;
         bc.enabled = false;
 
+        DayUIManager.instance.CollectGem(gemIndex);
         DayGameManager.instance.activeGems--;
         if (gemIndex == 0) DayGameManager.instance.FirstDayCollected();
         PlayerPrefs.SetInt("Gem" + gemIndex.ToString(), 1);
