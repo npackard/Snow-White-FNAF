@@ -123,11 +123,11 @@ public class NightGameManager : MonoBehaviour
 
     public int GetDifficulty(Dwarf dwarf) {
         int value = 3;
-        if (docFree) value += 1;
-        if (sneezyFree) value += 1;
-        if (happyFree) value += 1;
+        if (docFree) value += 2;
+        if (sneezyFree) value += 2;
+        if (happyFree) value += 2;
         if (grumpyFree) {
-            value += 1;
+            value += 2;
             value += Mathf.Clamp((PlayerPrefs.GetInt("night") - 3), 0, 20);
         }
         return value;
