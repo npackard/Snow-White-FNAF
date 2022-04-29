@@ -52,6 +52,7 @@ MonoBehaviour:
   dwarf: 1
   death: {fileID: 0}
   player: {fileID: 0}
+  freddy: {fileID: 0}
   sleepyPathHallOneLiving: 
   sleepyPathBedroomLiving: 
   sleepyPathBedroomUnknownLiving: 
@@ -82,6 +83,7 @@ MonoBehaviour:
   laugh: {fileID: 8300000, guid: d0b484da65592c1499e3d0099ebedc9a, type: 3}
   deathSound: {fileID: 8300000, guid: dc224ef10d50aba4aabd27cc5b81c8a9, type: 3}
   doorSlam: {fileID: 8300000, guid: 582f8bf535816a94187d2f8acb8aa7f8, type: 3}
+  freddyDeathSound: {fileID: 8300000, guid: 43b02efbe573c764c8f2ce7aad2f6a6a, type: 3}
 --- !u!82 &4407945600527916901
 AudioSource:
   m_ObjectHideFlags: 0
