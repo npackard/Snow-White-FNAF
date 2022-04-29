@@ -179,7 +179,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16237749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.25, y: 0, z: -1.96}
+  m_LocalPosition: {x: 0.83, y: 0, z: -3.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 344692744}
@@ -5367,7 +5367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117549230}
   m_LocalRotation: {x: -0.0024217148, y: -0.9993756, z: 0.033947375, w: 0.009495275}
-  m_LocalPosition: {x: 51.28, y: 11.74, z: 10.98}
+  m_LocalPosition: {x: 52.87, y: 11.74, z: 11.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5533,7 +5533,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -28002,6 +28002,10 @@ PrefabInstance:
     - target: {fileID: 5833613073607481848, guid: 4d29c1163e31296499477c1647a80075, type: 3}
       propertyPath: m_Name
       value: NightMagicMirror
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833613073607481848, guid: 4d29c1163e31296499477c1647a80075, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6610994541795377986, guid: 4d29c1163e31296499477c1647a80075, type: 3}
       propertyPath: m_RootOrder
