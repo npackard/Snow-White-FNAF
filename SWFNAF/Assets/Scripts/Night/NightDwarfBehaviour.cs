@@ -14,6 +14,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     public Dwarf dwarf;
     public Transform death;
     public Transform player;
+    public GameObject freddy;
 
     public Location[] sleepyPathHallOneLiving;
     public Location[] sleepyPathBedroomLiving;
@@ -47,6 +48,7 @@ public class NightDwarfBehaviour : MonoBehaviour
     public AudioClip laugh;
     public AudioClip deathSound;
     public AudioClip doorSlam;
+    public AudioClip freddyDeathSound;
 
     private bool isActive = false;
     private bool onCamera = false;
@@ -54,6 +56,8 @@ public class NightDwarfBehaviour : MonoBehaviour
     private bool playerEyesOpen = true;
     private bool killingPlayer = false;
     private bool playerKilled = false;
+    private bool freddyKill = false;
+    private bool changedPose = false;
 
     private bool docFree = false; // key 1, study
     private bool sneezyFree = false; // key 2, bathroom
@@ -81,7 +85,9 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     private void StartNight() {
+        freddy.SetActive(false);
         anim.SetBool("attacking", false);
+        anim.SetBool("peeking", false);
         if (dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) anim.SetBool("bs", true);
         else anim.SetBool("bs", false);
         movementIndex = 0;
@@ -228,6 +234,14 @@ public class NightDwarfBehaviour : MonoBehaviour
                     transform.SetParent(player);
                     transform.localRotation = death.localRotation;
                     playerDead = true;
+                    if (NightGameManager.S.GetCamLocation() != Location.none) {
+                        float freddyChance = Random.Range(1, 100);
+                        if (freddyChance > 95) {
+                            this.transform.position = new Vector3(transform.position.x, transform.position.y - 50, transform.position.z);
+                            freddy.SetActive(true);
+                            freddyKill = true;
+                        }
+                    }
                     StartCoroutine(KillPlayer()); // start countdown to force mirror down & eyes open
                 }
             } else if (location != NightGameManager.S.GetCamLocation() && locationPath[movementIndex + 1] != NightGameManager.S.GetCamLocation()) { // move along path if path isn't blocked and player isn't looking at dwarf or dwarf's next room
@@ -250,7 +264,10 @@ public class NightDwarfBehaviour : MonoBehaviour
             }
             // make bashful and sneezy pose in fireplace
             if (dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) {
-                if (location == Location.snowWhiteBedroom) anim.SetBool("peeking", true);
+                if (location == Location.snowWhiteBedroom) {
+                    anim.SetBool("peeking", true);
+                    changedPose = true;
+                }
                 else anim.SetBool("peeking", false);
             }
         }
@@ -267,7 +284,8 @@ public class NightDwarfBehaviour : MonoBehaviour
     public void PlayerDies() { // killing animation & resetting game
         if (killingPlayer && !playerKilled) {
             playerKilled = true;
-            audio.PlayOneShot(deathSound);
+            if (freddyKill) audio.PlayOneShot(freddyDeathSound);
+            else audio.PlayOneShot(deathSound);
             NightGameManager.S.SetAllPlayerDead();
             anim.SetBool("attacking", true);
             StopAllCoroutines();
@@ -284,6 +302,11 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     private void DoMove() {
+        if (!changedPose) {
+            int num = (int)Random.Range(1, 4);
+            anim.SetInteger("random", num);
+            changedPose = false;
+        }
         movementIndex++;
         location = locationPath[movementIndex];
         transform.position = transformPath[movementIndex].position;

@@ -100,13 +100,13 @@ public class NightGameManager : MonoBehaviour
         winText.enabled = false;
         energyText.enabled = true;
         timerText.enabled = true;
-        doorButton.SetActive(true);
-        fireplaceButton.SetActive(docFree);
-        ventButton.SetActive(sneezyFree);
         playAgain.SetActive(false);
         fire.SetActive(false);
         eyes.YesControl();
         GetFreeDwarves();
+        doorButton.SetActive(true);
+        fireplaceButton.SetActive(docFree);
+        ventButton.SetActive(sneezyFree);
         ResetDwarves();
         StartCoroutine(MakeTimePass());
     }
