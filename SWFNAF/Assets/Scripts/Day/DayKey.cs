@@ -39,6 +39,7 @@ public class DayKey : MonoBehaviour
         mr.enabled = false;
         bc.enabled = false;
 
+        DayGameManager.instance.activeKeys--;
         PlayerPrefs.SetInt("Key" + keyIndex.ToString(), 1);
         DayGameManager.instance.GetKey(keyIndex);
     }

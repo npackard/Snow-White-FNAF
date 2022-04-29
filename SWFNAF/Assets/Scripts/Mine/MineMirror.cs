@@ -5,6 +5,7 @@ using UnityEngine;
 public class MineMirror : MonoBehaviour
 {
     private SkinnedMeshRenderer smr;
+    public SkinnedMeshRenderer mirrorFrameRenderer;
     private AudioSource audio;
     public Material brokenMirror;
     public AudioClip glassCrack;
@@ -22,6 +23,7 @@ public class MineMirror : MonoBehaviour
         if (!interactedOnce)
         {
             smr.material = brokenMirror;
+            mirrorFrameRenderer.material = brokenMirror;
             audio.PlayOneShot(glassCrack);
             interactedOnce = true;
         }

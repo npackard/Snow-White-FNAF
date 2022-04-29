@@ -27,6 +27,9 @@ public class DayGameManager : MonoBehaviour
 
     public GameObject lastKey;
 
+    public int activeKeys = 0;
+    public int activeGems = 0;
+
     public int inGameTime = 0;
     private float realTime = 0;
     public float unitTime = 3; // 15 min
@@ -44,20 +47,20 @@ public class DayGameManager : MonoBehaviour
 
         // for testing purposes
         /*PlayerPrefs.SetInt("IsNight", 0);
-        PlayerPrefs.SetInt("DayCount", 0);
+        PlayerPrefs.SetInt("DayCount", 1);
         PlayerPrefs.SetFloat("Energy", 50);
-        PlayerPrefs.SetInt("Key1", 1);
-        PlayerPrefs.SetInt("Key2", 1);
-        PlayerPrefs.SetInt("Key3", 1);
-        PlayerPrefs.SetInt("Key4", 1);
+        PlayerPrefs.SetInt("Key1", 0);
+        PlayerPrefs.SetInt("Key2", 0);
+        PlayerPrefs.SetInt("Key3", 0);
+        PlayerPrefs.SetInt("Key4", 0);
         PlayerPrefs.SetInt("Key5", 0);
-        PlayerPrefs.SetInt("Gem1", 1);
-        PlayerPrefs.SetInt("Gem2", 1);
-        PlayerPrefs.SetInt("Gem3", 1);
-        PlayerPrefs.SetInt("Gem4", 1);
-        PlayerPrefs.SetInt("Gem5", 1);
-        PlayerPrefs.SetInt("Gem6", 1);
-        PlayerPrefs.SetInt("DwarfFree3", 1);
+        PlayerPrefs.SetInt("Gem1", 0);
+        PlayerPrefs.SetInt("Gem2", 0);
+        PlayerPrefs.SetInt("Gem3", 0);
+        PlayerPrefs.SetInt("Gem4", 0);
+        PlayerPrefs.SetInt("Gem5", 0);
+        PlayerPrefs.SetInt("Gem6", 0);
+        PlayerPrefs.SetInt("DwarfFree3", 0);
         PlayerPrefs.SetInt("DwarfFree4", 0);
         PlayerPrefs.SetInt("DwarfFree5", 0);
         PlayerPrefs.SetInt("DwarfFree6", 0);*/
@@ -76,6 +79,47 @@ public class DayGameManager : MonoBehaviour
         doorKeys[5] = PlayerPrefs.GetInt("Key5") == 1;
         doorKeys[6] = PlayerPrefs.GetInt("Key5") == 1;
 
+        if (doorKeys[1])
+        {
+            if (doorKeys[2])
+            {
+                if (doorKeys[3])
+                {
+                    if (doorKeys[4])
+                    {
+                        activeKeys = 1; // key5
+                        activeGems = 6;
+                    } else
+                    {
+                        activeKeys = 1; // key4
+                        activeGems = 6;
+                    }
+                } else
+                {
+                    activeKeys = 2; // key3,4
+                    activeGems = 4;
+                }
+            } else
+            {
+                activeKeys = 1; // key2
+                activeGems = 2;
+            }
+        } else
+        {
+            activeKeys = 2; //key1,2
+            activeGems = 2;
+        }
+
+        if (PlayerPrefs.GetInt("Gem1") == 1) activeGems--;
+        if (PlayerPrefs.GetInt("Gem2") == 1) activeGems--;
+        if (PlayerPrefs.GetInt("Gem3") == 1) activeGems--;
+        if (PlayerPrefs.GetInt("Gem4") == 1) activeGems--;
+        if (PlayerPrefs.GetInt("Gem5") == 1) activeGems--;
+        if (PlayerPrefs.GetInt("Gem6") == 1) activeGems--;
+
+        print(activeKeys);
+        print(activeGems);
+
         inGameTime = (int) Mathf.Clamp((100 - PlayerPrefs.GetFloat("Energy")) / 10, 0, 9) * 4;
 
         if (PlayerPrefs.GetInt("Gem6") == 1) lastKey.SetActive(true);
@@ -90,6 +134,9 @@ public class DayGameManager : MonoBehaviour
             StartCoroutine(Brighter());
             gettingBrighter = false;
         }
+
+        if (PlayerPrefs.GetInt("DayCount") == 0 && day0Done) DayUIManager.instance.CollectiblesDone();
+        else if (PlayerPrefs.GetInt("DayCount") != 0 && activeGems == 0 && activeKeys == 0) DayUIManager.instance.CollectiblesDone();
     }
 
     private void FixedUpdate()

@@ -20,6 +20,8 @@ public class DayUIManager : MonoBehaviour
 
     public static DayUIManager m_instance;
 
+    public GameObject shouldSleepText;
+
     public GameObject panelInteractable;
     public GameObject panelEndDay;
     public GameObject dayCount;
@@ -85,6 +87,11 @@ public class DayUIManager : MonoBehaviour
         newTime += (t % 4 == 0) ? "00" : ((t % 4) * 15).ToString();
         newTime += isPM ? " PM" : " AM";
         timeText.text = newTime;
+    }
+
+    public void CollectiblesDone()
+    {
+        shouldSleepText.SetActive(true);
     }
 
     public void PanelInteractableOn()
