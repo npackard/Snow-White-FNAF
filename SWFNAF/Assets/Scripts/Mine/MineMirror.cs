@@ -33,7 +33,7 @@ public class MineMirror : MonoBehaviour
 
             MineUIManager.instance.DarkerAnim();
             PlayerPrefs.SetInt("Key6", 1);
-            GameManager.instance.LoadMainMenu();
+            GameManager.instance.LoadGameOver();
         }
     }
 }
