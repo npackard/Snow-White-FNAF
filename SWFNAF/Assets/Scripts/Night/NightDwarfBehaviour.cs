@@ -64,6 +64,8 @@ public class NightDwarfBehaviour : MonoBehaviour
     private int shortWait = 0;
     private int longWait = 0;
     private int movementIndex = 0;
+    private float cooldownTime = 4f;
+    private float cooldownPassed = 0f;
 
     private Location location;
     private Location[] locationPath;
@@ -80,6 +82,8 @@ public class NightDwarfBehaviour : MonoBehaviour
 
     private void StartNight() {
         anim.SetBool("attacking", false);
+        if (dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) anim.SetBool("bs", true);
+        else anim.SetBool("bs", false);
         movementIndex = 0;
         GetFreeDwarves();
         NightGameManager.S.GetDifficulty(dwarf);
@@ -138,10 +142,10 @@ public class NightDwarfBehaviour : MonoBehaviour
     }
 
     private int GetWaitTime() {
-        if (!playerEyesOpen && difficultAdjustment > 0) {
-            return (int)Mathf.Log(difficultAdjustment * 100);
-        }
-        return (int)Random.Range(shortWait, longWait);
+        int val = 0;
+        if (!playerEyesOpen && difficultAdjustment > 0) val = (int)Mathf.Log(difficultAdjustment * 100);
+        else val = (int)Random.Range(shortWait, longWait);
+        return(val);
     }
 
     private void GoHome() {
@@ -243,6 +247,11 @@ public class NightDwarfBehaviour : MonoBehaviour
                 } else if (dwarf == Dwarf.bashful && NightGameManager.S.GetFireLit() && !(location == Location.unknown || locationPath[movementIndex + 1] == Location.unknown)) {
                     DoMove();
                 }
+            }
+            // make bashful and sneezy pose in fireplace
+            if (dwarf == Dwarf.bashful || dwarf == Dwarf.sneezy) {
+                if (location == Location.snowWhiteBedroom) anim.SetBool("peeking", true);
+                else anim.SetBool("peeking", false);
             }
         }
         if (!playerDead) StartCoroutine(Move());

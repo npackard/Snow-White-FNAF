@@ -13,6 +13,9 @@ public class NightSleep : MonoBehaviour
     private bool canControl = true;
     private float timer = 0f;
 
+    private bool notifiedClose;
+    private bool notifiedOpen;
+
     private Animator anim;
 
     private void Awake() {
@@ -39,11 +42,17 @@ public class NightSleep : MonoBehaviour
             if (Input.GetKey(KeyCode.E)) {
                 timer += Time.deltaTime;
                 anim.SetBool("open", false);
-                NightGameManager.S.CloseEyes();
+                if (!notifiedClose) {
+                    NightGameManager.S.CloseEyes();
+                    notifiedClose = true;
+                }
             } else {
                 timer = 0f;
                 anim.SetBool("open", true);
-                NightGameManager.S.OpenEyes();
+                if (notifiedClose) {
+                    NightGameManager.S.OpenEyes();
+                    notifiedClose = false;
+                }
             }
 
             if (timer > 1f) {
