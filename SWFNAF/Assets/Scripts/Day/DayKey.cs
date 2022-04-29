@@ -31,6 +31,7 @@ public class DayKey : MonoBehaviour
         if (keyIndex == 1 && !key1) gameObject.SetActive(true);
         if (keyIndex == 2 && !key2) gameObject.SetActive(true);
         if ((keyIndex == 3 && !key3 || keyIndex == 4 && !key4) && key1 && key2) gameObject.SetActive(true);
+        if (keyIndex == 5 && key4 && PlayerPrefs.GetInt("Gem6") == 1) gameObject.SetActive(true);
     }
 
     public void CollectKey()

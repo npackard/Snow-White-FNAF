@@ -15,6 +15,9 @@ public class DayGemstone : MonoBehaviour
     private MeshRenderer mr;
     private BoxCollider bc;
 
+    public GameObject gem5;
+    public GameObject gem6;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,8 +43,8 @@ public class DayGemstone : MonoBehaviour
         if (gemIndex == 2 && !gem2) gameObject.SetActive(true);
         if (gemIndex == 3 && !gem3) gameObject.SetActive(true);
         if (gemIndex == 4 && !gem4) gameObject.SetActive(true);
-        if (gemIndex == 5 && !gem5) gameObject.SetActive(true);
-        if (gemIndex == 6 && !gem6) gameObject.SetActive(true);
+        if (gemIndex == 5 && !gem5 && gem4) gameObject.SetActive(true);
+        if (gemIndex == 6 && !gem6 && gem4) gameObject.SetActive(true);
     }
 
     public void CollectGem()
@@ -55,6 +58,7 @@ public class DayGemstone : MonoBehaviour
         if (gemIndex == 0) DayGameManager.instance.FirstDayCollected();
         PlayerPrefs.SetInt("Gem" + gemIndex.ToString(), 1);
 
-        if(nextGemstone) nextGemstone.SetActive(true);
+        if (nextGemstone) nextGemstone.SetActive(true);
+        if (gemIndex == 4) { gem5.SetActive(true); gem6.SetActive(true); }
     }
 }

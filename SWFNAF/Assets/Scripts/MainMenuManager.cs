@@ -9,6 +9,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+
         if (PlayerPrefs.GetInt("DayCount") > 0) btnContinue.SetActive(true);
         else btnContinue.SetActive(false);
     }

@@ -76,7 +76,7 @@ public class DayGameManager : MonoBehaviour
                 } else
                 {
                     activeKeys = 2; // key3,4
-                    activeGems = 4;
+                    activeGems = 6;
                 }
             } else
             {
