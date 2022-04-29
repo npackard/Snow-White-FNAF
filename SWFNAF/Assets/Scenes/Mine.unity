@@ -443,7 +443,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d1bf6d73724914f26aba924e1bb3663a, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -713,9 +713,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8340211237231318282, guid: eb6f52c5e6e2f524381c2ddf98ccf501, type: 3}
+      propertyPath: glassCrack
+      value: 
+      objectReference: {fileID: 8300000, guid: d1bf6d73724914f26aba924e1bb3663a, type: 3}
+    - target: {fileID: 8340211237231318282, guid: eb6f52c5e6e2f524381c2ddf98ccf501, type: 3}
       propertyPath: brokenMirror
       value: 
-      objectReference: {fileID: 2100000, guid: 4910b75069e0c4e2d9788042df65f7a6, type: 2}
+      objectReference: {fileID: 2100000, guid: 654217ab6b480fa4b8f6e2bec225082d, type: 2}
+    - target: {fileID: 8340211237231318282, guid: eb6f52c5e6e2f524381c2ddf98ccf501, type: 3}
+      propertyPath: mirrorFrameRenderer
+      value: 
+      objectReference: {fileID: 1321176566}
     - target: {fileID: 8394144261309866781, guid: eb6f52c5e6e2f524381c2ddf98ccf501, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -734,6 +742,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb6f52c5e6e2f524381c2ddf98ccf501, type: 3}
+--- !u!137 &1321176566 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1326478168039726530, guid: eb6f52c5e6e2f524381c2ddf98ccf501, type: 3}
+  m_PrefabInstance: {fileID: 1321176565}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1443547358 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5675674285494006933, guid: eb6f52c5e6e2f524381c2ddf98ccf501, type: 3}

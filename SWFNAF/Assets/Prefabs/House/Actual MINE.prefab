@@ -2905,6 +2905,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a933e0b82738f459da0337adea171a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mirrorFrameRenderer: {fileID: 1326478168039726530}
+  brokenMirror: {fileID: 2100000, guid: 654217ab6b480fa4b8f6e2bec225082d, type: 2}
+  glassCrack: {fileID: 8300000, guid: d1bf6d73724914f26aba924e1bb3663a, type: 3}
 --- !u!1 &8542663282448334511
 GameObject:
   m_ObjectHideFlags: 0
