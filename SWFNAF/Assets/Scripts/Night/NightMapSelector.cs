@@ -40,13 +40,13 @@ public class NightMapSelector : MonoBehaviour
         if (PlayerPrefs.GetInt("Key1") == 1) unknownButton.SetActive(true);
         else unknownButton.SetActive(false);
 
-        if (PlayerPrefs.GetInt("key2") == 1) bathroomButton.SetActive(true);
+        if (PlayerPrefs.GetInt("Key2") == 1) bathroomButton.SetActive(true);
         else bathroomButton.SetActive(false);
 
-        if (PlayerPrefs.GetInt("key3") == 1) dwarfBedrooomButton.SetActive(true);
+        if (PlayerPrefs.GetInt("Key3") == 1) dwarfBedrooomButton.SetActive(true);
         else dwarfBedrooomButton.SetActive(false);
 
-        if (PlayerPrefs.GetInt("key4") == 1) workshopButton.SetActive(true);
+        if (PlayerPrefs.GetInt("Key4") == 1) workshopButton.SetActive(true);
         else workshopButton.SetActive(false);
     }
 }
