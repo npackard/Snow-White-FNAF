@@ -48,5 +48,8 @@ public class NightMapSelector : MonoBehaviour
 
         if (PlayerPrefs.GetInt("Key4") == 1) workshopButton.SetActive(true);
         else workshopButton.SetActive(false);
+
+        if (PlayerPrefs.GetInt("Key5") == 1) mineEntranceButton.SetActive(true);
+        else mineEntranceButton.SetActive(false);
     }
 }
