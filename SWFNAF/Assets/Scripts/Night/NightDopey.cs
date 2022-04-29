@@ -6,15 +6,14 @@ public class NightDopey : MonoBehaviour
 {
     public Animator anim;
     public AudioClip poof;
-
-    private AudioSource audio;
+    public AudioSource audio;
 
     private bool fire;
 
     // Start is called before the first frame update
     void Start()
     {
-        audio = GetComponent<AudioSource>();
+        
     }
 
     public void Home() {

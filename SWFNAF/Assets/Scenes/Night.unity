@@ -170,7 +170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &16237750
 Transform:
   m_ObjectHideFlags: 0
@@ -24190,6 +24190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 3639146912519842896}
   poof: {fileID: 8300000, guid: 7a76dd4bb376d27458984f67924138cd, type: 3}
+  audio: {fileID: 3639146912519842898}
 --- !u!82 &3639146912519842898
 AudioSource:
   m_ObjectHideFlags: 0
