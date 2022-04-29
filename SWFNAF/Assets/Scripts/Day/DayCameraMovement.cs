@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class DayCameraMovement : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class DayCameraMovement : MonoBehaviour
     public static DayCameraMovement m_instance;
 
     public VolumeProfile volume;
+
+    public Image instructions;
 
     public DayCameraLocation firstDay;
     public DayCameraLocation start;
@@ -149,6 +152,7 @@ public class DayCameraMovement : MonoBehaviour
 
         if (canTouch && Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse0))
         {
+            if (instructions != null) instructions.enabled = false;
             if (!lastHit) return;
             if (lastHit.tag == "Gemstone")
             {
