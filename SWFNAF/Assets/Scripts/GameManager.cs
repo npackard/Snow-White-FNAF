@@ -83,6 +83,17 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(3);
     }
 
+    public void LoadGameOver()
+    {
+        StartCoroutine(LoadGameOverCor());
+    }
+
+    private IEnumerator LoadGameOverCor()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(5);
+    }
+
     public void LoadMainMenu()
     {
         StartCoroutine(LoadMainMenuCor());
